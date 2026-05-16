@@ -1,3 +1,5 @@
 node_modules/
+.codex-py/
+.codex-git-tmp/
 *.log
 .env
