@@ -3,197 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Solutions - Mahar Shwe Mobile</title>
+  <title>Repair Solution - Mahar Shwe Mobile</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', 'Noto Sans Myanmar', sans-serif; }
-    .font-myanmar { font-family: 'Noto Sans Myanmar', sans-serif; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{font-family:'Inter','Noto Sans Myanmar',sans-serif;background:#f6f7fb;color:#111827}.glass{background:rgba(255,255,255,.88);backdrop-filter:blur(18px)}</style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-
-  <!-- Header -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="https://maharshwe.online" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-        <img src="/logo.jpg" alt="Logo" class="h-10 w-10 object-contain rounded-full">
-        <span class="font-bold text-xl text-blue-900">Mahar Shwe Mobile</span>
-      </a>
-      <a href="https://maharshwe.online" class="flex items-center gap-1.5 text-sm text-gray-600 hover:text-amber-600 font-medium transition-colors">
-        <span>&larr;</span> Back to Home
-      </a>
-    </div>
-  </header>
-
-  <main class="container mx-auto px-4 py-6 max-w-2xl">
-
-    <!-- Profile / Cover Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-6">
-      <div class="h-32 sm:h-40 w-full bg-gradient-to-r from-blue-900 to-blue-700 flex items-center justify-center">
-        <img src="/logo.jpg" alt="Logo" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-lg object-cover">
-      </div>
-      <div class="px-6 py-4 text-center">
-        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900">မဟာရွှေ ဖုန်းဆိုင်</h1>
-        <p class="text-slate-500 text-sm font-medium">Mahar Shwe Mobile Repair Service</p>
-        <p class="text-slate-600 text-sm mt-3 leading-relaxed max-w-lg mx-auto">
-          ဖုန်းပြင်နည်းပညာများ၊ Software Solution များနှင့် Hardware Error ဖြေရှင်းနည်းများကို ယုံကြည်စိတ်ချစွာ လေ့လာဖတ်ရှုနိုင်ပါသည်။
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 mt-4">
-          <a href="tel:09778394052" class="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-amber-600 transition-colors">
-            <span class="bg-amber-100 p-1.5 rounded-full text-amber-600 text-base">&#x1F4DE;</span> 09778394052
-          </a>
-          <a href="https://t.me/Mylifemychoice68" target="_blank" class="flex items-center gap-2 text-sm font-semibold text-amber-700 hover:text-amber-600 transition-colors">
-            <span class="bg-amber-100 p-1.5 rounded-full text-amber-600 text-base">&#x2708;&#xFE0F;</span> Telegram
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Search Bar -->
-    <div class="relative mb-6">
-      <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">&#x1F50D;</span>
-      <input type="text" id="searchInput" placeholder="&#x1014;&#x1032;&#x100A;&#x1012;&#x1031;&#x101B;&#x102C;&#x1019;&#x103B;&#x102C;&#x1012; &#x101B;&#x102D;&#x102F;&#x1000;&#x1031;&#x1016;&#x1031;&#x102C;&#x103B;&#x101B;&#x102C;&#x1014;&#x103A;..." class="w-full bg-white border border-gray-200 pl-10 pr-4 py-3 rounded-xl outline-none text-sm focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all shadow-sm">
-    </div>
-
-    <!-- Feed Header -->
-    <div class="flex items-center gap-3 mb-4">
-      <h2 class="text-lg font-bold text-slate-800">&#x1014;&#x1031;&#x102C;&#x1000;&#x103A;&#x101C;&#x1030;&#x1038;&#x101B; &#x1014;&#x1032;&#x1012;&#x1015;&#x1031;&#x101B;&#x1004;&#x103A;&#x1019;&#x103B;&#x102C;&#x1012;</h2>
-      <div class="h-px bg-slate-200 flex-1"></div>
-    </div>
-
-    <!-- Solutions Feed -->
-    <div id="solutionsFeed" class="space-y-4">
-      <!-- Loading State -->
-      <div id="loadingState" class="text-center py-12">
-        <div class="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full mx-auto mb-3"></div>
-        <p class="text-slate-500 text-sm">&#x1012;&#x1012;&#x1030;&#x1019;&#x103B;&#x102C;&#x1012; &#x1012;&#x1031;&#x102C;&#x1004;&#x103A;&#x1014;&#x103E;&#x1004;&#x1037;&#x1012;&#x102D;&#x102F;&#x1004;&#x103A;...</p>
-      </div>
-    </div>
-
-  </main>
-
-  <footer class="bg-white border-t mt-10 py-6 text-center text-gray-500 text-sm">
-    <p>&#x1F4DE; Contact: 09778394052 (KBZ Pay) | &#x1F4CD; &#x101E;&#x102E;&#x101E;&#x102D;&#x102F;&#x1004;&#x103A;&#x1019;&#x103C;&#x102D;&#x102F;&#x1012; | &#x1F4AC; Telegram: @Mylifemychoice68</p>
-    <p class="mt-2">&copy; 2026 Mahar Shwe Mobile</p>
-  </footer>
-
-  <script>
-    const API_BASE = '/api';
-
-    function $(id) { return document.getElementById(id); }
-
-    function formatDate(d) {
-      if (!d) return '';
-      if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
-        const parts = d.split('-');
-        return parts[2] + '/' + parts[1] + '/' + parts[0];
-      }
-      return d;
-    }
-
-    async function fetchSolutions() {
-      $('loadingState').innerHTML = '<div class="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full mx-auto mb-3"></div><p class="text-slate-500 text-sm">&#x1012;&#x1012;&#x1030;&#x1019;&#x103B;&#x102C;&#x1012; &#x1012;&#x1031;&#x102C;&#x1004;&#x103A;&#x1014;&#x103E;&#x1004;&#x1037;&#x1012;&#x102D;&#x102F;&#x1004;&#x103A;...</p>';
-
-      try {
-        const q = ($('searchInput').value || '').trim();
-        let url = API_BASE + '/solutions';
-        if (q) url += '?q=' + encodeURIComponent(q);
-
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        const solutions = Array.isArray(data) ? data : [];
-
-        const feed = $('solutionsFeed');
-
-        if (solutions.length === 0) {
-          feed.innerHTML =
-            '<div id="loadingState" class="text-center py-12">' +
-              '<div class="bg-slate-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">&#x1F50D;</div>' +
-              '<p class="text-slate-800 font-bold text-lg mb-1">&#x101B;&#x102D;&#x102F;&#x1000;&#x1031;&#x1016;&#x103C;&#x1019;&#x103E;&#x102D; &#x1019;&#x1010;&#x1031;&#x1038;&#x101B;&#x102D;&#x102F;&#x1015;&#x102B;</p>' +
-              '<p class="text-slate-500 text-sm">&#x1021;&#x102D;&#x1001;&#x103C;&#x102C;&#x1005;&#x1000;&#x103A;&#x101C;&#x1036;&#x1038;&#x1019;&#x103B;&#x102C;&#x1012; &#x1011;&#x1031;&#x1019;&#x103A;&#x101B;&#x102D;&#x102F;&#x1000;&#x1031;&#x1016;&#x103C;&#x100A;&#x103A;&#x1019;&#x103C;&#x102D;&#x102F;&#x1014;&#x103A; &#x1011;&#x102F;&#x1015;&#x103A;&#x1019;&#x103A;&#x101B;&#x102D;&#x102F;&#x1000;&#x1031;&#x1016;&#x103C;&#x100A;&#x103A;&#x1019;&#x103C;&#x102D;&#x102F;&#x1014;&#x103A; &#x1000;&#x103C;&#x100A;&#x103A;&#x1019;&#x103C;&#x102D;&#x102F;&#x1014;&#x103A;။</p>' +
-            '</div>';
-          return;
-        }
-
-        feed.innerHTML = solutions.map(s => {
-          const isTelegram = s.source === 'telegram';
-          return '' +
-            '<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">' +
-              // Author header
-              '<div class="p-4 flex justify-between items-start">' +
-                '<div class="flex gap-3">' +
-                  '<div class="w-10 h-10 rounded-full overflow-hidden border border-slate-100 flex-shrink-0 flex items-center justify-center bg-black">' +
-                    (isTelegram
-                      ? '<span class="text-sky-500 text-lg">&#x2708;&#xFE0F;</span>'
-                      : '<img src="/logo.jpg" alt="Logo" class="w-full h-full object-cover" />') +
-                  '</div>' +
-                  '<div>' +
-                    '<h4 class="font-bold text-sm text-slate-900 leading-tight">' + (s.author || 'Admin') + '</h4>' +
-                    '<div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">' +
-                      '<span>' + formatDate(s.date) + '</span>' +
-                      '<span>&bull;</span>' +
-                      '<span class="inline-flex items-center gap-1 font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">&#x1F3F7;&#xFE0F; ' + (s.category || 'Tips') + '</span>' +
-                    '</div>' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-              // Title + description
-              '<div class="px-4 pb-3">' +
-                '<h3 class="font-bold text-base mb-2 text-slate-900 leading-snug">' + s.title + '</h3>' +
-                '<p class="text-sm text-slate-700 leading-relaxed">' + s.description + '</p>' +
-              '</div>' +
-              // Optional image
-              (s.image
-                ? '<div class="w-full bg-slate-100 border-y border-slate-100"><img src="' + s.image + '" alt="' + s.title.replace(/"/g, '&quot;') + '" class="w-full h-auto max-h-96 object-cover" loading="lazy" /></div>'
-                : '') +
-              // Telegram verified box (if no image)
-              (isTelegram && !s.image
-                ? '<div class="mx-4 mb-4 p-4 bg-sky-50 rounded-xl border border-sky-100 relative overflow-hidden">' +
-                    '<p class="text-xs font-bold text-sky-600 uppercase tracking-wider mb-1">&#x2705; Verified Telegram Solution</p>' +
-                    '<p class="text-xs text-sky-800">&#x1021;&#x101E;&#x102D;&#x1001;&#x1014;&#x103A;&#x1012;&#x1000;&#x1031;&#x102C;&#x1014;&#x103A;&#x1000;&#x103C;&#x102C; Telegram Channel &#x1019;&#x103E; &#x1010;&#x102D;&#x1000;&#x103A;&#x1010;&#x103C;&#x1036;&#x1019;&#x101C;&#x103E;&#x102D;&#x1033;&#x101C;&#x103A; &#x1031;&#x101B;&#x101A;&#x103A;&#x1019;&#x103E;&#x1014;&#x103A;&#x1011;&#x102C;&#x1001;&#x103C;&#x1004;&#x1037;&#x103A;&#x1019;&#x103C;&#x102D;&#x102F;&#x1014;&#x103A; &#x101B;&#x103D;&#x1004;&#x103A; &#x1001;&#x103C;&#x1004;&#x1037;&#x103A;&#x1019;&#x103C;&#x102D;&#x102F; &#x1016;&#x1012;&#x103A;&#x1015;&#x102B;&#x1012;&#x1031;&#x102C;&#x1004;&#x103A;။</p>' +
-                  '</div>'
-                : '') +
-              // Like bar
-              '<div class="px-4 py-3 flex justify-between items-center border-t border-slate-100">' +
-                '<div class="flex items-center gap-1.5">' +
-                  '<span class="bg-gradient-to-r from-amber-500 to-amber-600 p-1.5 rounded-full text-white text-xs shadow-sm">&#x1F44D;</span>' +
-                  '<span class="text-sm font-semibold text-slate-600">' + (s.likes || 0) + '</span>' +
-                '</div>' +
-                '<button onclick="likeSolution(' + s.id + ')" class="flex items-center gap-1.5 text-slate-500 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors text-sm font-semibold">&#x1F44D; Like</button>' +
-              '</div>' +
-            '</div>';
-        }).join('');
-      } catch (e) {
-        console.error('fetchSolutions error:', e);
-        $('solutionsFeed').innerHTML =
-          '<div class="text-center py-12">' +
-            '<p class="text-red-600 font-semibold">&#x1012;&#x1012;&#x1030; &#x101A;&#x103A;&#x101B;&#x102D;&#x102F;&#x1014;&#x103A; &#x1019;&#x1012;&#x1031;&#x102C;&#x1004;&#x103A;&#x1015;&#x102B;။ ကွန်ရက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။</p>' +
-            '<button onclick="fetchSolutions()" class="mt-3 text-sm text-amber-600 hover:underline font-medium">&#x1011;&#x1031;&#x1019;&#x103A;&#x1000;&#x103C;&#x1019;&#x103A; &#x1015;&#x103C;&#x102D;&#x1014;&#x103A;&#x1018;&#x102C;&#x1019;&#x103C;&#x102D;&#x102F;</button>' +
-          '</div>';
-      }
-    }
-
-    async function likeSolution(id) {
-      const btn = event && event.target ? event.target.closest('button') : null;
-      if (btn) { btn.disabled = true; btn.classList.add('opacity-50'); }
-      try {
-        const res = await fetch(API_BASE + '/solutions/' + id + '/like', { method: 'PUT' });
-        if (res.ok) await fetchSolutions();
-      } catch (e) {
-        console.error('likeSolution error:', e);
-      }
-    }
-
-    // Event listeners
-    $('searchInput').addEventListener('input', function() {
-      clearTimeout(this._timer);
-      this._timer = setTimeout(fetchSolutions, 300);
-    });
-
-    // Initial load
-    fetchSolutions();
-  </script>
+<body>
+<header class="sticky top-0 z-50 border-b border-slate-200 glass"><div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3"><a href="/" class="flex items-center gap-3"><img src="/logo.jpg" class="h-11 w-11 rounded-xl object-cover"><span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-semibold text-slate-500">Repair Solution</small></span></a><a href="/" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold">Home</a></div></header>
+<main class="mx-auto max-w-6xl px-4 py-8">
+  <section class="rounded-2xl bg-slate-950 p-6 text-white sm:p-8"><p class="text-sm font-bold uppercase tracking-wide text-amber-300">Repair Solution Library</p><h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-tight">ဖုန်းပြင်နည်းနှင့် Error Solution များ</h1><p class="mt-4 max-w-3xl leading-8 text-slate-200">Software, Hardware, Network, Battery, Display, Unlock စတဲ့ solution များကို အမြန်ရှာဖွေဖတ်ရှုနိုင်ပါတယ်။</p><input id="searchInput" class="mt-6 w-full max-w-2xl rounded-xl border border-white/10 bg-white px-4 py-3 text-slate-950" placeholder="Search repair solution"></section>
+  <section class="mt-6"><div class="mb-4 flex items-center justify-between"><h2 class="text-xl font-extrabold">Latest Solutions</h2><span id="resultCount" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500 ring-1 ring-slate-200">0 items</span></div><div id="solutionsFeed" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"><div class="rounded-2xl bg-white p-6 font-bold text-slate-500 shadow-sm ring-1 ring-slate-200">Loading solutions...</div></div></section>
+</main>
+<footer class="mt-8 border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between"><p class="font-semibold">Contact: 09778394052</p><a class="font-bold text-slate-950" href="https://t.me/Mylifemychoice68" target="_blank">Telegram: @Mylifemychoice68</a></div></footer>
+<script>
+const API_BASE='/api';function el(id){return document.getElementById(id)}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function fetchSolutions(){const q=(el('searchInput').value||'').trim();let s=[];try{const res=await fetch(API_BASE+'/solutions'+(q?'?q='+encodeURIComponent(q):''));if(!res.ok)throw new Error('HTTP '+res.status);s=await res.json()}catch(e){}el('resultCount').textContent=s.length+' items';el('solutionsFeed').innerHTML=s.length?s.map(x=>`<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><div class="flex justify-between gap-3"><span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800">${esc(x.category||'Tips')}</span><span class="text-xs font-bold text-slate-400">${esc(x.date||'')}</span></div>${x.image?`<img src="${esc(x.image)}" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">`:''}<h3 class="mt-4 text-lg font-extrabold leading-7">${esc(x.title)}</h3><p class="mt-3 text-sm leading-7 text-slate-600">${esc(x.description)}</p><div class="mt-5 flex justify-between border-t border-slate-100 pt-4 text-xs font-bold text-slate-500"><span>${esc(x.author||'Admin')}</span><button class="rounded-lg bg-slate-100 px-3 py-1" onclick="likeSolution(${Number(x.id)})">${Number(x.likes||0)} likes</button></div></article>`).join(''):'<div class="rounded-2xl bg-white p-8 text-center font-bold text-slate-500 shadow-sm ring-1 ring-slate-200 md:col-span-2 xl:col-span-3">No solution found.</div>'}
+async function likeSolution(id){try{await fetch(API_BASE+'/solutions/'+id+'/like',{method:'PUT'});await fetchSolutions()}catch(e){}}
+el('searchInput').addEventListener('input',()=>{clearTimeout(window.searchTimer);window.searchTimer=setTimeout(fetchSolutions,250)});fetchSolutions();
+</script>
 </body>
 </html>
