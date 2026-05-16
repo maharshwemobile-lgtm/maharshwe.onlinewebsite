@@ -1,0 +1,23 @@
+[
+  {
+    "code": "USD",
+    "name": "US Dollar",
+    "rate": 3520,
+    "change": "+0.5%",
+    "updatedAt": "2026-05-16T00:00:00.000Z"
+  },
+  {
+    "code": "THB",
+    "name": "Thai Baht",
+    "rate": 98.5,
+    "change": "-0.2%",
+    "updatedAt": "2026-05-16T00:00:00.000Z"
+  },
+  {
+    "code": "SGD",
+    "name": "Singapore Dollar",
+    "rate": 2610,
+    "change": "+0.1%",
+    "updatedAt": "2026-05-16T00:00:00.000Z"
+  }
+]
