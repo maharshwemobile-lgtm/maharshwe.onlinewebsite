@@ -34,8 +34,13 @@ const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const SOLUTIONS_FILE = path.join(DATA_DIR, 'solutions.json');
 const CURRENCY_FILE = path.join(DATA_DIR, 'currency.json');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
+const UPLOAD_ROOT = path.join(__dirname, 'public', 'uploads');
+const SOLUTION_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'solutions');
+const PRODUCT_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'products');
 
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+for (const dir of [DATA_DIR, SOLUTION_UPLOAD_DIR, PRODUCT_UPLOAD_DIR]) {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+}
 for (const file of [SOLUTIONS_FILE, CURRENCY_FILE, PRODUCTS_FILE]) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, '[]', 'utf8');
 }
@@ -55,6 +60,41 @@ function requireTelegramKey(req, res, next) {
   const providedKey = req.get('x-api-key') || req.query.key || req.body.apiKey || req.body.api_key || '';
   if (providedKey !== expectedKey) return res.status(401).json({ error: true, message: 'Invalid API key' });
   next();
+}
+
+function mapImageField(item) {
+  const fields = ['image', 'photo', 'imageUrl', 'image_url', 'picture', 'thumbnail', 'cover'];
+  for (const field of fields) {
+    if (item && item[field]) return { url: item[field], source: field };
+  }
+  return { url: null, source: 'placeholder' };
+}
+
+function saveUploadedImage(imageData, originalName, type) {
+  const match = String(imageData || '').match(/^data:image\/(png|jpe?g|webp|gif);base64,(.+)$/i);
+  if (!match) throw new Error('Invalid image data. Please upload PNG, JPG, WEBP, or GIF.');
+
+  const extension = match[1].toLowerCase().replace('jpeg', 'jpg');
+  const buffer = Buffer.from(match[2], 'base64');
+  if (buffer.length > 5 * 1024 * 1024) throw new Error('Image is too large. Maximum size is 5MB.');
+
+  const safeName = String(originalName || type)
+    .replace(/\.[^.]+$/, '')
+    .replace(/[^a-z0-9_-]+/gi, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 40) || type;
+  const fileName = `${Date.now()}-${safeName}.${extension}`;
+  const folder = type === 'product' ? PRODUCT_UPLOAD_DIR : SOLUTION_UPLOAD_DIR;
+  const urlPath = type === 'product' ? 'products' : 'solutions';
+  fs.writeFileSync(path.join(folder, fileName), buffer);
+  return `/uploads/${urlPath}/${fileName}`;
+}
+
+function applyInlineImageUpload(body, type) {
+  if (!body || !body.imageData) return { ...body };
+  const image = saveUploadedImage(body.imageData, body.fileName || body.imageFileName || body.title, type);
+  const { imageData, fileName, imageFileName, ...rest } = body;
+  return { ...rest, image };
 }
 
 function getSheetApiUrl(route, params = {}) {
@@ -100,7 +140,8 @@ async function postSheetApi(route, body) {
 }
 
 function normalizeProduct(input) {
-  const { title, price, type, desc, description, image, active, orderUrl } = input;
+  const { title, price, type, desc, description, active, orderUrl } = input;
+  const mappedImage = mapImageField(input);
   if (!title || !price || !type) return null;
   return {
     id: input.id || Date.now(),
@@ -108,7 +149,8 @@ function normalizeProduct(input) {
     price: String(price).trim(),
     type: String(type).trim(),
     desc: String(desc || description || '').trim(),
-    image: image || null,
+    image: mappedImage.url,
+    imageMapping: mappedImage.source,
     active: active !== false,
     orderUrl: orderUrl || null,
     date: input.date || new Date().toISOString().split('T')[0]
@@ -116,7 +158,49 @@ function normalizeProduct(input) {
 }
 
 function normalizeProductForSite(product) {
-  return { ...product, desc: product.desc || product.description || '', active: product.active !== false && product.status !== 'inactive' };
+  const mappedImage = mapImageField(product);
+  return {
+    ...product,
+    desc: product.desc || product.description || '',
+    image: mappedImage.url,
+    imageMapping: product.imageMapping || mappedImage.source,
+    active: product.active !== false && product.status !== 'inactive'
+  };
+}
+
+function normalizeSolution(input) {
+  const { title, description, category, author, active } = input;
+  const mappedImage = mapImageField(input);
+  if (!title || !description || !category || !author) return null;
+  return {
+    id: input.id || Date.now(),
+    title: String(title).trim(),
+    description: String(description).trim(),
+    category: String(category).trim(),
+    author: String(author).trim(),
+    image: mappedImage.url,
+    imageMapping: mappedImage.source,
+    active: active !== false,
+    date: input.date || new Date().toISOString().split('T')[0],
+    likes: Number(input.likes || 0)
+  };
+}
+
+function normalizeSolutionForSite(solution) {
+  const mappedImage = mapImageField(solution);
+  return {
+    ...solution,
+    id: solution.id || solution.ID || solution.solution_id || Date.now(),
+    title: solution.title || solution.Title || '',
+    description: solution.description || solution.desc || solution.Description || '',
+    category: solution.category || solution.Category || 'Tips',
+    author: solution.author || solution.Author || 'Admin',
+    image: mappedImage.url,
+    imageMapping: solution.imageMapping || mappedImage.source,
+    active: solution.active !== false && solution.status !== 'inactive',
+    likes: Number(solution.likes || 0),
+    date: solution.date || solution.created_at || solution.createdAt || ''
+  };
 }
 
 function normalizeCurrencyRate(input) {
@@ -143,9 +227,20 @@ function normalizeCurrencyForSite(rate) {
   };
 }
 
+function mergeByKey(primary, secondary) {
+  const seen = new Set();
+  return [...primary, ...secondary].filter(item => {
+    const key = String(item.id || item.title || '') + '|' + String(item.date || '');
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return item.active !== false;
+  });
+}
+
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.get('/solutions', (req, res) => res.sendFile(path.join(__dirname, 'public', 'solutions.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/liveRepairs', async (req, res) => {
@@ -162,27 +257,18 @@ app.get('/api/liveRepairs', async (req, res) => {
 app.get('/api/solutions', async (req, res) => {
   try {
     const sheetSolutions = await fetchSheetApi('/api/solutions', req.query.q ? { q: req.query.q } : {});
+    const localSolutions = readJson(SOLUTIONS_FILE).map(normalizeSolutionForSite).filter(solution => solution.active);
+    let solutions = localSolutions;
     if (Array.isArray(sheetSolutions)) {
-      const activeSolutions = sheetSolutions.filter(s => s.active !== false && s.status !== 'inactive');
-      if (req.query.q) {
-        const keyword = req.query.q.toLowerCase().trim();
-        return res.json(activeSolutions.filter(s =>
-          String(s.title || '').toLowerCase().includes(keyword) ||
-          String(s.description || '').toLowerCase().includes(keyword) ||
-          String(s.category || '').toLowerCase().includes(keyword)
-        ));
-      }
-      return res.json(activeSolutions);
+      solutions = mergeByKey(localSolutions, sheetSolutions.map(normalizeSolutionForSite).filter(solution => solution.active));
     }
-
-    const solutions = readJson(SOLUTIONS_FILE);
     if (req.query.q) {
       const keyword = req.query.q.toLowerCase().trim();
-      return res.json(solutions.filter(s =>
+      solutions = solutions.filter(s =>
         String(s.title || '').toLowerCase().includes(keyword) ||
         String(s.description || '').toLowerCase().includes(keyword) ||
         String(s.category || '').toLowerCase().includes(keyword)
-      ));
+      );
     }
     return res.json(solutions);
   } catch (error) {
@@ -193,30 +279,34 @@ app.get('/api/solutions', async (req, res) => {
 
 async function createSolution(req, res) {
   try {
-    const { title, description, category, author, image } = req.body;
-    if (!title || !description || !category || !author) {
-      return res.status(400).json({ error: true, message: 'Missing required fields: title, description, category, author' });
-    }
-    if (TELEGRAM_SHEET_API_URL) return res.json({ success: true, data: await postSheetApi('/solution', req.body) });
+    const body = applyInlineImageUpload(req.body, 'solution');
+    const newSolution = normalizeSolution(body);
+    if (!newSolution) return res.status(400).json({ error: true, message: 'Missing required fields: title, description, category, author' });
+
     const solutions = readJson(SOLUTIONS_FILE);
-    const newSolution = {
-      id: Date.now(),
-      title: title.trim(),
-      description: description.trim(),
-      category: category.trim(),
-      author: author.trim(),
-      image: image || null,
-      date: new Date().toISOString().split('T')[0],
-      likes: 0
-    };
     solutions.unshift(newSolution);
     writeJson(SOLUTIONS_FILE, solutions);
+
+    if (TELEGRAM_SHEET_API_URL) {
+      try { await postSheetApi('/solution', newSolution); }
+      catch (error) { console.warn('Sheet API solution post failed, local copy saved: ' + error.message); }
+    }
     return res.json({ success: true, data: newSolution });
   } catch (error) {
     console.error('Error adding solution:', error.message);
     return res.status(500).json({ error: true, message: error.message });
   }
 }
+
+app.post('/api/uploads/solution-image', requireTelegramKey, (req, res) => {
+  try { return res.json({ success: true, image: saveUploadedImage(req.body.imageData, req.body.fileName, 'solution') }); }
+  catch (error) { return res.status(400).json({ error: true, message: error.message }); }
+});
+
+app.post('/api/uploads/product-image', requireTelegramKey, (req, res) => {
+  try { return res.json({ success: true, image: saveUploadedImage(req.body.imageData, req.body.fileName, 'product') }); }
+  catch (error) { return res.status(400).json({ error: true, message: error.message }); }
+});
 
 app.post('/api/solutions', requireTelegramKey, createSolution);
 app.post('/api/solution', requireTelegramKey, createSolution);
@@ -287,12 +377,13 @@ async function updateCurrency(req, res) {
 
 app.post('/api/currency', requireTelegramKey, updateCurrency);
 app.post('/currency', requireTelegramKey, updateCurrency);
+app.post('/ငွေစျေး', requireTelegramKey, updateCurrency);
 
 app.get('/api/products', async (req, res) => {
   try {
     const sheetProducts = await fetchSheetApi('/api/products');
     if (Array.isArray(sheetProducts)) return res.json(sheetProducts.map(normalizeProductForSite).filter(product => product.active));
-    return res.json(readJson(PRODUCTS_FILE).filter(product => product.active !== false));
+    return res.json(readJson(PRODUCTS_FILE).map(normalizeProductForSite).filter(product => product.active));
   } catch (error) {
     console.error('Error reading products:', error.message);
     return res.json([]);
@@ -301,8 +392,10 @@ app.get('/api/products', async (req, res) => {
 
 async function createProduct(req, res) {
   try {
-    if (TELEGRAM_SHEET_API_URL) return res.json({ success: true, data: await postSheetApi('/digital-product', req.body) });
-    const newProduct = normalizeProduct(req.body);
+    const body = applyInlineImageUpload(req.body, 'product');
+    if (TELEGRAM_SHEET_API_URL) return res.json({ success: true, data: await postSheetApi('/digital-product', body) });
+
+    const newProduct = normalizeProduct(body);
     if (!newProduct) return res.status(400).json({ error: true, message: 'Missing required fields: title, price, type' });
     const products = readJson(PRODUCTS_FILE);
     const existingIndex = products.findIndex(product => Number(product.id) === Number(newProduct.id));
