@@ -6,20 +6,122 @@
   <title>Repair Solution - Mahar Shwe Mobile</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>body{font-family:'Inter','Noto Sans Myanmar',sans-serif;background:#f6f7fb;color:#111827}.glass{background:rgba(255,255,255,.88);backdrop-filter:blur(18px)}</style>
+  <style>
+    body { font-family: 'Inter', 'Noto Sans Myanmar', sans-serif; background: #f6f7fb; color: #111827; }
+    .glass { background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(18px); }
+  </style>
 </head>
 <body>
-<header class="sticky top-0 z-50 border-b border-slate-200 glass"><div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3"><a href="/" class="flex items-center gap-3"><img src="/logo.jpg" class="h-11 w-11 rounded-xl object-cover"><span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-semibold text-slate-500">Repair Solution</small></span></a><a href="/" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold">Home</a></div></header>
-<main class="mx-auto max-w-6xl px-4 py-8">
-  <section class="rounded-2xl bg-slate-950 p-6 text-white sm:p-8"><p class="text-sm font-bold uppercase tracking-wide text-amber-300">Repair Solution Library</p><h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-tight">ဖုန်းပြင်နည်းနှင့် Error Solution များ</h1><p class="mt-4 max-w-3xl leading-8 text-slate-200">Software, Hardware, Network, Battery, Display, Unlock စတဲ့ solution များကို အမြန်ရှာဖွေဖတ်ရှုနိုင်ပါတယ်။</p><input id="searchInput" class="mt-6 w-full max-w-2xl rounded-xl border border-white/10 bg-white px-4 py-3 text-slate-950" placeholder="Search repair solution"></section>
-  <section class="mt-6"><div class="mb-4 flex items-center justify-between"><h2 class="text-xl font-extrabold">Latest Solutions</h2><span id="resultCount" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500 ring-1 ring-slate-200">0 items</span></div><div id="solutionsFeed" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"><div class="rounded-2xl bg-white p-6 font-bold text-slate-500 shadow-sm ring-1 ring-slate-200">Loading solutions...</div></div></section>
-</main>
-<footer class="mt-8 border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between"><p class="font-semibold">Contact: 09778394052</p><a class="font-bold text-slate-950" href="https://t.me/Mylifemychoice68" target="_blank">Telegram: @Mylifemychoice68</a></div></footer>
-<script>
-const API_BASE='/api';function el(id){return document.getElementById(id)}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-async function fetchSolutions(){const q=(el('searchInput').value||'').trim();let s=[];try{const res=await fetch(API_BASE+'/solutions'+(q?'?q='+encodeURIComponent(q):''));if(!res.ok)throw new Error('HTTP '+res.status);s=await res.json()}catch(e){}el('resultCount').textContent=s.length+' items';el('solutionsFeed').innerHTML=s.length?s.map(x=>`<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><div class="flex justify-between gap-3"><span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800">${esc(x.category||'Tips')}</span><span class="text-xs font-bold text-slate-400">${esc(x.date||'')}</span></div>${x.image?`<img src="${esc(x.image)}" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">`:''}<h3 class="mt-4 text-lg font-extrabold leading-7">${esc(x.title)}</h3><p class="mt-3 text-sm leading-7 text-slate-600">${esc(x.description)}</p><div class="mt-5 flex justify-between border-t border-slate-100 pt-4 text-xs font-bold text-slate-500"><span>${esc(x.author||'Admin')}</span><button class="rounded-lg bg-slate-100 px-3 py-1" onclick="likeSolution(${Number(x.id)})">${Number(x.likes||0)} likes</button></div></article>`).join(''):'<div class="rounded-2xl bg-white p-8 text-center font-bold text-slate-500 shadow-sm ring-1 ring-slate-200 md:col-span-2 xl:col-span-3">No solution found.</div>'}
-async function likeSolution(id){try{await fetch(API_BASE+'/solutions/'+id+'/like',{method:'PUT'});await fetchSolutions()}catch(e){}}
-el('searchInput').addEventListener('input',()=>{clearTimeout(window.searchTimer);window.searchTimer=setTimeout(fetchSolutions,250)});fetchSolutions();
-</script>
+  <header class="sticky top-0 z-50 border-b border-slate-200 glass">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <a href="/" class="flex items-center gap-3">
+        <img src="/logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-xl object-cover ring-1 ring-slate-200">
+        <span>
+          <span class="block text-base font-extrabold text-slate-950">Mahar Shwe Mobile</span>
+          <span class="block text-xs font-semibold text-slate-500">Repair Solution</span>
+        </span>
+      </a>
+      <a href="/#home" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800">Home</a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-8">
+    <section class="rounded-2xl bg-slate-950 p-6 text-white sm:p-8">
+      <p class="text-sm font-bold uppercase tracking-wide text-amber-300">Repair Solution Library</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-tight">ဖုန်းပြင်နည်းနှင့် Error Solution များ</h1>
+      <p class="mt-4 max-w-3xl leading-8 text-slate-200">Software, Hardware, Network, Battery, Display, Unlock စတဲ့ solution များကို အမြန်ရှာဖွေဖတ်ရှုနိုင်ပါတယ်။</p>
+      <div class="mt-6 max-w-2xl">
+        <input id="searchInput" class="w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-slate-950 outline-none focus:ring-4 focus:ring-amber-400/20" placeholder="Search repair solution">
+      </div>
+    </section>
+
+    <section class="mt-6">
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <h2 class="text-xl font-extrabold text-slate-950">Latest Solutions</h2>
+        <span id="resultCount" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500 ring-1 ring-slate-200">0 items</span>
+      </div>
+      <div id="solutionsFeed" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div class="rounded-2xl bg-white p-6 text-sm font-bold text-slate-500 shadow-sm ring-1 ring-slate-200">Loading solutions...</div>
+      </div>
+    </section>
+  </main>
+  <footer class="mt-8 border-t border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="font-semibold">ဆီဆိုင်မြို့နယ်၊ ရှမ်းပြည်တောင်ပိုင်း</p>
+        <a class="font-bold text-teal-700" href="https://maps.app.goo.gl/zodJ9fgcc9W7qsFVA" target="_blank" rel="noreferrer">Google Map ကြည့်ရန်</a>
+      </div>
+      <a class="font-bold text-slate-950" href="https://t.me/Mylifemychoice68" target="_blank" rel="noreferrer">Telegram: @Mylifemychoice68</a>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE = '/api';
+    const DEFAULT_SOLUTION_IMAGE = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#fef3c7"/><circle cx="620" cy="110" r="90" fill="#f59e0b" opacity=".22"/><rect x="90" y="92" width="250" height="266" rx="34" fill="#0f172a"/><rect x="122" y="128" width="186" height="196" rx="18" fill="#ffffff"/><path d="M430 155h220M430 215h180M430 275h120" stroke="#0f172a" stroke-width="28" stroke-linecap="round"/><text x="400" y="374" font-family="Arial" font-size="38" font-weight="700" fill="#92400e">Repair Solution</text></svg>');
+    const fallbackSolutions = [
+      { id: 1, title: 'iPhone Battery Drain Fix', description: 'Battery calibration, background app check နှင့် charging port စစ်ဆေးနည်း။', category: 'Software', author: 'Admin', date: '2026-05-16', likes: 8 },
+      { id: 2, title: 'Samsung Screen Touch Error', description: 'Touch IC, display connector နှင့် software test အဆင့်များ။', category: 'Hardware', author: 'Technician', date: '2026-05-16', likes: 5 },
+      { id: 3, title: 'Android Network Error', description: 'APN, SIM tray, baseband status နှင့် reset method များ။', category: 'Network', author: 'Admin', date: '2026-05-16', likes: 3 }
+    ];
+
+    function el(id) { return document.getElementById(id); }
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    }
+    function imageInfo(item) {
+      const fields = ['image', 'photo', 'imageUrl', 'image_url', 'picture', 'thumbnail', 'cover'];
+      for (const field of fields) {
+        if (item && item[field]) return { url: item[field], source: item.imageMapping || field };
+      }
+      return { url: DEFAULT_SOLUTION_IMAGE, source: item && item.imageMapping ? item.imageMapping : 'placeholder' };
+    }
+    async function fetchSolutions() {
+      const q = (el('searchInput').value || '').trim();
+      let solutions = fallbackSolutions;
+      try {
+        const res = await fetch(API_BASE + '/solutions' + (q ? '?q=' + encodeURIComponent(q) : ''));
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length) solutions = data;
+      } catch (e) {}
+
+      if (q) {
+        const lower = q.toLowerCase();
+        solutions = solutions.filter(item => (item.title + ' ' + item.description + ' ' + item.category).toLowerCase().includes(lower));
+      }
+
+      el('resultCount').textContent = solutions.length + ' items';
+      el('solutionsFeed').innerHTML = solutions.length ? solutions.map(item => {
+        const img = imageInfo(item);
+        return '<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">' +
+          '<div class="flex items-center justify-between gap-3">' +
+            '<span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800">' + escapeHtml(item.category || 'Tips') + '</span>' +
+            '<span class="text-xs font-bold text-slate-400">' + escapeHtml(item.date || '') + '</span>' +
+          '</div>' +
+          '<img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Repair solution image') + '" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">' +
+          '<div class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-extrabold text-slate-500">Image Mapping: ' + escapeHtml(img.source) + '</div>' +
+          '<h3 class="mt-4 text-lg font-extrabold leading-7 text-slate-950">' + escapeHtml(item.title) + '</h3>' +
+          '<p class="mt-3 text-sm leading-7 text-slate-600">' + escapeHtml(item.description) + '</p>' +
+          '<div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-bold text-slate-500">' +
+            '<span>' + escapeHtml(item.author || 'Admin') + '</span>' +
+            '<button class="rounded-lg bg-slate-100 px-3 py-1 text-slate-700" onclick="likeSolution(' + Number(item.id) + ')">' + Number(item.likes || 0) + ' likes</button>' +
+          '</div>' +
+        '</article>';
+      }
+      ).join('') : '<div class="rounded-2xl bg-white p-8 text-center font-bold text-slate-500 shadow-sm ring-1 ring-slate-200 md:col-span-2 xl:col-span-3">No solution found.</div>';
+    }
+
+    async function likeSolution(id) {
+      try {
+        await fetch(API_BASE + '/solutions/' + id + '/like', { method: 'PUT' });
+        await fetchSolutions();
+      } catch (e) {}
+    }
+    el('searchInput').addEventListener('input', function() {
+      clearTimeout(window.searchTimer);
+      window.searchTimer = setTimeout(fetchSolutions, 250);
+    });
+    fetchSolutions();
+  </script>
 </body>
 </html>
