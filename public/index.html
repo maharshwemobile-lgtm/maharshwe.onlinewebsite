@@ -5,53 +5,198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Mahar Shwe Mobile</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Myanmar:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body{font-family:'Inter','Noto Sans Myanmar',sans-serif;background:#f6f7fb;color:#111827}.page{display:none}.page.active{display:block}.nav.active{background:#111827;color:white}.glass{background:rgba(255,255,255,.88);backdrop-filter:blur(18px)}
+    body { margin:0; font-family: Inter, 'Noto Sans Myanmar', sans-serif; background:#f7f8fb; color:#0f172a; }
+    .page { display:none; }
+    .page.active { display:block; }
+    .nav.active { background:#0f766e; color:white; }
+    .bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
   </style>
 </head>
 <body>
-<header class="sticky top-0 z-50 border-b border-slate-200 glass">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-    <button class="flex items-center gap-3 text-left" data-page="home"><img src="/logo.jpg" class="h-11 w-11 rounded-xl object-cover"><span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-semibold text-slate-500">Repair, VPN, Game, Exchange</small></span></button>
-    <nav class="hidden items-center gap-1 rounded-full bg-white p-1 text-sm font-semibold shadow-sm ring-1 ring-slate-200 lg:flex">
-      <button class="nav rounded-full px-4 py-2" data-page="home">Home</button><button class="nav rounded-full px-4 py-2" data-page="voucher">Voucher Lookup</button><button class="nav rounded-full px-4 py-2" data-page="solutions">Repair Solution</button><button class="nav rounded-full px-4 py-2" data-page="products">Digital Product</button><button class="nav rounded-full px-4 py-2" data-page="currency">Currency Exchange</button>
-    </nav>
-    <button id="menuBtn" class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold lg:hidden">Menu</button>
-  </div>
-  <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white px-4 py-3 lg:hidden"><div class="grid gap-2 text-sm font-semibold"><button class="nav rounded-xl px-4 py-3 text-left" data-page="home">Home</button><button class="nav rounded-xl px-4 py-3 text-left" data-page="voucher">Voucher Lookup</button><button class="nav rounded-xl px-4 py-3 text-left" data-page="solutions">Repair Solution</button><button class="nav rounded-xl px-4 py-3 text-left" data-page="products">Digital Product</button><button class="nav rounded-xl px-4 py-3 text-left" data-page="currency">Currency Exchange</button></div></div>
-</header>
-<main class="mx-auto max-w-7xl px-4 py-6 sm:py-8">
-  <section id="homePage" class="page active">
-    <div class="grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
-      <div class="rounded-2xl bg-slate-950 p-6 text-white shadow-xl sm:p-8"><div class="min-h-[430px] content-between grid gap-8 bg-[radial-gradient(circle_at_20%_20%,rgba(20,184,166,.32),transparent_32%),radial-gradient(circle_at_80%_10%,rgba(245,158,11,.28),transparent_30%)]">
-        <div class="flex flex-wrap gap-2 text-xs font-bold text-teal-100"><span class="rounded-full bg-white/10 px-3 py-1">Phone Repair</span><span class="rounded-full bg-white/10 px-3 py-1">Digital Service</span><span class="rounded-full bg-white/10 px-3 py-1">Live Status</span></div>
-        <div><h1 class="max-w-3xl text-4xl font-extrabold leading-tight sm:text-5xl">Mahar Shwe Mobile Service Center</h1><p class="mt-4 max-w-2xl leading-8 text-slate-200">Voucher နံပါတ်ဖြင့် ပြင်ဆင်မှုအခြေအနေစစ်နိုင်ပြီး Repair Solution, VPN, Game Service နှင့် Currency Exchange ကို တစ်နေရာတည်းမှာ အသုံးပြုနိုင်ပါတယ်။</p><div class="mt-6 flex flex-col gap-3 sm:flex-row"><button class="rounded-xl bg-amber-400 px-5 py-3 text-sm font-extrabold text-slate-950" data-page="voucher">Voucher စစ်မယ်</button><button class="rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/20" data-page="products">Digital Product ကြည့်မယ်</button></div></div>
-        <div class="grid gap-3 sm:grid-cols-3"><div class="rounded-xl bg-white/10 p-4"><b class="text-2xl">5</b><p class="text-xs text-slate-300">Main Pages</p></div><div class="rounded-xl bg-white/10 p-4"><b class="text-2xl">24/7</b><p class="text-xs text-slate-300">Status Lookup</p></div><div class="rounded-xl bg-white/10 p-4"><b class="text-2xl">KBZ</b><p class="text-xs text-slate-300">Payment Ready</p></div></div>
-      </div></div>
-      <div class="grid gap-4"><article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><p class="text-sm font-bold text-slate-500">Quick Voucher Lookup</p><div class="mt-3 flex gap-2"><input id="homeVoucher" class="min-w-0 flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm" placeholder="e.g. MS1234"><button id="homeVoucherBtn" class="rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white">Check</button></div><div id="homeVoucherResult" class="mt-3 text-sm"></div></article><article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><div class="flex justify-between gap-3"><div><p class="text-sm font-bold text-slate-500">Live Repairs</p><h2 class="text-xl font-extrabold">ယနေ့ပြင်ဆင်နေသော ဖုန်းများ</h2></div><button class="rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold" data-page="voucher">View</button></div><div id="livePreview" class="mt-4 grid gap-3"></div></article></div>
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+      <button class="flex items-center gap-3 text-left" data-page="home">
+        <img src="logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-2xl object-cover ring-1 ring-slate-200">
+        <span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-bold text-slate-500">Phone Repair & Digital Service</small></span>
+      </button>
+      <a class="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-black text-white" href="tel:09778394052">Call</a>
     </div>
-    <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4"><button class="card" data-page="voucher"><b>Voucher Lookup</b><p>Repair status, model, issue, cost တို့ကို voucher နဲ့ရှာပါ။</p></button><button class="card" data-page="solutions"><b>Repair Solution</b><p>Software, Hardware error solution များကိုဖတ်ပါ။</p></button><button class="card" data-page="products"><b>Digital Product</b><p>VPN, Game top-up နှင့် account service များ။</p></button><button class="card" data-page="currency"><b>Currency Exchange</b><p>USD, THB, SGD exchange rate များကိုကြည့်ပါ။</p></button></div>
-  </section>
-  <section id="voucherPage" class="page"><div class="grid gap-6 lg:grid-cols-[.9fr_1.1fr]"><div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p class="text-sm font-bold text-teal-700">Voucher Lookup</p><h1 class="mt-2 text-3xl font-extrabold">ပြင်ဆင်မှုအခြေအနေ စစ်ဆေးရန်</h1><p class="mt-3 leading-7 text-slate-600">ဖုန်းအပ်နှံထားတဲ့ voucher နံပါတ်ကိုရိုက်ထည့်ပါ။ demo voucher MS1234 နဲ့စမ်းနိုင်ပါတယ်။</p><div class="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]"><input id="voucherInput" class="rounded-xl border border-slate-200 px-4 py-3" placeholder="Voucher Number"><button id="voucherBtn" class="rounded-xl bg-teal-600 px-6 py-3 font-extrabold text-white">Search</button></div><div id="voucherResult" class="mt-5"></div></div><div class="rounded-2xl bg-slate-950 p-6 text-white"><p class="text-sm font-bold text-amber-300">Live Repair Board</p><h2 class="text-2xl font-extrabold">လက်ရှိပြင်နေသောစာရင်း</h2><input id="liveSearch" class="mt-5 w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-white" placeholder="Voucher or model search"><div id="liveTable" class="mt-4 overflow-hidden rounded-xl border border-white/10"></div></div></div></section>
-  <section id="solutionsPage" class="page"><div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p class="text-sm font-bold text-amber-700">Repair Solution</p><h1 class="mt-2 text-3xl font-extrabold">ဖုန်းပြင်နည်းနှင့် Error Solution များ</h1><p class="mt-3 max-w-3xl leading-7 text-slate-600">Software, Hardware, Network solution များကိုရှာဖွေဖတ်ရှုနိုင်ပါတယ်။</p><input id="solutionSearch" class="mt-5 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm lg:w-80" placeholder="Search solutions"></div><div id="solutionsGrid" class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"></div></section>
-  <section id="productsPage" class="page"><div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p class="text-sm font-bold text-indigo-700">Digital Product</p><h1 class="mt-2 text-3xl font-extrabold">VPN, Game နှင့် Digital Service များ</h1><p class="mt-3 max-w-3xl leading-7 text-slate-600">အောက်ပါ product များကိုရွေးပြီး Telegram မှာ order ပြုလုပ်နိုင်ပါတယ်။</p></div><div id="productGrid" class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4"></div></section>
-  <section id="currencyPage" class="page"><div class="grid gap-6 lg:grid-cols-[.8fr_1.2fr]"><div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p class="text-sm font-bold text-rose-700">Currency Exchange</p><h1 class="mt-2 text-3xl font-extrabold">ငွေလဲနှုန်းများ</h1><p class="mt-3 leading-7 text-slate-600">Backend/Telegram Sheet API မှ update လုပ်ထားသော ငွေလဲနှုန်းများကိုပြသပါမယ်။</p><button id="refreshCurrency" class="mt-6 rounded-xl bg-slate-950 px-5 py-3 text-sm font-extrabold text-white">Refresh Rate</button><p id="currencyTime" class="mt-4 text-sm font-semibold text-slate-500">Updated: --</p></div><div id="currencyList" class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200"></div></div></section>
-</main>
-<footer class="mt-8 border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-sm text-slate-600 md:flex-row md:items-center md:justify-between"><p class="font-semibold">Mahar Shwe Mobile, Myanmar</p><div class="flex gap-3 font-bold"><a href="tel:09778394052">09778394052</a><a href="https://t.me/Mylifemychoice68" target="_blank">Telegram</a><span>KBZ Pay Ready</span></div></div></footer>
-<script>
-const API_URL='/api';const pages=['home','voucher','solutions','products','currency'];
-const fallbackRepairs=[{voucher:'MS1234',model:'iPhone 12',owner:'Aung Aung',issue:'Screen broken',shop:'Mahar Shwe',status:'Ready'},{voucher:'MS5678',model:'Samsung A52',owner:'Su Su',issue:'Battery drain',shop:'Mahar Shwe',status:'Checking'}];
-function el(id){return document.getElementById(id)}async function callApi(path){const res=await fetch(API_URL+path);if(!res.ok)throw new Error('HTTP '+res.status);return res.json()}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function showPage(page){pages.forEach(n=>el(n+'Page').classList.toggle('active',n===page));document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.page===page));el('mobileMenu').classList.add('hidden');history.replaceState(null,'',page==='home'?'/':'#'+page);if(page==='voucher')loadLiveRepairs(true);if(page==='solutions')loadSolutions();if(page==='products')renderProducts();if(page==='currency')loadCurrency();scrollTo({top:0,behavior:'smooth'})}
-function card(data){return `<div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950"><b>Status: ${esc(data.status||'Repairing')}</b><div class="mt-3 grid gap-2 sm:grid-cols-2"><p><b>Voucher:</b> ${esc(data.voucher)}</p><p><b>Model:</b> ${esc(data.model)}</p><p><b>Customer:</b> ${esc(data.customer||data.owner)}</p><p><b>Issue:</b> ${esc(data.issue)}</p><p><b>Cost:</b> ${data.cost?Number(data.cost).toLocaleString()+' Ks':'Not set'}</p><p><b>Shop:</b> ${esc(data.shop||'Mahar Shwe Mobile')}</p></div></div>`}
-async function lookupVoucher(inputId,outId){const v=(el(inputId).value||'').trim().toUpperCase(),out=el(outId);if(!v){out.innerHTML='<div class="rounded-xl bg-rose-50 p-4 font-bold text-rose-700">Voucher နံပါတ် ထည့်ပါ။</div>';return}out.innerHTML='<div class="rounded-xl bg-slate-100 p-4 font-bold text-slate-600">Searching...</div>';try{const d=await callApi('/voucher/'+encodeURIComponent(v));out.innerHTML=d&&d.found?card(d):notFound()}catch(e){const d=fallbackRepairs.find(x=>x.voucher===v);out.innerHTML=d?card(d):notFound()}}
-function notFound(){return '<div class="rounded-xl bg-rose-50 p-4 font-bold text-rose-700">Voucher မတွေ့ပါ။ နံပါတ်ကိုပြန်စစ်ပါ။</div>'}
-async function loadLiveRepairs(full){let r=fallbackRepairs;try{const d=await callApi('/liveRepairs');if(Array.isArray(d)&&d.length)r=d}catch(e){}const term=((el('liveSearch')&&el('liveSearch').value)||'').toLowerCase();const f=r.filter(x=>String(x.voucher||'').toLowerCase().includes(term)||String(x.model||'').toLowerCase().includes(term));el('livePreview').innerHTML=f.slice(0,3).map(x=>`<div class="rounded-xl border border-slate-200 bg-slate-50 p-4"><div class="flex justify-between"><b class="font-mono">${esc(x.voucher)}</b><span class="rounded-full bg-teal-100 px-2 py-1 text-xs font-bold text-teal-800">${esc(x.status||'Live')}</span></div><p class="mt-2 font-bold">${esc(x.model)}</p><p class="text-sm text-slate-600">${esc(x.issue)}</p></div>`).join('');if(full)el('liveTable').innerHTML='<div class="overflow-x-auto"><table class="min-w-full text-sm"><thead class="bg-white/10 text-left text-slate-300"><tr><th class="p-3">Voucher</th><th class="p-3">Model</th><th class="p-3">Owner</th><th class="p-3">Issue</th><th class="p-3">Status</th></tr></thead><tbody>'+f.map(x=>`<tr class="border-t border-white/10"><td class="p-3 font-mono font-bold">${esc(x.voucher)}</td><td class="p-3">${esc(x.model)}</td><td class="p-3">${esc(x.owner||x.customer||'-')}</td><td class="p-3">${esc(x.issue)}</td><td class="p-3">${esc(x.status||'Live')}</td></tr>`).join('')+'</tbody></table></div>'}
-async function loadSolutions(){const q=(el('solutionSearch').value||'').trim();el('solutionsGrid').innerHTML='<div class="rounded-2xl bg-white p-6 font-bold text-slate-500">Loading solutions...</div>';let s=[];try{s=await callApi('/solutions'+(q?'?q='+encodeURIComponent(q):''))}catch(e){}el('solutionsGrid').innerHTML=s.length?s.map(x=>`<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800">${esc(x.category||'Tips')}</span><h2 class="mt-4 text-lg font-extrabold">${esc(x.title)}</h2><p class="mt-3 text-sm leading-7 text-slate-600">${esc(x.description)}</p><div class="mt-5 flex justify-between border-t pt-4 text-xs font-bold text-slate-500"><span>${esc(x.author||'Admin')}</span><span>${Number(x.likes||0)} likes</span></div></article>`).join(''):'<div class="rounded-2xl bg-white p-8 text-center font-bold text-slate-500 md:col-span-2 xl:col-span-3">No solution found.</div>'}
-async function renderProducts(){el('productGrid').innerHTML='<div class="rounded-2xl bg-white p-6 font-bold text-slate-500">Loading products...</div>';let p=[];try{p=await callApi('/products')}catch(e){}el('productGrid').innerHTML=p.map(x=>{const text=encodeURIComponent('Hello Mahar Shwe Mobile, I want to order '+x.title+' ('+x.price+').');const url=x.orderUrl||('https://t.me/Mylifemychoice68?text='+text);return `<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-extrabold text-indigo-800">${esc(x.type)}</span><h2 class="mt-4 text-xl font-extrabold">${esc(x.title)}</h2><p class="mt-2 text-2xl font-extrabold text-indigo-700">${esc(x.price)}</p><p class="mt-3 min-h-14 text-sm leading-6 text-slate-600">${esc(x.desc)}</p><a class="mt-5 block rounded-xl bg-slate-950 px-4 py-3 text-center text-sm font-extrabold text-white" href="${url}" target="_blank">Order on Telegram</a></article>`}).join('')}
-async function loadCurrency(){el('currencyList').innerHTML='<div class="p-4 font-bold text-slate-500">Loading rates...</div>';let r=[];try{r=await callApi('/currency')}catch(e){}el('currencyTime').textContent='Updated: '+new Date().toLocaleString();el('currencyList').innerHTML='<div class="grid gap-3">'+r.map(x=>`<div class="flex justify-between rounded-xl border border-slate-200 bg-slate-50 p-4"><div><p class="text-lg font-extrabold">${esc(x.code)}</p><p class="text-xs font-bold text-slate-500">${esc(x.name||'Myanmar Kyat')}</p></div><div class="text-right"><p class="text-xl font-extrabold">${Number(x.rate).toLocaleString()} MMK</p><p class="text-xs font-bold ${String(x.change).startsWith('-')?'text-rose-600':'text-emerald-600'}">${esc(x.change)}</p></div></div>`).join('')+'</div>'}
-document.head.insertAdjacentHTML('beforeend','<style>.card{border-radius:1rem;background:white;padding:1.25rem;text-align:left;box-shadow:0 1px 2px rgba(0,0,0,.04);outline:1px solid #e2e8f0}.card b{display:block;font-size:1.1rem}.card p{margin-top:.5rem;color:#475569;font-size:.9rem;line-height:1.6}</style>');document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));el('menuBtn').addEventListener('click',()=>el('mobileMenu').classList.toggle('hidden'));el('homeVoucherBtn').addEventListener('click',()=>lookupVoucher('homeVoucher','homeVoucherResult'));el('voucherBtn').addEventListener('click',()=>lookupVoucher('voucherInput','voucherResult'));el('liveSearch').addEventListener('input',()=>loadLiveRepairs(true));el('solutionSearch').addEventListener('input',()=>{clearTimeout(window.solutionTimer);window.solutionTimer=setTimeout(loadSolutions,250)});el('refreshCurrency').addEventListener('click',loadCurrency);showPage(pages.includes(location.hash.slice(1))?location.hash.slice(1):'home');loadLiveRepairs(false);setInterval(()=>loadLiveRepairs(el('voucherPage').classList.contains('active')),30000);
-</script>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-4 pb-28">
+    <section id="homePage" class="page active">
+      <div class="rounded-[28px] bg-slate-950 p-5 text-white shadow-xl">
+        <p class="text-xs font-black uppercase text-teal-200">Online Service</p>
+        <h1 class="mt-3 text-4xl font-black leading-tight">Mahar Shwe Mobile Service Center</h1>
+        <p class="mt-4 text-sm leading-7 text-slate-200">Voucher နံပါတ်ဖြင့် ဖုန်းပြင်ဆင်မှုအခြေအနေ စစ်နိုင်ပြီး Repair Solution, Digital Product နှင့် ငွေလဲနှုန်းများကို ကြည့်နိုင်ပါတယ်။</p>
+        <div class="mt-6 grid grid-cols-2 gap-3">
+          <button class="rounded-2xl bg-amber-400 px-4 py-3 text-sm font-black text-slate-950" data-page="voucher">Voucher စစ်ရန်</button>
+          <button class="rounded-2xl bg-white/10 px-4 py-3 text-sm font-black text-white ring-1 ring-white/20" data-page="products">Products</button>
+        </div>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <button class="rounded-3xl bg-white p-4 text-left shadow-sm ring-1 ring-slate-200" data-page="solutions"><b>Repair Solution</b><p class="mt-2 text-xs text-slate-600">ဖုန်းပြင်နည်းများ</p></button>
+        <button class="rounded-3xl bg-white p-4 text-left shadow-sm ring-1 ring-slate-200" data-page="currency"><b>Exchange</b><p class="mt-2 text-xs text-slate-600">ငွေလဲနှုန်းတွက်ရန်</p></button>
+      </div>
+    </section>
+
+    <section id="voucherPage" class="page">
+      <div class="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <p class="text-xs font-black uppercase text-teal-700">Voucher Lookup</p>
+        <h1 class="mt-2 text-2xl font-black">ပြင်ဆင်မှုအခြေအနေ စစ်ဆေးရန်</h1>
+        <div class="mt-5 grid gap-3">
+          <input id="voucherInput" class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3" placeholder="ဥပမာ P9005">
+          <button id="voucherBtn" class="rounded-2xl bg-teal-600 px-5 py-3 font-black text-white">Search</button>
+        </div>
+        <div id="voucherResult" class="mt-5"></div>
+      </div>
+    </section>
+
+    <section id="solutionsPage" class="page">
+      <div class="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <p class="text-xs font-black uppercase text-amber-700">Repair Solution</p>
+        <h1 class="mt-2 text-2xl font-black">ဖုန်းပြင်နည်းနှင့် Error Solution များ</h1>
+        <input id="solutionSearch" class="mt-5 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3" placeholder="Search solutions">
+      </div>
+      <div id="solutionsGrid" class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3"></div>
+    </section>
+
+    <section id="productsPage" class="page">
+      <div class="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <p class="text-xs font-black uppercase text-indigo-700">Digital Product</p>
+        <h1 class="mt-2 text-2xl font-black">VPN, Game နှင့် Digital Service များ</h1>
+        <p class="mt-3 text-sm text-slate-600">Backend ကတင်ထားသော product ပုံများကို အောက်မှာ ပြပါမယ်။</p>
+      </div>
+      <div id="productGrid" class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4"></div>
+    </section>
+
+    <section id="currencyPage" class="page">
+      <div class="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <p class="text-xs font-black uppercase text-rose-700">Currency Exchange</p>
+        <h1 class="mt-2 text-2xl font-black">ငွေလဲနှုန်းများ</h1>
+        <button id="refreshCurrency" class="mt-5 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white">Refresh Rate</button>
+        <p id="currencyTime" class="mt-4 text-sm font-bold text-slate-500">Updated: --</p>
+      </div>
+      <div class="mt-4 rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="text-xl font-black">လဲချင်တဲ့ပမာဏ တွက်ရန်</h2>
+        <div class="mt-4 grid gap-3">
+          <input id="exchangeAmount" inputmode="decimal" class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-bold" placeholder="လဲချင်တဲ့ပမာဏ">
+          <select id="exchangeCode" class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-bold"></select>
+        </div>
+        <div id="exchangeResult" class="mt-4 rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-600">ပမာဏထည့်ပြီး ငွေကြေးအမျိုးအစားရွေးပါ။</div>
+        <a id="exchangeTelegramBtn" class="mt-3 block rounded-2xl bg-teal-600 px-4 py-3 text-center text-sm font-black text-white opacity-50 pointer-events-none" href="https://t.me/Mylifemychoice68" target="_blank" rel="noreferrer">Telegram မှာ ပို့ရန်</a>
+      </div>
+      <div id="currencyList" class="mt-4 rounded-[24px] bg-white p-3 shadow-sm ring-1 ring-slate-200"></div>
+    </section>
+
+    <footer class="mt-5 rounded-[28px] bg-white p-5 text-sm text-slate-600 shadow-sm ring-1 ring-slate-200">
+      <b class="text-slate-950">Mahar Shwe Mobile</b>
+      <p class="mt-2 font-bold">ဆီဆိုင်မြို့နယ်၊ ရှမ်းပြည်တောင်ပိုင်း</p>
+      <a class="mt-2 inline-block font-black text-teal-700" href="https://maps.app.goo.gl/zodJ9fgcc9W7qsFVA" target="_blank" rel="noreferrer">Google Map ကြည့်ရန်</a>
+      <p class="mt-3">KBZ Pay: 09778394052</p>
+      <p>KBZ Special: 34551107002743002</p>
+      <p>True Money: 0944070246</p>
+      <p>Krungthai Bank: 000-3-35 722-8</p>
+    </footer>
+  </main>
+
+  <nav class="bottom fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 px-2 pt-2 shadow-xl backdrop-blur">
+    <div class="mx-auto grid max-w-md grid-cols-5 gap-1 text-center text-[11px] font-black">
+      <button class="nav rounded-2xl px-1 py-2" data-page="home">Home</button>
+      <button class="nav rounded-2xl px-1 py-2" data-page="voucher">Voucher</button>
+      <button class="nav rounded-2xl px-1 py-2" data-page="solutions">Solution</button>
+      <button class="nav rounded-2xl px-1 py-2" data-page="products">Product</button>
+      <button class="nav rounded-2xl px-1 py-2" data-page="currency">Rate</button>
+    </div>
+  </nav>
+
+  <script>
+    const API_URL = '/api';
+    const pages = ['home', 'voucher', 'solutions', 'products', 'currency'];
+    let currencyRates = [];
+    const DEFAULT_SOLUTION_IMAGE = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#fef3c7"/><rect x="90" y="92" width="250" height="266" rx="34" fill="#0f172a"/><rect x="122" y="128" width="186" height="196" rx="18" fill="#fff"/><path d="M430 155h220M430 215h180M430 275h120" stroke="#0f172a" stroke-width="28" stroke-linecap="round"/><text x="400" y="374" font-family="Arial" font-size="38" font-weight="700" fill="#92400e">Repair Solution</text></svg>');
+    const DEFAULT_PRODUCT_IMAGE = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#e0e7ff"/><rect x="90" y="112" width="220" height="220" rx="40" fill="#312e81"/><circle cx="200" cy="222" r="68" fill="#818cf8"/><path d="M420 150h230M420 220h190M420 290h145" stroke="#1e1b4b" stroke-width="30" stroke-linecap="round"/><text x="370" y="374" font-family="Arial" font-size="38" font-weight="700" fill="#312e81">Digital Product</text></svg>');
+    const fallbackRepairs = [
+      { voucher:'P9005', model:'Oppo A78 5G', owner:'Bo Lay', issue:'TL/Blackglass', shop:'Power 9 Mobile', status:'ပြင်ပြီး ✅' }
+    ];
+    const fallbackSolutions = [
+      { id:1, title:'iPhone Battery Drain Fix', description:'Battery calibration, background app check နှင့် charging port စစ်ဆေးနည်း။', category:'Software', author:'Admin', date:'2026-05-16', likes:8 }
+    ];
+    const fallbackProducts = [
+      { title:'Premium VPN', price:'3,000 Ks / month', type:'VPN', desc:'Fast server, privacy setup, Android support' },
+      { title:'Game Top-up', price:'Ask price', type:'Game', desc:'Mobile Legends, PUBG, Free Fire and more' }
+    ];
+    function el(id){ return document.getElementById(id); }
+    function escapeHtml(value){ return String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function imageInfo(item, type){
+      const fields = ['image','photo','imageUrl','image_url','picture','thumbnail','cover'];
+      for (const field of fields) if (item && item[field]) return { url:item[field], source:item.imageMapping || field };
+      return { url:type === 'product' ? DEFAULT_PRODUCT_IMAGE : DEFAULT_SOLUTION_IMAGE, source:item && item.imageMapping ? item.imageMapping : 'placeholder' };
+    }
+    async function callApi(path){ const res = await fetch(API_URL + path); if(!res.ok) throw new Error('HTTP ' + res.status); return res.json(); }
+    function showPage(page){
+      pages.forEach(name => el(name + 'Page').classList.toggle('active', name === page));
+      document.querySelectorAll('.nav').forEach(link => link.classList.toggle('active', link.dataset.page === page));
+      history.replaceState(null, '', page === 'home' ? location.pathname : '#' + page);
+      if(page === 'solutions') loadSolutions();
+      if(page === 'products') renderProducts();
+      if(page === 'currency') loadCurrency();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    function resultCard(data){
+      return '<div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">' +
+        '<p class="text-base font-black">Status: ' + escapeHtml(data.status || 'စောင့်ဆိုင်းနေဆဲ') + '</p>' +
+        '<div class="mt-3 grid gap-2"><p><b>Voucher:</b> ' + escapeHtml(data.voucher || '-') + '</p><p><b>Model:</b> ' + escapeHtml(data.model || '-') + '</p><p><b>Customer:</b> ' + escapeHtml(data.customer || data.owner || '-') + '</p><p><b>Issue:</b> ' + escapeHtml(data.issue || '-') + '</p><p><b>Cost:</b> ' + (data.cost ? Number(data.cost).toLocaleString() + ' Ks' : 'Not set') + '</p><p><b>Shop:</b> ' + escapeHtml(data.shop || 'Mahar Shwe Mobile') + '</p></div></div>';
+    }
+    async function lookupVoucher(){
+      const voucher = (el('voucherInput').value || '').trim().toUpperCase();
+      if(!voucher){ el('voucherResult').innerHTML = '<div class="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm font-black text-rose-700">Voucher နံပါတ် ထည့်ပါ။</div>'; return; }
+      try { const data = await callApi('/voucher/' + encodeURIComponent(voucher)); el('voucherResult').innerHTML = data && data.found ? resultCard(data) : notFound(); }
+      catch(e){ const demo = fallbackRepairs.find(x => x.voucher === voucher); el('voucherResult').innerHTML = demo ? resultCard(demo) : notFound(); }
+    }
+    function notFound(){ return '<div class="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm font-black text-rose-700">Voucher မတွေ့ပါ။ နံပါတ်ကို ပြန်စစ်ပါ။</div>'; }
+    async function loadSolutions(){
+      const q = (el('solutionSearch').value || '').trim();
+      let list = fallbackSolutions;
+      try { const data = await callApi('/solutions' + (q ? '?q=' + encodeURIComponent(q) : '')); if(Array.isArray(data) && data.length) list = data; } catch(e) {}
+      if(q){ const lower = q.toLowerCase(); list = list.filter(x => (x.title + ' ' + x.description + ' ' + x.category).toLowerCase().includes(lower)); }
+      el('solutionsGrid').innerHTML = list.map(item => { const img = imageInfo(item, 'solution'); return '<article class="rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-black text-amber-800">' + escapeHtml(item.category || 'Tips') + '</span><img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Solution image') + '" class="mt-4 aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200"><div class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-black text-slate-500">Image Mapping: ' + escapeHtml(img.source) + '</div><h2 class="mt-4 text-lg font-black">' + escapeHtml(item.title) + '</h2><p class="mt-3 text-sm leading-7 text-slate-600">' + escapeHtml(item.description) + '</p><div class="mt-5 flex justify-between border-t border-slate-100 pt-4 text-xs font-black text-slate-500"><span>' + escapeHtml(item.author || 'Admin') + '</span><span>' + Number(item.likes || 0) + ' likes</span></div></article>'; }).join('');
+    }
+    async function renderProducts(){
+      let list = fallbackProducts;
+      try { const data = await callApi('/products'); if(Array.isArray(data) && data.length) list = data; } catch(e) {}
+      el('productGrid').innerHTML = list.map(item => { const img = imageInfo(item, 'product'); const orderUrl = item.orderUrl || ('https://t.me/Mylifemychoice68?text=' + encodeURIComponent('Hello Mahar Shwe Mobile, I want to order ' + item.title + ' (' + item.price + ').')); return '<article class="rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-indigo-100 px-3 py-1 text-[11px] font-black text-indigo-800">' + escapeHtml(item.type || 'Digital') + '</span><img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Product image') + '" class="mt-4 aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200"><div class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-black text-slate-500">Image Mapping: ' + escapeHtml(img.source) + '</div><h2 class="mt-4 text-lg font-black">' + escapeHtml(item.title) + '</h2><p class="mt-2 text-xl font-black text-indigo-700">' + escapeHtml(item.price) + '</p><p class="mt-3 text-sm leading-6 text-slate-600">' + escapeHtml(item.desc || item.description || '') + '</p><a class="mt-5 block rounded-2xl bg-slate-950 px-4 py-3 text-center text-sm font-black text-white" href="' + orderUrl + '" target="_blank" rel="noreferrer">Telegram မှာ Order တင်ရန်</a></article>'; }).join('');
+    }
+    async function loadCurrency(){
+      let rates = [{code:'USD', rate:3520, name:'US Dollar', change:'+0.5%'},{code:'THB', rate:98.5, name:'Thai Baht', change:'-0.2%'},{code:'SGD', rate:2610, name:'Singapore Dollar', change:'+0.1%'}];
+      try { const data = await callApi('/currency'); if(Array.isArray(data) && data.length) rates = data; } catch(e) {}
+      currencyRates = rates.map(x => ({ code:String(x.code || '').toUpperCase(), name:x.name || 'Myanmar Kyat', rate:Number(x.rate), change:x.change || '0%' })).filter(x => x.code && Number.isFinite(x.rate));
+      el('exchangeCode').innerHTML = currencyRates.map(x => '<option value="' + escapeHtml(x.code) + '">' + escapeHtml(x.code) + ' - ' + escapeHtml(x.name) + '</option>').join('');
+      el('currencyTime').textContent = 'Updated: ' + new Date().toLocaleString();
+      el('currencyList').innerHTML = currencyRates.map(x => '<div class="mb-3 flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 p-4"><div><b>' + escapeHtml(x.code) + '</b><p class="text-xs text-slate-500">' + escapeHtml(x.name) + '</p></div><div class="text-right"><b>' + Number(x.rate).toLocaleString() + ' MMK</b><p class="text-xs text-slate-500">' + escapeHtml(x.change) + '</p></div></div>').join('');
+      updateExchangeCalculator();
+    }
+    function updateExchangeCalculator(){
+      const amount = Number(String(el('exchangeAmount').value || '').replace(/,/g,''));
+      const code = el('exchangeCode').value;
+      const rate = currencyRates.find(x => x.code === code);
+      if(!rate || !Number.isFinite(amount) || amount <= 0){ el('exchangeResult').textContent = 'ပမာဏထည့်ပြီး ငွေကြေးအမျိုးအစားရွေးပါ။'; el('exchangeTelegramBtn').classList.add('opacity-50','pointer-events-none'); return; }
+      const total = amount * rate.rate;
+      el('exchangeResult').innerHTML = '<p class="text-xs font-black uppercase text-slate-500">ခန့်မှန်းတန်ဖိုး</p><p class="mt-1 text-2xl font-black text-slate-950">' + Math.round(total).toLocaleString() + ' MMK</p><p class="mt-2 text-xs text-slate-500">Rate: 1 ' + escapeHtml(rate.code) + ' = ' + Number(rate.rate).toLocaleString() + ' MMK</p>';
+      const message = 'မင်္ဂလာပါ Mahar Shwe Mobile, ငွေလဲချင်ပါတယ်။\nCurrency: ' + rate.code + '\nAmount: ' + amount.toLocaleString() + ' ' + rate.code + '\nRate: ' + Number(rate.rate).toLocaleString() + ' MMK\nTotal: ' + Math.round(total).toLocaleString() + ' MMK';
+      el('exchangeTelegramBtn').href = 'https://t.me/Mylifemychoice68?text=' + encodeURIComponent(message);
+      el('exchangeTelegramBtn').classList.remove('opacity-50','pointer-events-none');
+    }
+    document.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => showPage(button.dataset.page)));
+    el('voucherBtn').addEventListener('click', lookupVoucher);
+    el('solutionSearch').addEventListener('input', () => { clearTimeout(window.solutionTimer); window.solutionTimer = setTimeout(loadSolutions, 250); });
+    el('refreshCurrency').addEventListener('click', loadCurrency);
+    el('exchangeAmount').addEventListener('input', updateExchangeCalculator);
+    el('exchangeCode').addEventListener('change', updateExchangeCalculator);
+    const initial = location.hash ? location.hash.slice(1) : 'home';
+    showPage(pages.includes(initial) ? initial : 'home');
+  </script>
 </body>
 </html>
