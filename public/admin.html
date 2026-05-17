@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Admin Panel - Mahar Shwe Mobile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Myanmar:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; font-family: Inter, 'Noto Sans Myanmar', sans-serif; background:#f6f7fb; color:#0f172a; }
+    .tab.active { background:#0f766e; color:white; }
+    .panel { display:none; }
+    .panel.active { display:block; }
+    .field { width:100%; border-radius:18px; border:1px solid #e2e8f0; background:#f8fafc; padding:13px 14px; font-weight:700; outline:none; }
+    .field:focus { border-color:#0f766e; box-shadow:0 0 0 4px rgba(15,118,110,.12); background:white; }
+  </style>
+</head>
+<body>
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
+      <a class="flex items-center gap-3" href="/">
+        <img src="/logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-2xl object-cover ring-1 ring-slate-200">
+        <span>
+          <b class="block text-slate-950">Mahar Shwe Admin</b>
+          <small class="font-bold text-slate-500">Product & Solution Upload</small>
+        </span>
+      </a>
+      <a class="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-black text-white" href="/">Website</a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-4 pb-12">
+    <section class="rounded-[28px] bg-slate-950 p-5 text-white shadow-xl">
+      <p class="text-xs font-black uppercase text-teal-200">Backend Admin Panel</p>
+      <h1 class="mt-3 text-3xl font-black leading-tight">Product နဲ့ Solution ကို ပုံပါ တွဲတင်ရန်</h1>
+      <p class="mt-3 text-sm leading-7 text-slate-200">API Key ထည့်ပြီး Solution / Digital Product ကို website backend ထဲသို့ တင်နိုင်ပါတယ်။ ပုံ URL သို့မဟုတ် ဖုန်းထဲကပုံကို တိုက်ရိုက် upload လုပ်နိုင်ပါတယ်။</p>
+    </section>
+
+    <section class="mt-4 rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200">
+      <label class="text-sm font-black text-slate-700" for="apiKey">API Key</label>
+      <div class="mt-2 grid gap-2 sm:grid-cols-[1fr_auto]">
+        <input id="apiKey" class="field" type="password" placeholder="API Key ထည့်ပါ">
+        <button id="saveKeyBtn" class="rounded-2xl bg-teal-600 px-5 py-3 text-sm font-black text-white">Save Key</button>
+      </div>
+      <p class="mt-2 text-xs font-bold text-slate-500">Key ကို browser ထဲမှာပဲ သိမ်းထားပါမယ်။ Public website code ထဲမှာ မထည့်ထားပါ။</p>
+    </section>
+
+    <section class="mt-4 grid grid-cols-2 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200">
+      <button class="tab active rounded-2xl px-3 py-3 text-sm font-black" data-tab="product">Digital Product</button>
+      <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="solution">Repair Solution</button>
+    </section>
+
+    <section id="productPanel" class="panel active mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <p class="text-xs font-black uppercase text-indigo-700">Product Admin Panel</p>
+          <h2 class="mt-1 text-2xl font-black">Digital Product တင်ရန်</h2>
+        </div>
+        <span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-black text-indigo-800">POST /digital-product</span>
+      </div>
+
+      <form id="productForm" class="mt-5 grid gap-4">
+        <input class="field" name="title" placeholder="Product Name ဥပမာ Premium VPN 1 Month" required>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <input class="field" name="price" placeholder="Price ဥပမာ 3000 Ks" required>
+          <input class="field" name="type" placeholder="Type ဥပမာ VPN / Game" required>
+        </div>
+        <textarea class="field min-h-28" name="desc" placeholder="Product description" required></textarea>
+        <input class="field" name="image" placeholder="Image URL ထည့်ရန် (optional)">
+        <label class="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-4 text-center text-sm font-black text-slate-600">
+          Phone/Computer မှ Product ပုံရွေးရန်
+          <input class="sr-only" id="productFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+        </label>
+        <img id="productPreview" class="hidden aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200" alt="Product preview">
+        <button class="rounded-2xl bg-indigo-700 px-5 py-4 font-black text-white" type="submit">Product တင်မယ်</button>
+      </form>
+    </section>
+
+    <section id="solutionPanel" class="panel mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <p class="text-xs font-black uppercase text-amber-700">Solution Admin Panel</p>
+          <h2 class="mt-1 text-2xl font-black">Repair Solution တင်ရန်</h2>
+        </div>
+        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-800">POST /solution</span>
+      </div>
+
+      <form id="solutionForm" class="mt-5 grid gap-4">
+        <input class="field" name="title" placeholder="Solution Title ဥပမာ iPhone Network Fix" required>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <input class="field" name="category" placeholder="Category ဥပမာ Network" required>
+          <input class="field" name="author" placeholder="Author ဥပမာ Telegram Bot" required>
+        </div>
+        <textarea class="field min-h-32" name="description" placeholder="Solution description" required></textarea>
+        <input class="field" name="image" placeholder="Image URL ထည့်ရန် (optional)">
+        <label class="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-4 text-center text-sm font-black text-slate-600">
+          Phone/Computer မှ Solution ပုံရွေးရန်
+          <input class="sr-only" id="solutionFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+        </label>
+        <img id="solutionPreview" class="hidden aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200" alt="Solution preview">
+        <button class="rounded-2xl bg-amber-600 px-5 py-4 font-black text-white" type="submit">Solution တင်မယ်</button>
+      </form>
+    </section>
+
+    <section id="statusBox" class="mt-4 hidden rounded-[24px] p-4 text-sm font-bold"></section>
+  </main>
+
+  <script>
+    const apiKeyInput = document.getElementById('apiKey');
+    const statusBox = document.getElementById('statusBox');
+    const uploads = { product: null, solution: null };
+
+    apiKeyInput.value = localStorage.getItem('maharshwe_admin_api_key') || '';
+
+    function showStatus(type, message) {
+      statusBox.className = 'mt-4 rounded-[24px] p-4 text-sm font-bold ' + (type === 'ok'
+        ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200'
+        : 'bg-rose-50 text-rose-800 ring-1 ring-rose-200');
+      statusBox.textContent = message;
+      statusBox.classList.remove('hidden');
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleFile(kind, input, preview) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) {
+        showStatus('error', 'ပုံ size ကြီးနေပါတယ်။ 5MB အောက်ပုံကို ရွေးပါ။');
+        input.value = '';
+        return;
+      }
+      const imageData = await readFileAsDataUrl(file);
+      uploads[kind] = { imageData, fileName: file.name };
+      preview.src = imageData;
+      preview.classList.remove('hidden');
+    }
+
+    function formToObject(form) {
+      return Array.from(new FormData(form).entries()).reduce((acc, entry) => {
+        const key = entry[0];
+        const value = String(entry[1] || '').trim();
+        if (value) acc[key] = value;
+        return acc;
+      }, {});
+    }
+
+    async function submitAdminForm(kind, form) {
+      const key = apiKeyInput.value.trim();
+      if (!key) {
+        showStatus('error', 'API Key အရင်ထည့်ပြီး Save Key နှိပ်ပါ။');
+        return;
+      }
+
+      const endpoint = kind === 'product' ? '/digital-product' : '/solution';
+      const payload = formToObject(form);
+      if (uploads[kind]) {
+        payload.imageData = uploads[kind].imageData;
+        payload.fileName = uploads[kind].fileName;
+        delete payload.image;
+      }
+
+      showStatus('ok', 'တင်နေပါသည်...');
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': key },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) {
+          throw new Error(data.message || data.error || 'Upload failed');
+        }
+        form.reset();
+        uploads[kind] = null;
+        document.getElementById(kind + 'Preview').classList.add('hidden');
+        showStatus('ok', kind === 'product' ? 'Product တင်ပြီးပါပြီ။ Product page မှာ ကြည့်နိုင်ပါပြီ။' : 'Solution တင်ပြီးပါပြီ။ Solution page မှာ ကြည့်နိုင်ပါပြီ။');
+      } catch (error) {
+        showStatus('error', 'မအောင်မြင်ပါ။ ' + error.message);
+      }
+    }
+
+    document.getElementById('saveKeyBtn').addEventListener('click', () => {
+      localStorage.setItem('maharshwe_admin_api_key', apiKeyInput.value.trim());
+      showStatus('ok', 'API Key သိမ်းပြီးပါပြီ။');
+    });
+
+    document.querySelectorAll('.tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab === button));
+        document.querySelectorAll('.panel').forEach(panel => panel.classList.toggle('active', panel.id === button.dataset.tab + 'Panel'));
+      });
+    });
+
+    document.getElementById('productFile').addEventListener('change', event => handleFile('product', event.target, document.getElementById('productPreview')));
+    document.getElementById('solutionFile').addEventListener('change', event => handleFile('solution', event.target, document.getElementById('solutionPreview')));
+    document.getElementById('productForm').addEventListener('submit', event => {
+      event.preventDefault();
+      submitAdminForm('product', event.currentTarget);
+    });
+    document.getElementById('solutionForm').addEventListener('submit', event => {
+      event.preventDefault();
+      submitAdminForm('solution', event.currentTarget);
+    });
+  </script>
+</body>
+</html>
