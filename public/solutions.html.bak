@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="my">
 <head>
   <meta charset="UTF-8">
@@ -10,7 +10,6 @@
     body { font-family: 'Inter', 'Noto Sans Myanmar', sans-serif; background: #f6f7fb; color: #111827; }
     .glass { background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(18px); }
   </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2214050108534419" crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="sticky top-0 z-50 border-b border-slate-200 glass">
@@ -29,8 +28,8 @@
   <main class="mx-auto max-w-6xl px-4 py-8">
     <section class="rounded-2xl bg-slate-950 p-6 text-white sm:p-8">
       <p class="text-sm font-bold uppercase tracking-wide text-amber-300">Repair Solution Library</p>
-      <h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-tight">ဖုန်းပြင်နည်းနှင့် Error Solution များ</h1>
-      <p class="mt-4 max-w-3xl leading-8 text-slate-200">Software, Hardware, Network, Battery, Display, Unlock စတဲ့ solution များကို အမြန်ရှာဖွေဖတ်ရှုနိုင်ပါတယ်။</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-extrabold leading-tight">á€–á€¯á€”á€ºá€¸á€•á€¼á€„á€ºá€”á€Šá€ºá€¸á€”á€¾á€„á€ºá€· Error Solution á€™á€»á€¬á€¸</h1>
+      <p class="mt-4 max-w-3xl leading-8 text-slate-200">Software, Hardware, Network, Battery, Display, Unlock á€…á€á€²á€· solution á€™á€»á€¬á€¸á€€á€­á€¯ á€¡á€™á€¼á€”á€ºá€›á€¾á€¬á€–á€½á€±á€–á€á€ºá€›á€¾á€¯á€”á€­á€¯á€„á€ºá€•á€«á€á€šá€ºá‹</p>
       <div class="mt-6 max-w-2xl">
         <input id="searchInput" class="w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-slate-950 outline-none focus:ring-4 focus:ring-amber-400/20" placeholder="Search repair solution">
       </div>
@@ -41,39 +40,30 @@
         <h2 class="text-xl font-extrabold text-slate-950">Latest Solutions</h2>
         <span id="resultCount" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500 ring-1 ring-slate-200">0 items</span>
       </div>
-      <div id="solutionsFeed" class="grid gap-5 max-w-3xl mx-auto">
+      <div id="solutionsFeed" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <div class="rounded-2xl bg-white p-6 text-sm font-bold text-slate-500 shadow-sm ring-1 ring-slate-200">Loading solutions...</div>
       </div>
     </section>
   </main>
+
   <footer class="mt-8 border-t border-slate-200 bg-white">
     <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <p class="font-semibold">ဆီဆိုင်မြို့နယ်၊ ရှမ်းပြည်တောင်ပိုင်း</p>
-        <a class="font-bold text-teal-700" href="https://maps.app.goo.gl/zodJ9fgcc9W7qsFVA" target="_blank" rel="noreferrer">Google Map ကြည့်ရန်</a>
-      </div>
+      <p class="font-semibold">Contact: 09778394052</p>
       <a class="font-bold text-slate-950" href="https://t.me/Mylifemychoice68" target="_blank" rel="noreferrer">Telegram: @Mylifemychoice68</a>
     </div>
   </footer>
 
   <script>
     const API_BASE = '/api';
-    const DEFAULT_SOLUTION_IMAGE = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#fef3c7"/><circle cx="620" cy="110" r="90" fill="#f59e0b" opacity=".22"/><rect x="90" y="92" width="250" height="266" rx="34" fill="#0f172a"/><rect x="122" y="128" width="186" height="196" rx="18" fill="#ffffff"/><path d="M430 155h220M430 215h180M430 275h120" stroke="#0f172a" stroke-width="28" stroke-linecap="round"/><text x="400" y="374" font-family="Arial" font-size="38" font-weight="700" fill="#92400e">Repair Solution</text></svg>');
     const fallbackSolutions = [
-      { id: 2, title: 'Samsung Screen Touch Error', description: 'Touch IC, display connector နှင့် software test အဆင့်များ။', category: 'Hardware', author: 'Technician', date: '2026-05-16', likes: 5 },
-      { id: 3, title: 'Android Network Error', description: 'APN, SIM tray, baseband status နှင့် reset method များ။', category: 'Network', author: 'Admin', date: '2026-05-16', likes: 3 }
+      { id: 1, title: 'iPhone Battery Drain Fix', description: 'Battery calibration, background app check á€”á€¾á€„á€ºá€· charging port á€…á€…á€ºá€†á€±á€¸á€”á€Šá€ºá€¸á‹', category: 'Software', author: 'Admin', date: '2026-05-16', likes: 8 },
+      { id: 2, title: 'Samsung Screen Touch Error', description: 'Touch IC, display connector á€”á€¾á€„á€ºá€· software test á€¡á€†á€„á€ºá€·á€™á€»á€¬á€¸á‹', category: 'Hardware', author: 'Technician', date: '2026-05-16', likes: 5 },
+      { id: 3, title: 'Android Network Error', description: 'APN, SIM tray, baseband status á€”á€¾á€„á€ºá€· reset method á€™á€»á€¬á€¸á‹', category: 'Network', author: 'Admin', date: '2026-05-16', likes: 3 }
     ];
 
     function el(id) { return document.getElementById(id); }
     function escapeHtml(value) {
       return String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
-    }
-    function imageInfo(item) {
-      const fields = ['image', 'photo', 'imageUrl', 'image_url', 'picture', 'thumbnail', 'cover'];
-      for (const field of fields) {
-        if (item && item[field]) return { url: item[field], source: item.imageMapping || field };
-      }
-      return { url: DEFAULT_SOLUTION_IMAGE, source: item && item.imageMapping ? item.imageMapping : 'placeholder' };
     }
     async function fetchSolutions() {
       const q = (el('searchInput').value || '').trim();
@@ -91,23 +81,20 @@
       }
 
       el('resultCount').textContent = solutions.length + ' items';
-      el('solutionsFeed').innerHTML = solutions.length ? solutions.map(item => {
-        const img = imageInfo(item);
-        return '<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">' +
+      el('solutionsFeed').innerHTML = solutions.length ? solutions.map(item =>
+        '<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">' +
           '<div class="flex items-center justify-between gap-3">' +
             '<span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800">' + escapeHtml(item.category || 'Tips') + '</span>' +
             '<span class="text-xs font-bold text-slate-400">' + escapeHtml(item.date || '') + '</span>' +
           '</div>' +
-          '<img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Repair solution image') + '" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">' +
-          '<div class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-extrabold text-slate-500">Image Mapping: ' + escapeHtml(img.source) + '</div>' +
+          (item.image ? '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.title) + '" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">' : '') +
           '<h3 class="mt-4 text-lg font-extrabold leading-7 text-slate-950">' + escapeHtml(item.title) + '</h3>' +
           '<p class="mt-3 text-sm leading-7 text-slate-600">' + escapeHtml(item.description) + '</p>' +
           '<div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-bold text-slate-500">' +
             '<span>' + escapeHtml(item.author || 'Admin') + '</span>' +
             '<button class="rounded-lg bg-slate-100 px-3 py-1 text-slate-700" onclick="likeSolution(' + Number(item.id) + ')">' + Number(item.likes || 0) + ' likes</button>' +
           '</div>' +
-        '</article>';
-      }
+        '</article>'
       ).join('') : '<div class="rounded-2xl bg-white p-8 text-center font-bold text-slate-500 shadow-sm ring-1 ring-slate-200 md:col-span-2 xl:col-span-3">No solution found.</div>';
     }
 
@@ -125,3 +112,4 @@
   </script>
 </body>
 </html>
+

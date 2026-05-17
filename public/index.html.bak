@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mahar Shwe Mobile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', 'Noto Sans Myanmar', sans-serif; background: #f6f7fb; color: #111827; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .nav-link.active { background: #111827; color: white; }
+    .soft-shadow { box-shadow: 0 18px 60px rgba(15, 23, 42, 0.10); }
+    .glass { background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(18px); }
+  </style>
+</head>
+<body>
+  <header class="sticky top-0 z-50 border-b border-slate-200 glass">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+      <button class="flex items-center gap-3 text-left" data-page="home" aria-label="Mahar Shwe Mobile home">
+        <img src="/logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-xl object-cover ring-1 ring-slate-200">
+        <span>
+          <span class="block text-base font-extrabold tracking-tight text-slate-950">Mahar Shwe Mobile</span>
+          <span class="block text-xs font-semibold text-slate-500">Repair, VPN, Game, Exchange</span>
+        </span>
+      </button>
+
+      <nav class="hidden items-center gap-1 rounded-full bg-white p-1 text-sm font-semibold shadow-sm ring-1 ring-slate-200 lg:flex">
+        <button class="nav-link rounded-full px-4 py-2 transition" data-page="home">Home</button>
+        <button class="nav-link rounded-full px-4 py-2 transition" data-page="voucher">Voucher Lookup</button>
+        <button class="nav-link rounded-full px-4 py-2 transition" data-page="solutions">Repair Solution</button>
+        <button class="nav-link rounded-full px-4 py-2 transition" data-page="products">Digital Product</button>
+        <button class="nav-link rounded-full px-4 py-2 transition" data-page="currency">Currency Exchange</button>
+      </nav>
+
+      <button id="menuBtn" class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-800 lg:hidden">Menu</button>
+    </div>
+    <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white px-4 py-3 lg:hidden">
+      <div class="grid gap-2 text-sm font-semibold">
+        <button class="nav-link rounded-xl px-4 py-3 text-left transition" data-page="home">Home</button>
+        <button class="nav-link rounded-xl px-4 py-3 text-left transition" data-page="voucher">Voucher Lookup</button>
+        <button class="nav-link rounded-xl px-4 py-3 text-left transition" data-page="solutions">Repair Solution</button>
+        <button class="nav-link rounded-xl px-4 py-3 text-left transition" data-page="products">Digital Product</button>
+        <button class="nav-link rounded-xl px-4 py-3 text-left transition" data-page="currency">Currency Exchange</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+    <section id="homePage" class="page active">
+      <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+        <div class="overflow-hidden rounded-2xl bg-slate-950 text-white soft-shadow">
+          <div class="grid min-h-[470px] content-between gap-8 bg-[radial-gradient(circle_at_20%_20%,rgba(20,184,166,.35),transparent_32%),radial-gradient(circle_at_80%_10%,rgba(245,158,11,.28),transparent_30%)] p-6 sm:p-8">
+            <div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide text-teal-100">
+              <span class="rounded-full bg-white/10 px-3 py-1 ring-1 ring-white/15">Phone Repair</span>
+              <span class="rounded-full bg-white/10 px-3 py-1 ring-1 ring-white/15">Digital Service</span>
+              <span class="rounded-full bg-white/10 px-3 py-1 ring-1 ring-white/15">Live Status</span>
+            </div>
+            <div>
+              <h1 class="max-w-3xl text-4xl font-extrabold leading-tight tracking-normal sm:text-5xl">Mahar Shwe Mobile Service Center</h1>
+              <p class="mt-4 max-w-2xl text-base leading-8 text-slate-200">Voucher á€”á€¶á€•á€«á€á€ºá€–á€¼á€„á€ºá€· á€•á€¼á€„á€ºá€†á€„á€ºá€™á€¾á€¯á€¡á€á€¼á€±á€¡á€”á€±á€…á€…á€ºá€”á€­á€¯á€„á€ºá€•á€¼á€®á€¸ Repair Solution, VPN, Game Service á€”á€¾á€„á€ºá€· Currency Exchange á€€á€­á€¯ á€á€…á€ºá€”á€±á€›á€¬á€á€Šá€ºá€¸á€™á€¾á€¬ á€¡á€žá€¯á€¶á€¸á€•á€¼á€¯á€”á€­á€¯á€„á€ºá€•á€«á€á€šá€ºá‹</p>
+              <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                <button class="rounded-xl bg-amber-400 px-5 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-amber-300" data-page="voucher">Voucher á€…á€…á€ºá€™á€šá€º</button>
+                <button class="rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/20 transition hover:bg-white/15" data-page="products">Digital Product á€€á€¼á€Šá€ºá€·á€™á€šá€º</button>
+              </div>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="rounded-xl bg-white/10 p-4 ring-1 ring-white/15"><p class="text-2xl font-extrabold">5</p><p class="text-xs text-slate-300">Main Pages</p></div>
+              <div class="rounded-xl bg-white/10 p-4 ring-1 ring-white/15"><p class="text-2xl font-extrabold">24/7</p><p class="text-xs text-slate-300">Status Lookup</p></div>
+              <div class="rounded-xl bg-white/10 p-4 ring-1 ring-white/15"><p class="text-2xl font-extrabold">KBZ</p><p class="text-xs text-slate-300">Payment Ready</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-4">
+          <article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+            <p class="text-sm font-bold text-slate-500">Quick Voucher Lookup</p>
+            <div class="mt-3 flex gap-2">
+              <input id="homeVoucher" class="min-w-0 flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10" placeholder="e.g. MS1234">
+              <button id="homeVoucherBtn" class="rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white">Check</button>
+            </div>
+            <div id="homeVoucherResult" class="mt-3 text-sm"></div>
+          </article>
+
+          <article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <p class="text-sm font-bold text-slate-500">Live Repairs</p>
+                <h2 class="text-xl font-extrabold text-slate-950">á€šá€”á€±á€·á€•á€¼á€„á€ºá€†á€„á€ºá€”á€±á€žá€±á€¬ á€–á€¯á€”á€ºá€¸á€™á€»á€¬á€¸</h2>
+              </div>
+              <button class="rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold" data-page="voucher">View</button>
+            </div>
+            <div id="livePreview" class="mt-4 grid gap-3"></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <button class="rounded-2xl bg-white p-5 text-left shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md" data-page="voucher">
+          <span class="text-xs font-bold uppercase text-teal-700">01</span>
+          <h3 class="mt-2 text-lg font-extrabold">Voucher Lookup</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">Repair status, model, issue, cost á€á€­á€¯á€·á€€á€­á€¯ voucher á€”á€²á€·á€›á€¾á€¬á€•á€«á‹</p>
+        </button>
+        <button class="rounded-2xl bg-white p-5 text-left shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md" data-page="solutions">
+          <span class="text-xs font-bold uppercase text-amber-700">02</span>
+          <h3 class="mt-2 text-lg font-extrabold">Repair Solution</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">Software, Hardware error solution á€™á€»á€¬á€¸á€€á€­á€¯á€–á€á€ºá€•á€«á‹</p>
+        </button>
+        <button class="rounded-2xl bg-white p-5 text-left shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md" data-page="products">
+          <span class="text-xs font-bold uppercase text-indigo-700">03</span>
+          <h3 class="mt-2 text-lg font-extrabold">Digital Product</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">VPN, Game top-up á€”á€¾á€„á€ºá€· account service á€™á€»á€¬á€¸á‹</p>
+        </button>
+        <button class="rounded-2xl bg-white p-5 text-left shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md" data-page="currency">
+          <span class="text-xs font-bold uppercase text-rose-700">04</span>
+          <h3 class="mt-2 text-lg font-extrabold">Currency Exchange</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">USD, THB, SGD exchange rate á€™á€»á€¬á€¸á€€á€­á€¯á€€á€¼á€Šá€ºá€·á€•á€«á‹</p>
+        </button>
+      </div>
+    </section>
+
+    <section id="voucherPage" class="page">
+      <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <p class="text-sm font-bold text-teal-700">Voucher Lookup</p>
+          <h1 class="mt-2 text-3xl font-extrabold text-slate-950">á€•á€¼á€„á€ºá€†á€„á€ºá€™á€¾á€¯á€¡á€á€¼á€±á€¡á€”á€± á€…á€…á€ºá€†á€±á€¸á€›á€”á€º</h1>
+          <p class="mt-3 leading-7 text-slate-600">á€–á€¯á€”á€ºá€¸á€¡á€•á€ºá€”á€¾á€¶á€‘á€¬á€¸á€á€²á€· voucher á€”á€¶á€•á€«á€á€ºá€€á€­á€¯á€›á€­á€¯á€€á€ºá€‘á€Šá€ºá€·á€•á€«á‹ API á€™á€›á€›á€¾á€­á€žá€±á€¸á€á€²á€·á€¡á€á€»á€­á€”á€ºá€™á€¾á€¬ demo voucher `MS1234` á€”á€²á€·á€…á€™á€ºá€¸á€”á€­á€¯á€„á€ºá€•á€«á€á€šá€ºá‹</p>
+          <div class="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]">
+            <input id="voucherInput" class="rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10" placeholder="Voucher Number">
+            <button id="voucherBtn" class="rounded-xl bg-teal-600 px-6 py-3 font-extrabold text-white hover:bg-teal-500">Search</button>
+          </div>
+          <div id="voucherResult" class="mt-5"></div>
+        </div>
+
+        <div class="rounded-2xl bg-slate-950 p-6 text-white">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="text-sm font-bold text-amber-300">Live Repair Board</p>
+              <h2 class="text-2xl font-extrabold">á€œá€€á€ºá€›á€¾á€­á€•á€¼á€„á€ºá€”á€±á€žá€±á€¬á€…á€¬á€›á€„á€ºá€¸</h2>
+            </div>
+            <span class="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-bold text-emerald-200 ring-1 ring-emerald-300/20">Auto Refresh</span>
+          </div>
+          <input id="liveSearch" class="mt-5 w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-white/10" placeholder="Voucher or model search">
+          <div id="liveTable" class="mt-4 overflow-hidden rounded-xl border border-white/10"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="solutionsPage" class="page">
+      <div class="flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p class="text-sm font-bold text-amber-700">Repair Solution</p>
+          <h1 class="mt-2 text-3xl font-extrabold text-slate-950">á€–á€¯á€”á€ºá€¸á€•á€¼á€„á€ºá€”á€Šá€ºá€¸á€”á€¾á€„á€ºá€· Error Solution á€™á€»á€¬á€¸</h1>
+          <p class="mt-3 max-w-3xl leading-7 text-slate-600">Software issue, Hardware error, flashing, unlock, battery, screen repair á€…á€á€²á€· solution á€™á€»á€¬á€¸á€€á€­á€¯á€›á€¾á€¬á€–á€½á€±á€–á€á€ºá€›á€¾á€¯á€”á€­á€¯á€„á€ºá€•á€«á€á€šá€ºá‹</p>
+        </div>
+        <input id="solutionSearch" class="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 lg:w-80" placeholder="Search solutions">
+      </div>
+      <div id="solutionsGrid" class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+    </section>
+
+    <section id="productsPage" class="page">
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <p class="text-sm font-bold text-indigo-700">Digital Product</p>
+        <h1 class="mt-2 text-3xl font-extrabold text-slate-950">VPN, Game á€”á€¾á€„á€ºá€· Digital Service á€™á€»á€¬á€¸</h1>
+        <p class="mt-3 max-w-3xl leading-7 text-slate-600">á€¡á€±á€¬á€€á€ºá€•á€« product á€™á€»á€¬á€¸á€€á€­á€¯á€›á€½á€±á€¸á€•á€¼á€®á€¸ Telegram á€™á€¾á€¬ order á€•á€¼á€¯á€œá€¯á€•á€ºá€”á€­á€¯á€„á€ºá€•á€«á€á€šá€ºá‹</p>
+      </div>
+      <div id="productGrid" class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4"></div>
+    </section>
+
+    <section id="currencyPage" class="page">
+      <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <p class="text-sm font-bold text-rose-700">Currency Exchange</p>
+          <h1 class="mt-2 text-3xl font-extrabold text-slate-950">á€„á€½á€±á€œá€²á€”á€¾á€¯á€”á€ºá€¸á€™á€»á€¬á€¸</h1>
+          <p class="mt-3 leading-7 text-slate-600">Live API á€™á€›á€›á€¾á€­á€•á€«á€€ demo exchange rate á€€á€­á€¯á€•á€¼á€‘á€¬á€¸á€•á€«á€™á€šá€ºá‹ á€¡á€žá€…á€ºá€•á€¼á€”á€ºá€€á€¼á€Šá€ºá€·á€›á€”á€º refresh button á€€á€­á€¯á€”á€¾á€­á€•á€ºá€•á€«á‹</p>
+          <button id="refreshCurrency" class="mt-6 rounded-xl bg-slate-950 px-5 py-3 text-sm font-extrabold text-white">Refresh Rate</button>
+          <p id="currencyTime" class="mt-4 text-sm font-semibold text-slate-500">Updated: --</p>
+        </div>
+        <div id="currencyList" class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-8 border-t border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
+      <p class="font-semibold">Mahar Shwe Mobile, Theik Taung, Myanmar</p>
+      <div class="flex flex-wrap gap-3 font-bold">
+        <a class="hover:text-slate-950" href="tel:09778394052">09778394052</a>
+        <a class="hover:text-slate-950" href="https://t.me/Mylifemychoice68" target="_blank" rel="noreferrer">Telegram</a>
+        <span>KBZ Pay Ready</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = '/api';
+    const pages = ['home', 'voucher', 'solutions', 'products', 'currency'];
+    const products = [
+      { title: 'Premium VPN', price: '3,000 Ks / month', type: 'VPN', desc: 'Fast server, privacy setup, Android support' },
+      { title: 'VPN 2 Months', price: '5,000 Ks', type: 'VPN', desc: 'Best value package for regular users' },
+      { title: 'Game Top-up', price: 'Ask price', type: 'Game', desc: 'Mobile Legends, PUBG, Free Fire and more' },
+      { title: 'Account Service', price: 'Ask price', type: 'Digital', desc: 'Gmail, Telegram, app account setup help' }
+    ];
+    const fallbackRepairs = [
+      { voucher: 'MS1234', model: 'iPhone 12', owner: 'Aung Aung', issue: 'Screen broken', shop: 'Mahar Shwe', status: 'Ready' },
+      { voucher: 'MS5678', model: 'Samsung A52', owner: 'Su Su', issue: 'Battery drain', shop: 'Mahar Shwe', status: 'Checking' },
+      { voucher: 'MS9012', model: 'Redmi Note', owner: 'Mg Mg', issue: 'Camera issue', shop: 'Mahar Shwe', status: 'Repairing' }
+    ];
+    const fallbackSolutions = [
+      { id: 1, title: 'iPhone Battery Drain Fix', description: 'Battery calibration, background app check á€”á€¾á€„á€ºá€· charging port á€…á€…á€ºá€†á€±á€¸á€”á€Šá€ºá€¸á‹', category: 'Software', author: 'Admin', date: '2026-05-16', likes: 8 },
+      { id: 2, title: 'Samsung Screen Touch Error', description: 'Touch IC, display connector á€”á€¾á€„á€ºá€· software test á€¡á€†á€„á€ºá€·á€™á€»á€¬á€¸á‹', category: 'Hardware', author: 'Technician', date: '2026-05-16', likes: 5 },
+      { id: 3, title: 'Android Network Error', description: 'APN, SIM tray, baseband status á€”á€¾á€„á€ºá€· reset method á€™á€»á€¬á€¸á‹', category: 'Network', author: 'Admin', date: '2026-05-16', likes: 3 }
+    ];
+
+    function el(id) { return document.getElementById(id); }
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    }
+
+    async function callApi(path) {
+      const res = await fetch(API_URL + path);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }
+
+    function showPage(page) {
+      pages.forEach(name => el(name + 'Page').classList.toggle('active', name === page));
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.page === page);
+      });
+      el('mobileMenu').classList.add('hidden');
+      history.replaceState(null, '', page === 'home' ? '/' : '#' + page);
+      if (page === 'voucher') loadLiveRepairs(true);
+      if (page === 'solutions') loadSolutions();
+      if (page === 'products') renderProducts();
+      if (page === 'currency') loadCurrency();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resultCard(data) {
+      return '<div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">' +
+        '<p class="text-base font-extrabold">Status: ' + (data.status || 'Repairing') + '</p>' +
+        '<div class="mt-3 grid gap-2 sm:grid-cols-2">' +
+          '<p><b>Voucher:</b> ' + (data.voucher || '-') + '</p>' +
+          '<p><b>Model:</b> ' + (data.model || '-') + '</p>' +
+          '<p><b>Customer:</b> ' + (data.customer || data.owner || '-') + '</p>' +
+          '<p><b>Issue:</b> ' + (data.issue || '-') + '</p>' +
+          '<p><b>Cost:</b> ' + (data.cost ? Number(data.cost).toLocaleString() + ' Ks' : 'Not set') + '</p>' +
+          '<p><b>Shop:</b> ' + (data.shop || 'Mahar Shwe Mobile') + '</p>' +
+        '</div>' +
+      '</div>';
+    }
+
+    async function lookupVoucher(inputId, outputId) {
+      const voucher = (el(inputId).value || '').trim().toUpperCase();
+      const output = el(outputId);
+      if (!voucher) {
+        output.innerHTML = '<div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-bold text-rose-700">Voucher á€”á€¶á€•á€«á€á€º á€‘á€Šá€ºá€·á€•á€«á‹</div>';
+        return;
+      }
+      output.innerHTML = '<div class="rounded-xl bg-slate-100 p-4 text-sm font-bold text-slate-600">Searching...</div>';
+      try {
+        const data = await callApi('/voucher/' + encodeURIComponent(voucher));
+        output.innerHTML = data && data.found ? resultCard(data) : notFound();
+      } catch (e) {
+        const demo = fallbackRepairs.find(item => item.voucher === voucher);
+        output.innerHTML = demo ? resultCard(demo) : notFound();
+      }
+    }
+
+    function notFound() {
+      return '<div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-bold text-rose-700">Voucher á€™á€á€½á€±á€·á€•á€«á‹ á€”á€¶á€•á€«á€á€ºá€€á€­á€¯á€•á€¼á€”á€ºá€…á€…á€ºá€•á€«á‹</div>';
+    }
+
+    async function loadLiveRepairs(full) {
+      let repairs = fallbackRepairs;
+      try {
+        const data = await callApi('/liveRepairs');
+        if (Array.isArray(data) && data.length) repairs = data;
+      } catch (e) {}
+
+      const term = ((el('liveSearch') && el('liveSearch').value) || '').toLowerCase();
+      const filtered = repairs.filter(item => {
+        return String(item.voucher || '').toLowerCase().includes(term) || String(item.model || '').toLowerCase().includes(term);
+      });
+
+      el('livePreview').innerHTML = filtered.slice(0, 3).map(item =>
+        '<div class="rounded-xl border border-slate-200 bg-slate-50 p-4">' +
+          '<div class="flex items-center justify-between gap-3">' +
+            '<p class="font-mono text-sm font-extrabold text-slate-950">' + item.voucher + '</p>' +
+            '<span class="rounded-full bg-teal-100 px-2 py-1 text-xs font-bold text-teal-800">' + (item.status || 'Live') + '</span>' +
+          '</div>' +
+          '<p class="mt-2 font-bold">' + item.model + '</p>' +
+          '<p class="text-sm text-slate-600">' + item.issue + '</p>' +
+        '</div>'
+      ).join('');
+
+      if (full && el('liveTable')) {
+        el('liveTable').innerHTML = '<div class="overflow-x-auto"><table class="min-w-full text-sm">' +
+          '<thead class="bg-white/10 text-left text-slate-300"><tr><th class="p-3">Voucher</th><th class="p-3">Model</th><th class="p-3">Owner</th><th class="p-3">Issue</th><th class="p-3">Status</th></tr></thead>' +
+          '<tbody>' + filtered.map(item =>
+            '<tr class="border-t border-white/10"><td class="p-3 font-mono font-bold">' + item.voucher + '</td><td class="p-3">' + item.model + '</td><td class="p-3">' + (item.owner || item.customer || '-') + '</td><td class="p-3">' + item.issue + '</td><td class="p-3">' + (item.status || 'Live') + '</td></tr>'
+          ).join('') + '</tbody></table></div>';
+      }
+    }
+
+    async function loadSolutions() {
+      const q = (el('solutionSearch').value || '').trim();
+      el('solutionsGrid').innerHTML = '<div class="rounded-2xl bg-white p-6 text-sm font-bold text-slate-500 shadow-sm ring-1 ring-slate-200">Loading solutions...</div>';
+      let solutions = fallbackSolutions;
+      try {
+        const data = await callApi('/solutions' + (q ? '?q=' + encodeURIComponent(q) : ''));
+        if (Array.isArray(data) && data.length) solutions = data;
+      } catch (e) {}
+      if (q) {
+        const lower = q.toLowerCase();
+        solutions = solutions.filter(item => (item.title + ' ' + item.description + ' ' + item.category).toLowerCase().includes(lower));
+      }
+      el('solutionsGrid').innerHTML = solutions.map(item =>
+        '<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">' +
+          '<div class="flex items-center justify-between gap-3"><span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-800">' + (item.category || 'Tips') + '</span><span class="text-xs font-bold text-slate-400">' + (item.date || '') + '</span></div>' +
+          (item.image ? '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.title) + '" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">' : '') +
+          '<h2 class="mt-4 text-lg font-extrabold text-slate-950">' + item.title + '</h2>' +
+          '<p class="mt-3 text-sm leading-7 text-slate-600">' + item.description + '</p>' +
+          '<div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-bold text-slate-500"><span>' + (item.author || 'Admin') + '</span><span>' + (item.likes || 0) + ' likes</span></div>' +
+        '</article>'
+      ).join('');
+    }
+    async function renderProducts() {
+      el('productGrid').innerHTML = '<div class="rounded-2xl bg-white p-6 text-sm font-bold text-slate-500 shadow-sm ring-1 ring-slate-200">Loading products...</div>';
+      let productList = products;
+      try {
+        const data = await callApi('/products');
+        if (Array.isArray(data) && data.length) productList = data;
+      } catch (e) {}
+
+      el('productGrid').innerHTML = productList.map(product => {
+        const text = encodeURIComponent('Hello Mahar Shwe Mobile, I want to order ' + product.title + ' (' + product.price + ').');
+        const orderUrl = product.orderUrl || ('https://t.me/Mylifemychoice68?text=' + text);
+        return '<article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">' +
+          '<span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-extrabold text-indigo-800">' + product.type + '</span>' +
+          (product.image ? '<img src="' + product.image + '" alt="' + product.title + '" class="mt-4 aspect-video w-full rounded-xl object-cover ring-1 ring-slate-200">' : '') +
+          '<h2 class="mt-4 text-xl font-extrabold text-slate-950">' + product.title + '</h2>' +
+          '<p class="mt-2 text-2xl font-extrabold text-indigo-700">' + product.price + '</p>' +
+          '<p class="mt-3 min-h-14 text-sm leading-6 text-slate-600">' + product.desc + '</p>' +
+          '<a class="mt-5 block rounded-xl bg-slate-950 px-4 py-3 text-center text-sm font-extrabold text-white" href="' + orderUrl + '" target="_blank" rel="noreferrer">Order on Telegram</a>' +
+        '</article>';
+      }).join('');
+    }
+    async function loadCurrency() {
+      el('currencyList').innerHTML = '<div class="p-4 text-sm font-bold text-slate-500">Loading rates...</div>';
+      let rates = [
+        { code: 'USD', rate: 3520, change: '+0.5%' },
+        { code: 'THB', rate: 98.5, change: '-0.2%' },
+        { code: 'SGD', rate: 2610, change: '+0.1%' }
+      ];
+      try {
+        const data = await callApi('/currency');
+        if (Array.isArray(data) && data.length) rates = data;
+      } catch (e) {}
+      el('currencyTime').textContent = 'Updated: ' + new Date().toLocaleString();
+      el('currencyList').innerHTML = '<div class="grid gap-3">' + rates.map(item =>
+        '<div class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-4">' +
+          '<div><p class="text-lg font-extrabold text-slate-950">' + item.code + '</p><p class="text-xs font-bold text-slate-500">' + (item.name || 'Myanmar Kyat') + '</p></div>' +
+          '<div class="text-right"><p class="text-xl font-extrabold">' + Number(item.rate).toLocaleString() + ' MMK</p><p class="text-xs font-bold ' + (String(item.change).startsWith('-') ? 'text-rose-600' : 'text-emerald-600') + '">' + item.change + '</p></div>' +
+        '</div>'
+      ).join('') + '</div>';
+    }
+
+    document.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => showPage(button.dataset.page)));
+    el('menuBtn').addEventListener('click', () => el('mobileMenu').classList.toggle('hidden'));
+    el('homeVoucherBtn').addEventListener('click', () => lookupVoucher('homeVoucher', 'homeVoucherResult'));
+    el('voucherBtn').addEventListener('click', () => lookupVoucher('voucherInput', 'voucherResult'));
+    el('liveSearch').addEventListener('input', () => loadLiveRepairs(true));
+    el('solutionSearch').addEventListener('input', () => {
+      clearTimeout(window.solutionTimer);
+      window.solutionTimer = setTimeout(loadSolutions, 250);
+    });
+    el('refreshCurrency').addEventListener('click', loadCurrency);
+
+    const initial = location.hash ? location.hash.slice(1) : 'home';
+    showPage(pages.includes(initial) ? initial : 'home');
+    loadLiveRepairs(false);
+    setInterval(() => loadLiveRepairs(el('voucherPage').classList.contains('active')), 30000);
+  </script>
+</body>
+</html>
+
