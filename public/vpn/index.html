@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MaharShwe VPN</title>
+  <meta name="description" content="MaharShwe VPN Android APK download, free server updates, and support.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2214050108534419"
+     crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Noto+Sans+Myanmar:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --ink: #141510;
+      --paper: #fffaf0;
+      --gold: #ff9f19;
+      --yellow: #ffd93b;
+      --green: #15936b;
+      --muted: #667085;
+      --line: rgba(20, 21, 16, 0.12);
+    }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, "Noto Sans Myanmar", system-ui, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    header {
+      background: rgba(255, 250, 240, 0.94);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .wrap {
+      margin: 0 auto;
+      max-width: 980px;
+      padding: 0 18px;
+    }
+    .nav {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      min-height: 66px;
+    }
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand img {
+      border-radius: 10px;
+      height: 42px;
+      object-fit: cover;
+      width: 42px;
+    }
+    .brand strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 900;
+    }
+    .brand small {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .support {
+      background: var(--ink);
+      border-radius: 8px;
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    main {
+      padding: 28px 0 44px;
+    }
+    .hero {
+      align-items: center;
+      display: grid;
+      gap: 24px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.9fr);
+    }
+    .logo {
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(20, 21, 16, 0.16);
+      height: 104px;
+      object-fit: cover;
+      width: 104px;
+    }
+    h1 {
+      font-size: clamp(38px, 7vw, 76px);
+      letter-spacing: 0;
+      line-height: 0.98;
+      margin: 18px 0 14px;
+    }
+    .lead {
+      color: #344054;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.8;
+      margin: 0;
+      max-width: 620px;
+    }
+    .actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+      max-width: 420px;
+    }
+    .button {
+      align-items: center;
+      border-radius: 8px;
+      display: flex;
+      font-size: 16px;
+      font-weight: 900;
+      justify-content: space-between;
+      padding: 15px 16px;
+      text-decoration: none;
+    }
+    .primary {
+      background: var(--gold);
+      color: var(--ink);
+    }
+    .secondary {
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .panel {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 14px 30px rgba(20, 21, 16, 0.08);
+      padding: 18px;
+    }
+    .panel h2 {
+      font-size: 22px;
+      margin: 0 0 12px;
+    }
+    .panel ul {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .panel li {
+      border-left: 4px solid var(--gold);
+      color: #344054;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.7;
+      padding-left: 12px;
+    }
+    .notice {
+      background: #e7f6ec;
+      border: 1px solid rgba(21, 147, 107, 0.22);
+      border-radius: 8px;
+      color: #0f5f47;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.8;
+      margin-top: 20px;
+      padding: 14px 16px;
+    }
+    .ad-note {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 20px;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 18px 0 26px;
+    }
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; }
+      .support { font-size: 12px; padding: 9px 10px; }
+      .logo { height: 86px; width: 86px; }
+      h1 { font-size: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/vpn/">
+        <img src="logo.jpg" alt="MaharShwe VPN logo">
+        <span>
+          <strong>MaharShwe VPN</strong>
+          <small>maharshwe.online/vpn</small>
+        </span>
+      </a>
+      <a class="support" href="https://t.me/Mylifemychoice68">Telegram Admin</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <img class="logo" src="logo.jpg" alt="MaharShwe VPN logo">
+        <h1>MaharShwe VPN</h1>
+        <p class="lead">Free Server key များကို Google Sheet ကနေ auto pull လုပ်ထားပြီး app ထဲမှာ server အရေအတွက်အတိုင်း ပေါ်ပါမယ်။ Update နဲ့ notification များကို ဒီနေရာကနေ ကြည့်နိုင်ပါတယ်။</p>
+        <div class="actions">
+          <a class="button primary" href="/download/maharshwe-vpn-arm64.apk" download>
+            <span>Download Small APK</span>
+            <span>26.6 MB</span>
+          </a>
+          <a class="button secondary" href="/download/maharshwe-vpn.apk" download>
+            <span>Download Universal APK</span>
+            <span>54.6 MB</span>
+          </a>
+        </div>
+        <div class="meta">Recommended: Small APK works on most modern Android phones with arm64-v8a.</div>
+      </div>
+
+      <aside class="panel">
+        <h2>Update Status</h2>
+        <ul>
+          <li>App logo/icon/splash are MaharShwe PNG logo.</li>
+          <li>Theme color follows the logo: gold, yellow, green, and dark ink.</li>
+          <li>Free Server connected ဖြစ်ရင် 10 မိနစ်တစ်ကြိမ် warning message ပြပါမယ်။</li>
+          <li>Paid/private key သုံးရင် warning မပေါ်ပါ။</li>
+        </ul>
+      </aside>
+    </section>
+
+    <div class="notice">
+      Free Server သုံးရင် line မတည်ငြိမ်နိုင်ပါတယ်။ လူအများနဲ့ share သုံးရတဲ့ server ဖြစ်လို့ တစ်ဦးတည်း stable သုံးချင်ရင် VPN Key ဝယ်နိုင်ပါတယ်။
+    </div>
+    <p class="ad-note">Free key page မှာ Google AdSense script ထည့်ထားပါတယ်။</p>
+  </main>
+
+  <footer>
+    <div class="wrap">MaharShwe VPN · Contact: 09778394052 · KBZ Pay: Khun Myint Aung</div>
+  </footer>
+</body>
+</html>

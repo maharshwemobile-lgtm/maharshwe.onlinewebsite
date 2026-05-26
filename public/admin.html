@@ -22,7 +22,7 @@
         <img src="/logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-2xl object-cover ring-1 ring-slate-200">
         <span>
           <b class="block text-slate-950">Mahar Shwe Admin</b>
-          <small class="font-bold text-slate-500">Product & Solution Upload</small>
+          <small class="font-bold text-slate-500">Product, Solution & Notification</small>
         </span>
       </a>
       <a class="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-black text-white" href="/">Website</a>
@@ -45,9 +45,10 @@
       <p class="mt-2 text-xs font-bold text-slate-500">Key ကို browser ထဲမှာပဲ သိမ်းထားပါမယ်။ Public website code ထဲမှာ မထည့်ထားပါ။</p>
     </section>
 
-    <section class="mt-4 grid grid-cols-2 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200">
+    <section class="mt-4 grid grid-cols-3 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200">
       <button class="tab active rounded-2xl px-3 py-3 text-sm font-black" data-tab="product">Digital Product</button>
       <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="solution">Repair Solution</button>
+      <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="notification">Send Notification</button>
     </section>
 
     <section id="productPanel" class="panel active mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
@@ -99,6 +100,26 @@
         </label>
         <img id="solutionPreview" class="hidden aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200" alt="Solution preview">
         <button class="rounded-2xl bg-amber-600 px-5 py-4 font-black text-white" type="submit">Solution တင်မယ်</button>
+      </form>
+    </section>
+
+    <section id="notificationPanel" class="panel mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <p class="text-xs font-black uppercase text-emerald-700">MaharShwe VPN</p>
+          <h2 class="mt-1 text-2xl font-black">Send Notification</h2>
+        </div>
+        <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-800">POST /api/notifications/send</span>
+      </div>
+
+      <form id="notificationForm" class="mt-5 grid gap-4">
+        <input class="field" name="title" placeholder="Title e.g. MaharShwe VPN Update" value="MaharShwe VPN Update" required>
+        <textarea class="field min-h-28" name="body" placeholder="Message for VPN users" required></textarea>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <input class="field" name="url" placeholder="Open URL" value="https://maharshwe.online/vpn">
+          <input class="field" name="topic" placeholder="FCM topic" value="maharshwe-vpn">
+        </div>
+        <button class="rounded-2xl bg-emerald-700 px-5 py-4 font-black text-white" type="submit">Send Notification</button>
       </form>
     </section>
 
@@ -187,6 +208,31 @@
       }
     }
 
+    async function submitNotificationForm(form) {
+      const key = apiKeyInput.value.trim();
+      if (!key) {
+        showStatus('error', 'API Key first, then Save Key.');
+        return;
+      }
+
+      const payload = formToObject(form);
+      showStatus('ok', 'Sending notification...');
+      try {
+        const res = await fetch('/api/notifications/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': key },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) {
+          throw new Error(data.message || data.error || 'Notification failed');
+        }
+        showStatus('ok', 'Notification sent to topic: ' + (data.topic || payload.topic || 'maharshwe-vpn'));
+      } catch (error) {
+        showStatus('error', 'Notification failed. ' + error.message);
+      }
+    }
+
     document.getElementById('saveKeyBtn').addEventListener('click', () => {
       localStorage.setItem('maharshwe_admin_api_key', apiKeyInput.value.trim());
       showStatus('ok', 'API Key သိမ်းပြီးပါပြီ။');
@@ -208,6 +254,10 @@
     document.getElementById('solutionForm').addEventListener('submit', event => {
       event.preventDefault();
       submitAdminForm('solution', event.currentTarget);
+    });
+    document.getElementById('notificationForm').addEventListener('submit', event => {
+      event.preventDefault();
+      submitNotificationForm(event.currentTarget);
     });
   </script>
 </body>

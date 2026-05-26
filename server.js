@@ -3,6 +3,7 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 function loadEnvFile() {
   const envFile = path.join(__dirname, '.env');
@@ -34,14 +35,16 @@ const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const SOLUTIONS_FILE = path.join(DATA_DIR, 'solutions.json');
 const CURRENCY_FILE = path.join(DATA_DIR, 'currency.json');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
+const NOTIFICATION_TOKENS_FILE = path.join(DATA_DIR, 'notification_tokens.json');
 const UPLOAD_ROOT = path.join(__dirname, 'public', 'uploads');
 const SOLUTION_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'solutions');
 const PRODUCT_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'products');
+const DEFAULT_FCM_TOPIC = process.env.FCM_TOPIC || 'maharshwe-vpn';
 
 for (const dir of [DATA_DIR, SOLUTION_UPLOAD_DIR, PRODUCT_UPLOAD_DIR]) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
-for (const file of [SOLUTIONS_FILE, CURRENCY_FILE, PRODUCTS_FILE]) {
+for (const file of [SOLUTIONS_FILE, CURRENCY_FILE, PRODUCTS_FILE, NOTIFICATION_TOKENS_FILE]) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, '[]', 'utf8');
 }
 
@@ -52,6 +55,121 @@ function readJson(file, fallback = []) {
 
 function writeJson(file, data) {
   fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+}
+
+const firebaseTokenCache = { accessToken: '', expiresAt: 0 };
+
+function base64Url(input) {
+  return Buffer.from(input)
+    .toString('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+}
+
+function normalizeFirebasePrivateKey(value) {
+  return String(value || '').replace(/\\n/g, '\n').trim();
+}
+
+function getFirebaseConfig() {
+  return {
+    projectId: process.env.FIREBASE_PROJECT_ID || '',
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL || '',
+    privateKey: normalizeFirebasePrivateKey(process.env.FIREBASE_PRIVATE_KEY),
+  };
+}
+
+function getMissingFirebaseConfig(config) {
+  return ['projectId', 'clientEmail', 'privateKey'].filter(key => !config[key]);
+}
+
+async function getFirebaseAccessToken(config) {
+  if (firebaseTokenCache.accessToken && firebaseTokenCache.expiresAt > Date.now() + 60000) {
+    return firebaseTokenCache.accessToken;
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  const header = base64Url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  const claim = base64Url(JSON.stringify({
+    iss: config.clientEmail,
+    scope: 'https://www.googleapis.com/auth/firebase.messaging',
+    aud: 'https://oauth2.googleapis.com/token',
+    iat: now,
+    exp: now + 3600,
+  }));
+  const unsignedJwt = `${header}.${claim}`;
+  const signature = crypto
+    .createSign('RSA-SHA256')
+    .update(unsignedJwt)
+    .sign(config.privateKey, 'base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion: `${unsignedJwt}.${signature}`,
+    }).toString(),
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.access_token) {
+    throw new Error(data.error_description || data.error || 'Firebase auth failed');
+  }
+
+  firebaseTokenCache.accessToken = data.access_token;
+  firebaseTokenCache.expiresAt = Date.now() + Number(data.expires_in || 3600) * 1000;
+  return firebaseTokenCache.accessToken;
+}
+
+async function sendFirebaseTopicNotification({ title, body, url, topic }) {
+  const config = getFirebaseConfig();
+  const missing = getMissingFirebaseConfig(config);
+  if (missing.length > 0) {
+    const error = new Error('Firebase config missing: ' + missing.join(', '));
+    error.status = 501;
+    throw error;
+  }
+
+  const accessToken = await getFirebaseAccessToken(config);
+  const targetTopic = String(topic || DEFAULT_FCM_TOPIC).replace(/^\/topics\//, '').trim() || DEFAULT_FCM_TOPIC;
+  const response = await fetch(
+    `https://fcm.googleapis.com/v1/projects/${config.projectId}/messages:send`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: {
+          topic: targetTopic,
+          notification: { title, body },
+          data: {
+            url: url || 'https://maharshwe.online/vpn',
+            topic: targetTopic,
+          },
+          android: {
+            priority: 'HIGH',
+            notification: {
+              icon: 'small_icon',
+              color: '#ff9f19',
+            },
+          },
+          webpush: {
+            fcm_options: { link: url || 'https://maharshwe.online/vpn' },
+          },
+        },
+      }),
+    }
+  );
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data.error?.message || data.error || 'Firebase send failed');
+  }
+  return data;
 }
 
 function requireTelegramKey(req, res, next) {
@@ -267,6 +385,52 @@ app.use(express.json({ limit: '10mb' }));
 app.get('/solutions', (req, res) => res.sendFile(path.join(__dirname, 'public', 'solutions.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/api/notifications/register', (req, res) => {
+  try {
+    const token = String(req.body.token || '').trim();
+    if (!token) {
+      return res.status(400).json({ error: true, message: 'Missing FCM token' });
+    }
+
+    const tokens = readJson(NOTIFICATION_TOKENS_FILE);
+    const existingIndex = tokens.findIndex(item => item.token === token);
+    const record = {
+      token,
+      platform: String(req.body.platform || 'android').trim(),
+      topic: String(req.body.topic || DEFAULT_FCM_TOPIC).trim(),
+      updatedAt: new Date().toISOString(),
+    };
+    if (existingIndex >= 0) {
+      tokens[existingIndex] = { ...tokens[existingIndex], ...record };
+    } else {
+      tokens.push({ ...record, createdAt: record.updatedAt });
+    }
+    writeJson(NOTIFICATION_TOKENS_FILE, tokens);
+    return res.json({ success: true, topic: record.topic });
+  } catch (error) {
+    console.error('Notification registration error:', error.message);
+    return res.status(500).json({ error: true, message: 'Internal server error' });
+  }
+});
+
+app.post('/api/notifications/send', requireTelegramKey, async (req, res) => {
+  try {
+    const title = String(req.body.title || '').trim();
+    const body = String(req.body.body || '').trim();
+    const url = String(req.body.url || 'https://maharshwe.online/vpn').trim();
+    const topic = String(req.body.topic || DEFAULT_FCM_TOPIC).trim();
+    if (!title || !body) {
+      return res.status(400).json({ error: true, message: 'Title and message are required' });
+    }
+
+    const result = await sendFirebaseTopicNotification({ title, body, url, topic });
+    return res.json({ success: true, topic, result });
+  } catch (error) {
+    console.error('Notification send error:', error.message);
+    return res.status(error.status || 500).json({ error: true, message: error.message });
+  }
+});
 
 app.get('/api/liveRepairs', async (req, res) => {
   try {
