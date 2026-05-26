@@ -1,59 +1,83 @@
-# MaharShwe Website
+# OpenClaw Website
 
-ဤ repository သည် [OpenClaw](https://openclaw.ai/) AI Assistant အတွက် ရည်ရွယ်၍ ဖန်တီးထားသော Website Project (သို့မဟုတ် Landing Page) ဖြစ်ပါသည်။ 
+ဤ repository သည် [OpenClaw](https://openclaw.ai/) AI Assistant အတွက် ရည်ရွယ်၍ ဖန်တီးထားသော Website Project ဖြစ်ပါသည်။  
+Modern, responsive, and user-friendly landing page/web app for OpenClaw AI Assistant.
+
+---
 
 ## 🌟 အဓိက လုပ်ဆောင်ချက်များ (Features)
+
 - **Responsive Design:** Mobile, Tablet နှင့် Desktop များတွင် အဆင်ပြေချောမွေ့စွာ အသုံးပြုနိုင်ခြင်း။
 - **User-Friendly Interface:** အသုံးပြုသူများအတွက် ရှင်းလင်းလွယ်ကူသော ဒီဇိုင်းရှိခြင်း။
-- **Feature 3:** (သင့် Website ၏ အခြားထူးခြားချက်တစ်ခုခုကို ဤနေရာတွင် ဖြည့်ပါ)
+- **SEO Optimized:** Search engines များတွင် ကြည့်ရှုနိုင်အောင် ပြုလုပ်ထားခြင်း။
+- **Fast Loading:** Performance နှင့် Speed ကို အထူးအလေးထား ဖန်တီးထားခြင်း။
+- **Customizable Theme:** ထပ်မံ ပြင်ဆင်နိုင်သော UI/UX။
+- **Integration Ready:** OpenClaw AI သို့ API/Backend အသုံးပြုရန်။
+- **Multilingual Support (Roadmap):** ပိုမိုလွယ်ကူအောင် ဘာသာစကားများ ထည့်သွင်းနိုင်စေရန် ကြိုးပမ်းနေဆဲပါ။
+
+---
 
 ## 💻 အသုံးပြုထားသော နည်းပညာများ (Tech Stack)
-*(မိမိ Project တွင် အသုံးပြုထားသော နည်းပညာများပေါ်မူတည်၍ အောက်ပါတို့ကို ပြင်ဆင်ပါ)*
-- **Frontend:** HTML, CSS, JavaScript (သို့မဟုတ် React, Next.js, Vue စသည်)
+
+- **Frontend:** HTML, CSS, JavaScript (optionally React, Next.js, Vue.js)
 - **Styling:** Tailwind CSS / Bootstrap
-- **Backend (ရှိပါက):** Node.js, Express, Python
+- **Backend (Optional):** Node.js, Express, Python, or other RESTful technologies
+- **Deployment:** Vercel, Netlify, or own hosting
+- **Version Control:** Git & GitHub
 
-## 🚀 ထည့သွင်းအသုံးပြုနည်း (Installation & Setup)
+---
 
-သင့်စက်ထဲတွင် ဤ Project ကို Run နိုင်ရန် အောက်ပါအဆင့်များအတိုင်း လုပ်ဆောင်ပါ -
+## 🚀 ထည့်သွင်းအသုံးပြုနည်း (Installation & Setup)
 
-1. **Repository ကို Clone လုပ်ပါ:**
+သင့်စက်တွင် ဤ Project ကို run နိုင်ရန် အောက်ပါအဆင့်များအတိုင်း လုပ်ဆောင်ပါ။
+
+1. **Repository ကို Clone လုပ်ပါ**
    ```bash
-   git clone https://github.com/maharshwemobile-lgtm/maharshwe.onlinewebsite
-.git
+   git clone https://github.com/maharshwemobile-lgtm/maharshwe.onlinewebsite.git
    ```
 
-2. **Project Folder ထဲသို့ ဝင်ပါ:**
+2. **Project Folder ထဲသို့ ဝင်ပါ**
    ```bash
    cd openclawwebsite
    ```
 
-3. **လိုအပ်သော Packages (Dependencies) များကို Install လုပ်ပါ:**
+3. **လိုအပ်သော Packages များကို Install လုပ်ပါ**
    ```bash
    npm install
-   # သို့မဟုတ် yarn install
+   # or
+   yarn install
    ```
 
-4. **Project ကို စတင် Run ပါ:**
+4. **Project ကို Run လုပ်ပါ**
    ```bash
    npm run dev
-   # သို့မဟုတ် npm start
+   # or
+   npm start
    ```
 
-Project ကို Browser တွင် http://localhost:3000 (သို့မဟုတ် သက်ဆိုင်ရာ Port) ဖြင့် ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်။
+Browser မှာ [http://localhost:3000](http://localhost:3000) (သို့မဟုတ် သက်ဆိုင်ရာ port) ဖြင့် ကြည့်ရှုနိုင်ပါသည်။
 
-## 🤝 ပါဝင်ကူညီရန် (Contributing)
-ဤ Project ကို ပိုမိုကောင်းမွန်လာစေရန် ပါဝင်ကူညီလိုပါက အောက်ပါအဆင့်များအတိုင်း လုပ်ဆောင်နိုင်ပါသည် -
-
-1. ဤ Repository ကို Fork လုပ်ပါ။
-2. Branch အသစ်တစ်ခု ဖန်တီးပါ (`git checkout -b feature/AmazingFeature`)
-3. သင်၏ ပြင်ဆင်မှုများကို Commit လုပ်ပါ (`git commit -m 'Add some AmazingFeature'`)
-4. သင်၏ Branch ကို Push လုပ်ပါ (`git push origin feature/AmazingFeature`)
-5. Pull Request (PR) တစ်ခု ဖွင့်၍ တောင်းဆိုပါ။
-
-## 📄 လိုင်စင် (License)
-ဤ Project ကို MIT License ဖြင့် ဖြန့်ဝေထားပါသည်။ (လိုအပ်ပါက သင့် Project လိုင်စင်အလိုက် ပြင်ဆင်နိုင်ပါသည်)
+**မှတ်ချက်:** သာမန် HTML/CSS သီးသန့်ဖြင့်ရေးထားပါက `npm install` မလိုအပ်နိုင်ပါ။
 
 ---
 
-**မှတ်ချက်:** တကယ်လို့ သင့် Project က သာမန် HTML/CSS နဲ့ပဲ ရေးထားတာဆိုရင်တော့ `npm install` လို အဆင့်တွေကို ဖျက်ပြီး "ဖိုင်ထဲက `index.html` ကို Browser မှာ ဖွင့်ပြီး ကြည့်ရှုနိုင်ပါတယ်" လို့ ပြင်ရေးလို့ ရပါတယ်။
+## 🤝 ပါဝင်ကူညီရန် (Contributing)
+
+ဤ Project ကို ပိုမိုကောင်းမွန်စေချင်ပါက ပူးပေါင်းပါဝင်နိုင်ပါသည်။
+
+1. ဤ Repository ကို Fork လုပ်ပါ။
+2. အခြား branch အသစ်တစ်ခု ဖန်တီးပါ (`git checkout -b feature/AmazingFeature`)
+3. သင်၏ ပြင်ဆင်မှုများကို Commit လုပ်ပါ (`git commit -m 'Add some AmazingFeature'`)
+4. သင်၏ branch ကို Push လုပ်ပါ (`git push origin feature/AmazingFeature`)
+5. Pull Request တစ်ခု တင်ပေးပါ
+
+---
+
+## 📄 လိုင်စင် (License)
+
+ဤ Project ကို [MIT License](LICENSE) ဖြင့် ဖြန့်ဝေထားပါသည်။
+
+---
+
+**မှတ်ချက်:** Feedback & Contributions are welcome!  
+If you encounter any issues or have suggestions, feel free to open an issue or pull request.
