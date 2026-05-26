@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MaharShwe VPN Data Safety</title>
+  <meta name="description" content="Data safety summary for MaharShwe VPN.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Noto+Sans+Myanmar:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#141510; --paper:#fffaf0; --gold:#ff9f19; --line:rgba(20,21,16,.14); --muted:#667085; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter,"Noto Sans Myanmar",system-ui,sans-serif; line-height:1.75; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px; }
+    header, footer { background:#fffaf0; border-bottom:1px solid var(--line); }
+    footer { border-top:1px solid var(--line); border-bottom:0; color:var(--muted); }
+    .brand { display:flex; align-items:center; gap:12px; color:inherit; text-decoration:none; font-weight:900; }
+    .brand img { width:44px; height:44px; object-fit:contain; border-radius:10px; background:white; }
+    h1 { font-size:clamp(34px,6vw,62px); line-height:1; margin:24px 0 10px; }
+    h2 { margin-top:30px; font-size:22px; }
+    p, li { color:#344054; font-weight:700; }
+    a { color:#0f7a5b; font-weight:900; }
+    table { width:100%; border-collapse:collapse; background:white; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    th, td { border-bottom:1px solid var(--line); padding:12px; text-align:left; vertical-align:top; }
+    th { background:#fff3d7; color:var(--ink); }
+    .meta { color:var(--muted); font-size:13px; font-weight:800; }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><a class="brand" href="/vpn/"><img src="logo.png" alt="MaharShwe VPN logo"><span>MaharShwe VPN</span></a></div></header>
+  <main class="wrap">
+    <p class="meta">Last updated: May 26, 2026</p>
+    <h1>Data Safety Summary</h1>
+    <p>This page helps users and Play Console reviewers understand the main data practices in MaharShwe VPN. The official Play Console Data safety form should match the production app behavior.</p>
+    <table>
+      <thead><tr><th>Data type</th><th>Use</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Device or other IDs</td><td>Firebase notifications and Google AdMob ads</td><td>Used for push delivery, ad serving, fraud prevention, and measurement.</td></tr>
+        <tr><td>App activity / ad interactions</td><td>Google AdMob</td><td>May be collected by Google when ads are shown to free server users.</td></tr>
+        <tr><td>VPN access keys</td><td>VPN connection</td><td>Stored on the device. Do not share keys publicly.</td></tr>
+        <tr><td>Camera</td><td>QR key scanning</td><td>Processed on device for scanning; images are not uploaded by the scanner.</td></tr>
+        <tr><td>Contact information</td><td>Support only</td><td>Only if the user contacts support through Telegram, phone, or payment channels.</td></tr>
+      </tbody>
+    </table>
+    <h2>Security</h2>
+    <p>App and server traffic should use HTTPS where applicable. Users can disable notifications and camera permission in Android settings.</p>
+  </main>
+  <footer><div class="wrap">MaharShwe VPN | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a> | <a href="user-guide.html">User Guide</a></div></footer>
+</body>
+</html>
