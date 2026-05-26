@@ -1,4 +1,4 @@
-# OpenClaw Website
+# MaharShwe Website
 
 ဤ repository သည် [OpenClaw](https://openclaw.ai/) AI Assistant အတွက် ရည်ရွယ်၍ ဖန်တီးထားသော Website Project (သို့မဟုတ် Landing Page) ဖြစ်ပါသည်။ 
 
@@ -19,7 +19,8 @@
 
 1. **Repository ကို Clone လုပ်ပါ:**
    ```bash
-   git clone https://github.com/maharshwemobile-lgtm/openclawwebsite.git
+   git clone https://github.com/maharshwemobile-lgtm/maharshwe.onlinewebsite
+.git
    ```
 
 2. **Project Folder ထဲသို့ ဝင်ပါ:**
