@@ -40,6 +40,7 @@ const UPLOAD_ROOT = path.join(__dirname, 'public', 'uploads');
 const SOLUTION_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'solutions');
 const PRODUCT_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'products');
 const DEFAULT_FCM_TOPIC = process.env.FCM_TOPIC || 'maharshwe-vpn';
+const DEFAULT_NOTIFICATION_URL = 'https://maharshwe.online/download/maharshwe-vpn.apk';
 
 for (const dir of [DATA_DIR, SOLUTION_UPLOAD_DIR, PRODUCT_UPLOAD_DIR]) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -135,6 +136,7 @@ async function sendFirebaseTopicNotification({ title, body, url, topic }) {
 
   const accessToken = await getFirebaseAccessToken(config);
   const targetTopic = String(topic || DEFAULT_FCM_TOPIC).replace(/^\/topics\//, '').trim() || DEFAULT_FCM_TOPIC;
+  const targetUrl = String(url || DEFAULT_NOTIFICATION_URL).trim() || DEFAULT_NOTIFICATION_URL;
   const response = await fetch(
     `https://fcm.googleapis.com/v1/projects/${config.projectId}/messages:send`,
     {
@@ -146,9 +148,10 @@ async function sendFirebaseTopicNotification({ title, body, url, topic }) {
       body: JSON.stringify({
         message: {
           topic: targetTopic,
-          notification: { title, body },
           data: {
-            url: url || 'https://maharshwe.online/vpn',
+            title,
+            body,
+            url: targetUrl,
             topic: targetTopic,
           },
           android: {
@@ -159,7 +162,8 @@ async function sendFirebaseTopicNotification({ title, body, url, topic }) {
             },
           },
           webpush: {
-            fcm_options: { link: url || 'https://maharshwe.online/vpn' },
+            notification: { title, body },
+            fcm_options: { link: targetUrl },
           },
         },
       }),
@@ -418,7 +422,7 @@ app.post('/api/notifications/send', requireTelegramKey, async (req, res) => {
   try {
     const title = String(req.body.title || '').trim();
     const body = String(req.body.body || '').trim();
-    const url = String(req.body.url || 'https://maharshwe.online/vpn').trim();
+    const url = String(req.body.url || DEFAULT_NOTIFICATION_URL).trim();
     const topic = String(req.body.topic || DEFAULT_FCM_TOPIC).trim();
     if (!title || !body) {
       return res.status(400).json({ error: true, message: 'Title and message are required' });
