@@ -40,7 +40,7 @@ const UPLOAD_ROOT = path.join(__dirname, 'public', 'uploads');
 const SOLUTION_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'solutions');
 const PRODUCT_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'products');
 const DEFAULT_FCM_TOPIC = process.env.FCM_TOPIC || 'maharshwe-vpn';
-const DEFAULT_NOTIFICATION_URL = 'https://maharshwe.online/download/maharshwe-vpn.apk';
+const DEFAULT_NOTIFICATION_URL = 'https://maharshwe.online/download/?auto=1';
 
 for (const dir of [DATA_DIR, SOLUTION_UPLOAD_DIR, PRODUCT_UPLOAD_DIR]) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
