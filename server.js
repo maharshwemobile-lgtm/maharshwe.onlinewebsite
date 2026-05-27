@@ -156,10 +156,6 @@ async function sendFirebaseTopicNotification({ title, body, url, topic }) {
           },
           android: {
             priority: 'HIGH',
-            notification: {
-              icon: 'small_icon',
-              color: '#ff9f19',
-            },
           },
           webpush: {
             notification: { title, body },
