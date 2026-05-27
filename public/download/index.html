@@ -53,6 +53,46 @@
       text-decoration: none;
       width: 100%;
     }
+    .version-panel {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      margin-top: 22px;
+      padding: 16px;
+    }
+    label {
+      color: #fff3b0;
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    select {
+      background: #202218;
+      border: 1px solid rgba(255, 217, 59, 0.42);
+      border-radius: 8px;
+      color: #f8fafc;
+      font: inherit;
+      font-weight: 800;
+      padding: 13px 12px;
+      width: 100%;
+    }
+    .version-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .secondary-link {
+      align-items: center;
+      border: 1px solid rgba(255, 217, 59, 0.42);
+      border-radius: 8px;
+      color: #ffd93b;
+      display: flex;
+      font-weight: 900;
+      justify-content: center;
+      padding: 13px 14px;
+      text-decoration: none;
+    }
     a.contact {
       color: #ffd93b;
       display: inline-block;
@@ -88,13 +128,57 @@
     <a class="download" href="maharshwe-vpn.apk" download>Download / Update APK</a>
     <div class="meta">Version 1.0.1 | File: maharshwe-vpn.apk | Size: 17.8 MB | arm64</div>
     <div class="meta">Old 32-bit phones: <a class="contact" href="maharshwe-vpn-armv7.apk" download>Download armv7 APK</a> | 17.4 MB</div>
+    <section class="version-panel">
+      <label for="versionSelect">Choose APK version</label>
+      <select id="versionSelect">
+        <option value="1.0.1">1.0.1 Latest - recommended</option>
+        <option value="1.0.0">1.0.0 Old version</option>
+      </select>
+      <div class="version-actions">
+        <a id="arm64Link" class="download" href="maharshwe-vpn-1.0.1-arm64.apk" download>Download selected arm64 APK</a>
+        <a id="armv7Link" class="secondary-link" href="maharshwe-vpn-1.0.1-armv7.apk" download>Download selected armv7 APK</a>
+      </div>
+      <div id="versionMeta" class="meta">Selected: 1.0.1 | arm64 17.8 MB | armv7 17.4 MB</div>
+    </section>
     <a class="contact" href="https://t.me/Mylifemychoice68">Telegram Support</a>
   </main>
   <script>
     const params = new URLSearchParams(window.location.search);
+    const versions = {
+      '1.0.1': {
+        arm64: 'maharshwe-vpn-1.0.1-arm64.apk',
+        armv7: 'maharshwe-vpn-1.0.1-armv7.apk',
+        meta: 'Selected: 1.0.1 latest | arm64 17.8 MB | armv7 17.4 MB'
+      },
+      '1.0.0': {
+        arm64: 'maharshwe-vpn-1.0.0-arm64.apk',
+        armv7: 'maharshwe-vpn-1.0.0-armv7.apk',
+        meta: 'Selected: 1.0.0 old version | arm64 17.8 MB | armv7 17.4 MB'
+      }
+    };
+    const versionSelect = document.getElementById('versionSelect');
+    const arm64Link = document.getElementById('arm64Link');
+    const armv7Link = document.getElementById('armv7Link');
+    const versionMeta = document.getElementById('versionMeta');
+    const requestedVersion = params.get('version');
+
+    function updateVersionLinks() {
+      const version = versions[versionSelect.value] ? versionSelect.value : '1.0.1';
+      const selected = versions[version];
+      arm64Link.href = selected.arm64;
+      armv7Link.href = selected.armv7;
+      versionMeta.textContent = selected.meta;
+    }
+
+    if (versions[requestedVersion]) {
+      versionSelect.value = requestedVersion;
+    }
+    versionSelect.addEventListener('change', updateVersionLinks);
+    updateVersionLinks();
+
     if (params.get('auto') === '1') {
       window.setTimeout(() => {
-        window.location.href = 'maharshwe-vpn.apk';
+        window.location.href = versions[versionSelect.value].arm64;
       }, 700);
     }
   </script>
