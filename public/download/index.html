@@ -125,9 +125,9 @@
     <h1>MaharShwe VPN</h1>
     <div class="notice">လက်ရှိအသုံးပြုနေသူများ version 1.0.1 ကို update လုပ်ပါ။ APK size ကို 17.8 MB အထိချထားပါတယ်။</div>
     <p>Android APK ကို အောက်က Download ခလုတ်နဲ့ တိုက်ရိုက်ဒေါင်းနိုင်ပါတယ်။ Free Server များကို Google Sheet မှ auto sync လုပ်ထားပါတယ်။</p>
-    <a class="download" href="maharshwe-vpn.apk" download>Download / Update APK</a>
+    <a class="download" href="/api/downloads/file/maharshwe-vpn.apk" download>Download / Update APK</a>
     <div class="meta">Version 1.0.1 | File: maharshwe-vpn.apk | Size: 17.8 MB | arm64</div>
-    <div class="meta">Old 32-bit phones: <a class="contact" href="maharshwe-vpn-armv7.apk" download>Download armv7 APK</a> | 17.4 MB</div>
+    <div class="meta">Old 32-bit phones: <a class="contact" href="/api/downloads/file/maharshwe-vpn-armv7.apk" download>Download armv7 APK</a> | 17.4 MB</div>
     <section class="version-panel">
       <label for="versionSelect">Choose APK version</label>
       <select id="versionSelect">
@@ -135,8 +135,8 @@
         <option value="1.0.0">1.0.0 Old version</option>
       </select>
       <div class="version-actions">
-        <a id="arm64Link" class="download" href="maharshwe-vpn-1.0.1-arm64.apk" download>Download selected arm64 APK</a>
-        <a id="armv7Link" class="secondary-link" href="maharshwe-vpn-1.0.1-armv7.apk" download>Download selected armv7 APK</a>
+        <a id="arm64Link" class="download" href="/api/downloads/file/maharshwe-vpn-1.0.1-arm64.apk" download>Download selected arm64 APK</a>
+        <a id="armv7Link" class="secondary-link" href="/api/downloads/file/maharshwe-vpn-1.0.1-armv7.apk" download>Download selected armv7 APK</a>
       </div>
       <div id="versionMeta" class="meta">Selected: 1.0.1 | arm64 17.8 MB | armv7 17.4 MB</div>
     </section>
@@ -146,13 +146,13 @@
     const params = new URLSearchParams(window.location.search);
     const versions = {
       '1.0.1': {
-        arm64: 'maharshwe-vpn-1.0.1-arm64.apk',
-        armv7: 'maharshwe-vpn-1.0.1-armv7.apk',
+        arm64: '/api/downloads/file/maharshwe-vpn-1.0.1-arm64.apk',
+        armv7: '/api/downloads/file/maharshwe-vpn-1.0.1-armv7.apk',
         meta: 'Selected: 1.0.1 latest | arm64 17.8 MB | armv7 17.4 MB'
       },
       '1.0.0': {
-        arm64: 'maharshwe-vpn-1.0.0-arm64.apk',
-        armv7: 'maharshwe-vpn-1.0.0-armv7.apk',
+        arm64: '/api/downloads/file/maharshwe-vpn-1.0.0-arm64.apk',
+        armv7: '/api/downloads/file/maharshwe-vpn-1.0.0-armv7.apk',
         meta: 'Selected: 1.0.0 old version | arm64 17.8 MB | armv7 17.4 MB'
       }
     };

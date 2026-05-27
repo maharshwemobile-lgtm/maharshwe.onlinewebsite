@@ -36,7 +36,9 @@ const SOLUTIONS_FILE = path.join(DATA_DIR, 'solutions.json');
 const CURRENCY_FILE = path.join(DATA_DIR, 'currency.json');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const NOTIFICATION_TOKENS_FILE = path.join(DATA_DIR, 'notification_tokens.json');
+const DOWNLOADS_FILE = path.join(DATA_DIR, 'downloads.json');
 const UPLOAD_ROOT = path.join(__dirname, 'public', 'uploads');
+const DOWNLOAD_DIR = path.join(__dirname, 'public', 'download');
 const SOLUTION_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'solutions');
 const PRODUCT_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'products');
 const DEFAULT_FCM_TOPIC = process.env.FCM_TOPIC || 'maharshwe-vpn';
@@ -48,6 +50,9 @@ for (const dir of [DATA_DIR, SOLUTION_UPLOAD_DIR, PRODUCT_UPLOAD_DIR]) {
 for (const file of [SOLUTIONS_FILE, CURRENCY_FILE, PRODUCTS_FILE, NOTIFICATION_TOKENS_FILE]) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, '[]', 'utf8');
 }
+if (!fs.existsSync(DOWNLOADS_FILE)) {
+  fs.writeFileSync(DOWNLOADS_FILE, JSON.stringify({ events: [] }, null, 2), 'utf8');
+}
 
 function readJson(file, fallback = []) {
   try { return JSON.parse(fs.readFileSync(file, 'utf8')); }
@@ -56,6 +61,113 @@ function readJson(file, fallback = []) {
 
 function writeJson(file, data) {
   fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+}
+
+function normalizeDownloadStats(input) {
+  const stats = input && !Array.isArray(input) ? input : {};
+  return {
+    events: Array.isArray(stats.events) ? stats.events : [],
+  };
+}
+
+function parseDownloadFileName(fileName) {
+  const safeName = path.basename(String(fileName || '').trim());
+  if (!/^maharshwe-vpn(?:-\d+\.\d+\.\d+)?(?:-(?:arm64|armv7))?\.apk$/i.test(safeName)) {
+    return null;
+  }
+
+  const match = safeName.match(/^maharshwe-vpn(?:-(\d+\.\d+\.\d+))?(?:-(arm64|armv7))?\.apk$/i);
+  return {
+    fileName: safeName,
+    version: match && match[1] ? match[1] : 'latest',
+    arch: match && match[2] ? match[2].toLowerCase() : (safeName.includes('armv7') ? 'armv7' : 'arm64'),
+  };
+}
+
+function getClientIp(req) {
+  const forwarded = String(req.get('cf-connecting-ip') || req.get('x-forwarded-for') || '').split(',')[0].trim();
+  return forwarded || req.socket?.remoteAddress || req.ip || '';
+}
+
+function hashClient(value) {
+  return crypto.createHash('sha256').update(String(value || '')).digest('hex').slice(0, 16);
+}
+
+function getClientType(userAgent) {
+  const ua = String(userAgent || '').toLowerCase();
+  if (ua.includes('windowspowershell') || ua.includes('curl/') || ua.includes('codex/') || ua.includes('python-requests')) return 'test';
+  if (ua.includes('facebookexternalhit') || ua.includes('bot') || ua.includes('crawler') || ua.includes('spider')) return 'bot';
+  return 'user';
+}
+
+function recordDownloadEvent(req, info) {
+  const stats = normalizeDownloadStats(readJson(DOWNLOADS_FILE, { events: [] }));
+  const userAgent = String(req.get('user-agent') || '');
+  const event = {
+    id: Date.now() + '-' + crypto.randomBytes(4).toString('hex'),
+    at: new Date().toISOString(),
+    fileName: info.fileName,
+    version: info.version,
+    arch: info.arch,
+    status: info.status,
+    bytes: Number(info.bytes || 0),
+    referrer: String(req.get('referer') || '').slice(0, 300),
+    userAgent: userAgent.slice(0, 300),
+    clientType: getClientType(userAgent),
+    ipHash: hashClient(getClientIp(req)),
+  };
+  stats.events.unshift(event);
+  stats.events = stats.events.slice(0, 5000);
+  writeJson(DOWNLOADS_FILE, stats);
+  return event;
+}
+
+function summarizeDownloadStats(stats) {
+  const events = normalizeDownloadStats(stats).events;
+  const now = Date.now();
+  const dayMs = 24 * 60 * 60 * 1000;
+  const completed = events.filter(event => String(event.status) === '200');
+  const userCompleted = completed.filter(event => event.clientType === 'user');
+  const todayCompleted = userCompleted.filter(event => now - Date.parse(event.at) < dayMs);
+  const uniqueUsers = new Set(userCompleted.map(event => event.ipHash + '|' + event.userAgent)).size;
+  const byFile = {};
+
+  for (const event of events) {
+    if (!byFile[event.fileName]) {
+      byFile[event.fileName] = {
+        fileName: event.fileName,
+        version: event.version,
+        arch: event.arch,
+        requests: 0,
+        completed: 0,
+        userCompleted: 0,
+        botOrTest: 0,
+        bytes: 0,
+        lastAt: event.at,
+      };
+    }
+    const item = byFile[event.fileName];
+    item.requests += 1;
+    if (String(event.status) === '200') {
+      item.completed += 1;
+      item.bytes += Number(event.bytes || 0);
+      if (event.clientType === 'user') item.userCompleted += 1;
+      else item.botOrTest += 1;
+    }
+    if (Date.parse(event.at) > Date.parse(item.lastAt || 0)) item.lastAt = event.at;
+  }
+
+  return {
+    totalRequests: events.length,
+    completed: completed.length,
+    userCompleted: userCompleted.length,
+    todayCompleted: todayCompleted.length,
+    uniqueUsers,
+    bytes: userCompleted.reduce((sum, event) => sum + Number(event.bytes || 0), 0),
+    byFile: Object.values(byFile).sort((a, b) => Date.parse(b.lastAt || 0) - Date.parse(a.lastAt || 0)),
+    recent: events.slice(0, 30),
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 const firebaseTokenCache = { accessToken: '', expiresAt: 0 };
@@ -384,6 +496,45 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.get('/solutions', (req, res) => res.sendFile(path.join(__dirname, 'public', 'solutions.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+
+app.get('/api/downloads/stats', requireTelegramKey, (req, res) => {
+  try {
+    return res.json(summarizeDownloadStats(readJson(DOWNLOADS_FILE, { events: [] })));
+  } catch (error) {
+    console.error('Download stats error:', error.message);
+    return res.status(500).json({ error: true, message: 'Internal server error' });
+  }
+});
+
+app.get('/api/downloads/file/:fileName', (req, res) => {
+  const parsed = parseDownloadFileName(req.params.fileName);
+  if (!parsed) return res.status(400).send('Invalid download file');
+
+  const filePath = path.join(DOWNLOAD_DIR, parsed.fileName);
+  if (!filePath.startsWith(DOWNLOAD_DIR) || !fs.existsSync(filePath)) {
+    recordDownloadEvent(req, { ...parsed, status: 404, bytes: 0 });
+    return res.status(404).send('File not found');
+  }
+
+  const fileSize = fs.statSync(filePath).size;
+  if (req.method === 'HEAD') {
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Content-Disposition', `attachment; filename="${parsed.fileName}"`);
+    res.setHeader('Content-Length', fileSize);
+    return res.status(200).end();
+  }
+
+  res.setHeader('Cache-Control', 'no-store');
+  res.download(filePath, parsed.fileName, error => {
+    if (error) {
+      recordDownloadEvent(req, { ...parsed, status: res.statusCode >= 400 ? res.statusCode : 499, bytes: 0 });
+      if (!res.headersSent) res.status(500).send('Download failed');
+      return;
+    }
+    recordDownloadEvent(req, { ...parsed, status: res.statusCode || 200, bytes: fileSize });
+  });
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/notifications/register', (req, res) => {

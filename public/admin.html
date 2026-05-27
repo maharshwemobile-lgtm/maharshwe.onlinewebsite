@@ -45,10 +45,11 @@
       <p class="mt-2 text-xs font-bold text-slate-500">Key ကို browser ထဲမှာပဲ သိမ်းထားပါမယ်။ Public website code ထဲမှာ မထည့်ထားပါ။</p>
     </section>
 
-    <section class="mt-4 grid grid-cols-3 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200">
+    <section class="mt-4 grid grid-cols-2 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-4">
       <button class="tab active rounded-2xl px-3 py-3 text-sm font-black" data-tab="product">Digital Product</button>
       <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="solution">Repair Solution</button>
       <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="notification">Send Notification</button>
+      <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="downloads">Downloads</button>
     </section>
 
     <section id="productPanel" class="panel active mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
@@ -121,6 +122,58 @@
         </div>
         <button class="rounded-2xl bg-emerald-700 px-5 py-4 font-black text-white" type="submit">Send Notification</button>
       </form>
+    </section>
+
+    <section id="downloadsPanel" class="panel mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p class="text-xs font-black uppercase text-sky-700">MaharShwe VPN</p>
+          <h2 class="mt-1 text-2xl font-black">Download Counter</h2>
+        </div>
+        <button id="refreshDownloadsBtn" class="rounded-2xl bg-sky-700 px-5 py-3 text-sm font-black text-white">Refresh</button>
+      </div>
+
+      <div class="mt-5 grid gap-3 sm:grid-cols-4">
+        <div class="rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <p class="text-xs font-black uppercase text-slate-500">Real Downloads</p>
+          <b id="downloadUserCount" class="mt-2 block text-3xl font-black">-</b>
+        </div>
+        <div class="rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <p class="text-xs font-black uppercase text-slate-500">Unique Users</p>
+          <b id="downloadUniqueCount" class="mt-2 block text-3xl font-black">-</b>
+        </div>
+        <div class="rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <p class="text-xs font-black uppercase text-slate-500">Today</p>
+          <b id="downloadTodayCount" class="mt-2 block text-3xl font-black">-</b>
+        </div>
+        <div class="rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <p class="text-xs font-black uppercase text-slate-500">All Requests</p>
+          <b id="downloadRequestCount" class="mt-2 block text-3xl font-black">-</b>
+        </div>
+      </div>
+
+      <div class="mt-5 overflow-hidden rounded-3xl ring-1 ring-slate-200">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-950 text-white">
+            <tr>
+              <th class="px-4 py-3">File</th>
+              <th class="px-4 py-3">Version</th>
+              <th class="px-4 py-3">Arch</th>
+              <th class="px-4 py-3">Real</th>
+              <th class="px-4 py-3">All</th>
+            </tr>
+          </thead>
+          <tbody id="downloadFileRows" class="divide-y divide-slate-100 bg-white"></tbody>
+        </table>
+      </div>
+
+      <div class="mt-5 rounded-3xl bg-slate-50 p-4 ring-1 ring-slate-200">
+        <div class="flex items-center justify-between gap-3">
+          <h3 class="font-black">Recent Downloads</h3>
+          <span id="downloadUpdatedAt" class="text-xs font-bold text-slate-500"></span>
+        </div>
+        <div id="downloadRecentRows" class="mt-3 grid gap-2 text-sm"></div>
+      </div>
     </section>
 
     <section id="statusBox" class="mt-4 hidden rounded-[24px] p-4 text-sm font-bold"></section>
@@ -233,6 +286,69 @@
       }
     }
 
+    function fmtNumber(value) {
+      return Number(value || 0).toLocaleString();
+    }
+
+    function fmtBytes(value) {
+      const mb = Number(value || 0) / (1024 * 1024);
+      return mb.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' MB';
+    }
+
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    async function loadDownloadStats() {
+      const key = apiKeyInput.value.trim();
+      if (!key) {
+        showStatus('error', 'API Key first, then Save Key.');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/downloads/stats', { headers: { 'x-api-key': key } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) throw new Error(data.message || 'Download stats failed');
+
+        document.getElementById('downloadUserCount').textContent = fmtNumber(data.userCompleted);
+        document.getElementById('downloadUniqueCount').textContent = fmtNumber(data.uniqueUsers);
+        document.getElementById('downloadTodayCount').textContent = fmtNumber(data.todayCompleted);
+        document.getElementById('downloadRequestCount').textContent = fmtNumber(data.totalRequests);
+        document.getElementById('downloadUpdatedAt').textContent = data.updatedAt ? new Date(data.updatedAt).toLocaleString() : '';
+
+        const fileRows = document.getElementById('downloadFileRows');
+        fileRows.innerHTML = (data.byFile || []).map(item => `
+          <tr>
+            <td class="px-4 py-3 font-bold text-slate-900">${escapeHtml(item.fileName)}</td>
+            <td class="px-4 py-3">${escapeHtml(item.version)}</td>
+            <td class="px-4 py-3">${escapeHtml(item.arch)}</td>
+            <td class="px-4 py-3 font-black text-emerald-700">${fmtNumber(item.userCompleted)}</td>
+            <td class="px-4 py-3 text-slate-600">${fmtNumber(item.completed)} / ${fmtNumber(item.requests)}</td>
+          </tr>
+        `).join('') || '<tr><td class="px-4 py-4 text-slate-500" colspan="5">No download data yet.</td></tr>';
+
+        const recentRows = document.getElementById('downloadRecentRows');
+        recentRows.innerHTML = (data.recent || []).slice(0, 12).map(item => `
+          <div class="rounded-2xl bg-white p-3 ring-1 ring-slate-200">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <b>${escapeHtml(item.fileName)}</b>
+              <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-black">${escapeHtml(item.clientType)} | ${escapeHtml(item.status)}</span>
+            </div>
+            <p class="mt-1 text-xs font-bold text-slate-500">${item.at ? new Date(item.at).toLocaleString() : ''} | ${fmtBytes(item.bytes)}</p>
+          </div>
+        `).join('') || '<p class="text-slate-500">No recent downloads.</p>';
+      } catch (error) {
+        showStatus('error', 'Download counter failed. ' + error.message);
+      }
+    }
+
     document.getElementById('saveKeyBtn').addEventListener('click', () => {
       localStorage.setItem('maharshwe_admin_api_key', apiKeyInput.value.trim());
       showStatus('ok', 'API Key သိမ်းပြီးပါပြီ။');
@@ -242,8 +358,11 @@
       button.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab === button));
         document.querySelectorAll('.panel').forEach(panel => panel.classList.toggle('active', panel.id === button.dataset.tab + 'Panel'));
+        if (button.dataset.tab === 'downloads') loadDownloadStats();
       });
     });
+
+    document.getElementById('refreshDownloadsBtn').addEventListener('click', loadDownloadStats);
 
     document.getElementById('productFile').addEventListener('change', event => handleFile('product', event.target, document.getElementById('productPreview')));
     document.getElementById('solutionFile').addEventListener('change', event => handleFile('solution', event.target, document.getElementById('solutionPreview')));
