@@ -123,34 +123,34 @@
   <main>
     <img src="logo.png" alt="MaharShwe VPN logo">
     <h1>MaharShwe VPN</h1>
-    <div class="notice">လက်ရှိအသုံးပြုနေသူများ version 1.0.6 stable ကို update လုပ်ပါ။ Open လုပ်တာနဲ့ထွက်သွားနိုင်တဲ့ startup issue ကိုပြင်ထားပါတယ်။</div>
+    <div class="notice">လက်ရှိအသုံးပြုနေသူများ version 1.0.7 launch fix ကို update လုပ်ပါ။ Open လုပ်တာနဲ့ထွက်သွားနိုင်တဲ့ startup issue ကိုပြင်ထားပါတယ်။</div>
     <p>Android APK ကို အောက်က Download ခလုတ်နဲ့ တိုက်ရိုက်ဒေါင်းနိုင်ပါတယ်။ Free Server များကို Google Sheet မှ auto sync လုပ်ထားပါတယ်။</p>
     <a class="download" href="/api/downloads/file/maharshwe-vpn.apk" download>Download / Update APK</a>
-    <div class="meta">Version 1.0.6 stable | File: maharshwe-vpn.apk | Size: 27.3 MB | arm64</div>
+    <div class="meta">Version 1.0.7 launch fix | File: maharshwe-vpn.apk | Size: 27.3 MB | arm64</div>
     <div class="meta">Old 32-bit phones: <a class="contact" href="/api/downloads/file/maharshwe-vpn-armv7.apk" download>Download armv7 APK</a> | 26.9 MB</div>
     <section class="version-panel">
       <label for="versionSelect">Choose APK version</label>
       <select id="versionSelect">
-        <option value="1.0.6">1.0.6 Stable - recommended</option>
+        <option value="1.0.7">1.0.7 launch fix - recommended</option>
         <option value="1.0.2">1.0.2 Old version</option>
         <option value="1.0.1">1.0.1 Old version</option>
         <option value="1.0.0">1.0.0 Old version</option>
       </select>
       <div class="version-actions">
-        <a id="arm64Link" class="download" href="/api/downloads/file/maharshwe-vpn-1.0.6-arm64.apk" download>Download selected arm64 APK</a>
-        <a id="armv7Link" class="secondary-link" href="/api/downloads/file/maharshwe-vpn-1.0.6-armv7.apk" download>Download selected armv7 APK</a>
+        <a id="arm64Link" class="download" href="/api/downloads/file/maharshwe-vpn-1.0.7-arm64.apk" download>Download selected arm64 APK</a>
+        <a id="armv7Link" class="secondary-link" href="/api/downloads/file/maharshwe-vpn-1.0.7-armv7.apk" download>Download selected armv7 APK</a>
       </div>
-      <div id="versionMeta" class="meta">Selected: 1.0.6 stable | arm64 27.3 MB | armv7 26.9 MB</div>
+      <div id="versionMeta" class="meta">Selected: 1.0.7 launch fix | arm64 27.3 MB | armv7 26.9 MB</div>
     </section>
     <a class="contact" href="https://t.me/Mylifemychoice68">Telegram Support</a>
   </main>
   <script>
     const params = new URLSearchParams(window.location.search);
     const versions = {
-      '1.0.6': {
-        arm64: '/api/downloads/file/maharshwe-vpn-1.0.6-arm64.apk',
-        armv7: '/api/downloads/file/maharshwe-vpn-1.0.6-armv7.apk',
-        meta: 'Selected: 1.0.6 stable | arm64 27.3 MB | armv7 26.9 MB'
+      '1.0.7': {
+        arm64: '/api/downloads/file/maharshwe-vpn-1.0.7-arm64.apk',
+        armv7: '/api/downloads/file/maharshwe-vpn-1.0.7-armv7.apk',
+        meta: 'Selected: 1.0.7 launch fix | arm64 27.3 MB | armv7 26.9 MB'
       },
       '1.0.2': {
         arm64: '/api/downloads/file/maharshwe-vpn-1.0.2-arm64.apk',
@@ -175,7 +175,7 @@
     const requestedVersion = params.get('version');
 
     function updateVersionLinks() {
-      const version = versions[versionSelect.value] ? versionSelect.value : '1.0.6';
+      const version = versions[versionSelect.value] ? versionSelect.value : '1.0.7';
       const selected = versions[version];
       arm64Link.href = selected.arm64;
       armv7Link.href = selected.armv7;
