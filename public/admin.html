@@ -45,10 +45,11 @@
       <p class="mt-2 text-xs font-bold text-slate-500">Key ကို browser ထဲမှာပဲ သိမ်းထားပါမယ်။ Public website code ထဲမှာ မထည့်ထားပါ။</p>
     </section>
 
-    <section class="mt-4 grid grid-cols-2 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-4">
+    <section class="mt-4 grid grid-cols-2 gap-2 rounded-[22px] bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-5">
       <button class="tab active rounded-2xl px-3 py-3 text-sm font-black" data-tab="product">Digital Product</button>
       <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="solution">Repair Solution</button>
       <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="notification">Send Notification</button>
+      <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="ads">VPN Ads</button>
       <button class="tab rounded-2xl px-3 py-3 text-sm font-black" data-tab="downloads">Downloads</button>
     </section>
 
@@ -121,6 +122,48 @@
           <input class="field" name="topic" placeholder="FCM topic" value="maharshwe-vpn">
         </div>
         <button class="rounded-2xl bg-emerald-700 px-5 py-4 font-black text-white" type="submit">Send Notification</button>
+      </form>
+    </section>
+
+    <section id="adsPanel" class="panel mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p class="text-xs font-black uppercase text-yellow-700">MaharShwe VPN</p>
+          <h2 class="mt-1 text-2xl font-black">Free Server Ads</h2>
+          <p class="mt-2 text-sm font-bold text-slate-500">Free Server connect ပြီး 5 စက္ကန့်နောက် app အပေါ်မှာ banner ပေါ်ပါမယ်။ Other Key connect ဆို မပေါ်ပါ။</p>
+        </div>
+        <button id="refreshAdsBtn" class="rounded-2xl bg-yellow-600 px-5 py-3 text-sm font-black text-white">Load Current</button>
+      </div>
+
+      <form id="vpnAdsForm" class="mt-5 grid gap-4">
+        <label class="flex items-center gap-3 rounded-2xl bg-yellow-50 p-4 text-sm font-black text-yellow-900 ring-1 ring-yellow-200">
+          <input name="enabled" type="checkbox" class="h-5 w-5 rounded border-yellow-300">
+          Enable Free Server banner ad
+        </label>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <input class="field" name="title" placeholder="Ad title e.g. Buy Private VPN Key">
+          <input class="field" name="cta" placeholder="Button text e.g. Buy Now" value="Open">
+        </div>
+        <textarea class="field min-h-24" name="message" placeholder="Ad message"></textarea>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <input class="field" name="imageUrl" placeholder="Banner image URL (optional)">
+          <input class="field" name="clickUrl" placeholder="Click URL e.g. https://t.me/Mylifemychoice68">
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <input class="field" name="backgroundColor" placeholder="Background color #141510" value="#141510">
+          <input class="field" name="textColor" placeholder="Text color #ffffff" value="#ffffff">
+        </div>
+        <div id="vpnAdPreview" class="rounded-3xl p-4 text-white ring-1 ring-slate-200" style="background:#141510">
+          <div class="flex items-center gap-3">
+            <img id="vpnAdPreviewImage" class="hidden h-14 w-14 rounded-2xl object-cover" alt="Ad preview">
+            <div class="min-w-0 flex-1">
+              <b id="vpnAdPreviewTitle" class="block truncate">Ad preview title</b>
+              <p id="vpnAdPreviewMessage" class="mt-1 text-sm opacity-85">Ad preview message</p>
+            </div>
+            <span id="vpnAdPreviewCta" class="rounded-2xl bg-white/20 px-3 py-2 text-xs font-black">Open</span>
+          </div>
+        </div>
+        <button class="rounded-2xl bg-yellow-600 px-5 py-4 font-black text-white" type="submit">Save Free Server Ad</button>
       </form>
     </section>
 
@@ -286,6 +329,68 @@
       }
     }
 
+    function updateVpnAdPreview() {
+      const form = document.getElementById('vpnAdsForm');
+      const data = formToObject(form);
+      const preview = document.getElementById('vpnAdPreview');
+      const image = document.getElementById('vpnAdPreviewImage');
+      document.getElementById('vpnAdPreviewTitle').textContent = data.title || 'Ad preview title';
+      document.getElementById('vpnAdPreviewMessage').textContent = data.message || 'Ad preview message';
+      document.getElementById('vpnAdPreviewCta').textContent = data.cta || 'Open';
+      preview.style.background = data.backgroundColor || '#141510';
+      preview.style.color = data.textColor || '#ffffff';
+      if (data.imageUrl) {
+        image.src = data.imageUrl;
+        image.classList.remove('hidden');
+      } else {
+        image.classList.add('hidden');
+      }
+    }
+
+    async function loadVpnAdConfig() {
+      try {
+        const res = await fetch('/api/vpn-ads', { cache: 'no-store' });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) throw new Error(data.message || 'Load ad failed');
+        const form = document.getElementById('vpnAdsForm');
+        form.elements.enabled.checked = Boolean(data.enabled);
+        form.elements.title.value = data.title || '';
+        form.elements.message.value = data.message || '';
+        form.elements.imageUrl.value = data.imageUrl || '';
+        form.elements.clickUrl.value = data.clickUrl || '';
+        form.elements.cta.value = data.cta || 'Open';
+        form.elements.backgroundColor.value = data.backgroundColor || '#141510';
+        form.elements.textColor.value = data.textColor || '#ffffff';
+        updateVpnAdPreview();
+      } catch (error) {
+        showStatus('error', 'Ads config load failed. ' + error.message);
+      }
+    }
+
+    async function submitVpnAdForm(form) {
+      const key = apiKeyInput.value.trim();
+      if (!key) {
+        showStatus('error', 'API Key first, then Save Key.');
+        return;
+      }
+      const payload = formToObject(form);
+      payload.enabled = form.elements.enabled.checked;
+      showStatus('ok', 'Saving ad...');
+      try {
+        const res = await fetch('/api/vpn-ads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': key },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) throw new Error(data.message || data.error || 'Save ad failed');
+        showStatus('ok', 'Free Server ad saved. App will show it after Free Server connects.');
+        updateVpnAdPreview();
+      } catch (error) {
+        showStatus('error', 'Ads config save failed. ' + error.message);
+      }
+    }
+
     function fmtNumber(value) {
       return Number(value || 0).toLocaleString();
     }
@@ -358,11 +463,18 @@
       button.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab === button));
         document.querySelectorAll('.panel').forEach(panel => panel.classList.toggle('active', panel.id === button.dataset.tab + 'Panel'));
+        if (button.dataset.tab === 'ads') loadVpnAdConfig();
         if (button.dataset.tab === 'downloads') loadDownloadStats();
       });
     });
 
+    document.getElementById('refreshAdsBtn').addEventListener('click', loadVpnAdConfig);
     document.getElementById('refreshDownloadsBtn').addEventListener('click', loadDownloadStats);
+    document.getElementById('vpnAdsForm').addEventListener('input', updateVpnAdPreview);
+    document.getElementById('vpnAdsForm').addEventListener('submit', event => {
+      event.preventDefault();
+      submitVpnAdForm(event.currentTarget);
+    });
 
     document.getElementById('productFile').addEventListener('change', event => handleFile('product', event.target, document.getElementById('productPreview')));
     document.getElementById('solutionFile').addEventListener('change', event => handleFile('solution', event.target, document.getElementById('solutionPreview')));

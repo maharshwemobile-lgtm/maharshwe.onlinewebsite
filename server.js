@@ -37,6 +37,7 @@ const CURRENCY_FILE = path.join(DATA_DIR, 'currency.json');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const NOTIFICATION_TOKENS_FILE = path.join(DATA_DIR, 'notification_tokens.json');
 const DOWNLOADS_FILE = path.join(DATA_DIR, 'downloads.json');
+const VPN_ADS_FILE = path.join(DATA_DIR, 'vpn_ads.json');
 const UPLOAD_ROOT = path.join(__dirname, 'public', 'uploads');
 const DOWNLOAD_DIR = path.join(__dirname, 'public', 'download');
 const SOLUTION_UPLOAD_DIR = path.join(UPLOAD_ROOT, 'solutions');
@@ -52,6 +53,19 @@ for (const file of [SOLUTIONS_FILE, CURRENCY_FILE, PRODUCTS_FILE, NOTIFICATION_T
 }
 if (!fs.existsSync(DOWNLOADS_FILE)) {
   fs.writeFileSync(DOWNLOADS_FILE, JSON.stringify({ events: [] }, null, 2), 'utf8');
+}
+if (!fs.existsSync(VPN_ADS_FILE)) {
+  fs.writeFileSync(VPN_ADS_FILE, JSON.stringify({
+    enabled: false,
+    title: '',
+    message: '',
+    imageUrl: '',
+    clickUrl: '',
+    cta: 'Open',
+    backgroundColor: '#141510',
+    textColor: '#ffffff',
+    updatedAt: new Date().toISOString(),
+  }, null, 2), 'utf8');
 }
 
 function readJson(file, fallback = []) {
@@ -167,6 +181,33 @@ function summarizeDownloadStats(stats) {
     byFile: Object.values(byFile).sort((a, b) => Date.parse(b.lastAt || 0) - Date.parse(a.lastAt || 0)),
     recent: events.slice(0, 30),
     updatedAt: new Date().toISOString(),
+  };
+}
+
+function normalizeVpnAdConfig(input) {
+  const config = input && !Array.isArray(input) ? input : {};
+  const title = String(config.title || '').trim().slice(0, 80);
+  const message = String(config.message || config.body || '').trim().slice(0, 180);
+  const imageUrl = String(config.imageUrl || config.image || '').trim().slice(0, 500);
+  const clickUrl = String(config.clickUrl || config.url || '').trim().slice(0, 500);
+  const cta = String(config.cta || 'Open').trim().slice(0, 28) || 'Open';
+  const backgroundColor = /^#[0-9a-f]{6}$/i.test(String(config.backgroundColor || ''))
+    ? String(config.backgroundColor)
+    : '#141510';
+  const textColor = /^#[0-9a-f]{6}$/i.test(String(config.textColor || ''))
+    ? String(config.textColor)
+    : '#ffffff';
+
+  return {
+    enabled: Boolean(config.enabled) && Boolean(title || message || imageUrl),
+    title,
+    message,
+    imageUrl,
+    clickUrl,
+    cta,
+    backgroundColor,
+    textColor,
+    updatedAt: config.updatedAt || new Date().toISOString(),
   };
 }
 
@@ -533,6 +574,30 @@ app.get('/api/downloads/file/:fileName', (req, res) => {
     }
     recordDownloadEvent(req, { ...parsed, status: res.statusCode || 200, bytes: fileSize });
   });
+});
+
+app.get('/api/vpn-ads', (req, res) => {
+  try {
+    return res.json(normalizeVpnAdConfig(readJson(VPN_ADS_FILE, {})));
+  } catch (error) {
+    console.error('VPN ads config read error:', error.message);
+    return res.json(normalizeVpnAdConfig({ enabled: false }));
+  }
+});
+
+app.post('/api/vpn-ads', requireTelegramKey, (req, res) => {
+  try {
+    const config = normalizeVpnAdConfig({
+      ...req.body,
+      enabled: req.body.enabled === true || req.body.enabled === 'true' || req.body.enabled === 'on',
+      updatedAt: new Date().toISOString(),
+    });
+    writeJson(VPN_ADS_FILE, config);
+    return res.json({ success: true, data: config });
+  } catch (error) {
+    console.error('VPN ads config write error:', error.message);
+    return res.status(500).json({ error: true, message: error.message });
+  }
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
