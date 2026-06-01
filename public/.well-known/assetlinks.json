@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.maharshwe.vpn",
+      "sha256_cert_fingerprints": [
+        "35:CC:3A:3C:EC:42:0F:EB:40:2E:71:08:9B:EE:92:9D:1C:AE:F5:5C:9C:88:75:40:B2:AC:F9:67:BB:4D:10:5D"
+      ]
+    }
+  }
+]

@@ -535,6 +535,9 @@ function mergeByKey(primary, secondary) {
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+app.get('/.well-known/assetlinks.json', (req, res) => {
+  res.type('application/json').sendFile(path.join(__dirname, 'public', '.well-known', 'assetlinks.json'));
+});
 app.get('/solutions', (req, res) => res.sendFile(path.join(__dirname, 'public', 'solutions.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 
