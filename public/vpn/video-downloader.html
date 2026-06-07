@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mahar Video Downloader</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans Myanmar", sans-serif;
+      background: #07110f;
+      color: #fff;
+    }
+    main {
+      margin: 0 auto;
+      max-width: 720px;
+      min-height: 100vh;
+      padding: 22px 16px 40px;
+    }
+    .hero {
+      background: linear-gradient(140deg, #0c201b, #111510 55%, #31220a);
+      border: 1px solid rgba(255, 217, 59, .28);
+      border-radius: 26px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .36);
+      padding: 22px;
+    }
+    img { height: 72px; width: 72px; border-radius: 20px; object-fit: cover; }
+    h1 { font-size: 30px; line-height: 1.1; margin: 18px 0 10px; }
+    p { color: rgba(255, 255, 255, .78); line-height: 1.65; margin: 0; }
+    .tool {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 22px;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+      padding: 14px;
+    }
+    input {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+      padding: 14px;
+      width: 100%;
+    }
+    .actions { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+    button, a.button {
+      border: 0;
+      border-radius: 16px;
+      cursor: pointer;
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 12px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .primary { background: #ff9f1a; color: #12110c; }
+    .secondary { background: rgba(255, 255, 255, .14); color: #fff; }
+    .notice {
+      background: rgba(255, 217, 59, .1);
+      border: 1px solid rgba(255, 217, 59, .24);
+      border-radius: 18px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 13px;
+      margin-top: 16px;
+      padding: 14px;
+    }
+    video {
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 18px;
+      display: none;
+      margin-top: 14px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <img src="/vpn/VPN.png" alt="MaharShwe VPN">
+      <h1>Mahar Video Downloader</h1>
+      <p>Facebook, Browser, TikTok, YouTube စတဲ့ app တွေက video link ကို Share လုပ်ပြီး MaharShwe VPN ထဲမှာဖွင့်နိုင်ပါတယ်။ Download ခွင့်ရှိတဲ့ ကိုယ်ပိုင်/public content အတွက်သာသုံးပါ။</p>
+      <div class="tool">
+        <input id="videoUrl" placeholder="Video link paste/share here">
+        <video id="preview" controls playsinline></video>
+        <div class="actions">
+          <button id="openBtn" class="primary" type="button">Play/Open</button>
+          <button id="copyBtn" class="secondary" type="button">Copy Link</button>
+        </div>
+      </div>
+      <div class="notice">Protected/private/copyright content ကို bypass download မလုပ်ပါ။ Direct .mp4/.webm link ဖြစ်ရင် page ထဲမှာ preview play ပေါ်ပါမယ်။</div>
+    </section>
+  </main>
+  <script>
+    const input = document.getElementById('videoUrl');
+    const preview = document.getElementById('preview');
+    const params = new URLSearchParams(location.search);
+    input.value = params.get('url') || '';
+
+    function getUrl() {
+      return input.value.trim();
+    }
+
+    function refreshPreview() {
+      const url = getUrl();
+      if (/\.(mp4|webm|mov)(\?|$)/i.test(url)) {
+        preview.src = url;
+        preview.style.display = 'block';
+      } else {
+        preview.removeAttribute('src');
+        preview.style.display = 'none';
+      }
+    }
+
+    document.getElementById('openBtn').addEventListener('click', () => {
+      const url = getUrl();
+      if (url) location.href = url;
+    });
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const url = getUrl();
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+        alert('Copied');
+      } catch {
+        input.select();
+        document.execCommand('copy');
+      }
+    });
+    input.addEventListener('input', refreshPreview);
+    refreshPreview();
+  </script>
+</body>
+</html>

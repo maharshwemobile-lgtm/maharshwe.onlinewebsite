@@ -121,6 +121,7 @@
           <input class="field" name="url" placeholder="Open URL" value="https://maharshwe.online/download/?auto=1">
           <input class="field" name="topic" placeholder="FCM topic" value="maharshwe-vpn">
         </div>
+        <button id="prefillVideoNotificationBtn" class="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white" type="button">Mahar Video Downloader Noti</button>
         <button class="rounded-2xl bg-emerald-700 px-5 py-4 font-black text-white" type="submit">Send Notification</button>
       </form>
     </section>
@@ -147,15 +148,24 @@
         <textarea class="field min-h-24" name="message" placeholder="Ad message"></textarea>
         <div class="grid gap-4 sm:grid-cols-2">
           <input class="field" name="imageUrl" placeholder="Banner image URL (optional)">
+          <input class="field" name="videoUrl" placeholder="Autoplay video URL .mp4/.webm (optional)">
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
           <input class="field" name="clickUrl" placeholder="Click URL e.g. https://t.me/Mylifemychoice68">
+          <select class="field" name="mediaType">
+            <option value="auto">Auto: Video or Photo</option>
+            <option value="video">Video first</option>
+            <option value="image">Photo only</option>
+          </select>
         </div>
         <div class="grid gap-4 sm:grid-cols-2">
           <input class="field" name="backgroundColor" placeholder="Background color #141510" value="#141510">
           <input class="field" name="textColor" placeholder="Text color #ffffff" value="#ffffff">
         </div>
         <div id="vpnAdPreview" class="rounded-3xl p-4 text-white ring-1 ring-slate-200" style="background:#141510">
-          <div class="flex items-center gap-3">
-            <img id="vpnAdPreviewImage" class="hidden h-14 w-14 rounded-2xl object-cover" alt="Ad preview">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <video id="vpnAdPreviewVideo" class="hidden aspect-video w-full rounded-2xl object-cover sm:h-28 sm:w-40" muted loop playsinline controls></video>
+            <img id="vpnAdPreviewImage" class="hidden aspect-video w-full rounded-2xl object-cover sm:h-28 sm:w-40" alt="Ad preview">
             <div class="min-w-0 flex-1">
               <b id="vpnAdPreviewTitle" class="block truncate">Ad preview title</b>
               <p id="vpnAdPreviewMessage" class="mt-1 text-sm opacity-85">Ad preview message</p>
@@ -334,16 +344,25 @@
       const data = formToObject(form);
       const preview = document.getElementById('vpnAdPreview');
       const image = document.getElementById('vpnAdPreviewImage');
+      const video = document.getElementById('vpnAdPreviewVideo');
       document.getElementById('vpnAdPreviewTitle').textContent = data.title || 'Ad preview title';
       document.getElementById('vpnAdPreviewMessage').textContent = data.message || 'Ad preview message';
       document.getElementById('vpnAdPreviewCta').textContent = data.cta || 'Open';
       preview.style.background = data.backgroundColor || '#141510';
       preview.style.color = data.textColor || '#ffffff';
-      if (data.imageUrl) {
+      const showVideo = data.videoUrl && data.mediaType !== 'image';
+      if (showVideo) {
+        video.src = data.videoUrl;
+        video.poster = data.imageUrl || '';
+        video.classList.remove('hidden');
+        image.classList.add('hidden');
+      } else if (data.imageUrl) {
         image.src = data.imageUrl;
         image.classList.remove('hidden');
+        video.classList.add('hidden');
       } else {
         image.classList.add('hidden');
+        video.classList.add('hidden');
       }
     }
 
@@ -357,7 +376,9 @@
         form.elements.title.value = data.title || '';
         form.elements.message.value = data.message || '';
         form.elements.imageUrl.value = data.imageUrl || '';
+        form.elements.videoUrl.value = data.videoUrl || '';
         form.elements.clickUrl.value = data.clickUrl || '';
+        form.elements.mediaType.value = data.mediaType || 'auto';
         form.elements.cta.value = data.cta || 'Open';
         form.elements.backgroundColor.value = data.backgroundColor || '#141510';
         form.elements.textColor.value = data.textColor || '#ffffff';
@@ -470,6 +491,14 @@
 
     document.getElementById('refreshAdsBtn').addEventListener('click', loadVpnAdConfig);
     document.getElementById('refreshDownloadsBtn').addEventListener('click', loadDownloadStats);
+    document.getElementById('prefillVideoNotificationBtn').addEventListener('click', () => {
+      const form = document.getElementById('notificationForm');
+      form.elements.title.value = 'Mahar Video Downloader';
+      form.elements.body.value = 'Facebook/Video link ကို Share လုပ်ပြီး MaharShwe VPN ထဲမှာ Video Link tool ဖွင့်နိုင်ပါပြီ။';
+      form.elements.url.value = 'https://maharshwe.online/vpn/video-downloader.html';
+      form.elements.topic.value = 'maharshwe-vpn';
+      showStatus('ok', 'Mahar Video Downloader notification ready. Send Notification ကိုနှိပ်ပါ။');
+    });
     document.getElementById('vpnAdsForm').addEventListener('input', updateVpnAdPreview);
     document.getElementById('vpnAdsForm').addEventListener('submit', event => {
       event.preventDefault();

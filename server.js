@@ -60,6 +60,8 @@ if (!fs.existsSync(VPN_ADS_FILE)) {
     title: '',
     message: '',
     imageUrl: '',
+    videoUrl: '',
+    mediaType: 'auto',
     clickUrl: '',
     cta: 'Open',
     backgroundColor: '#141510',
@@ -189,8 +191,13 @@ function normalizeVpnAdConfig(input) {
   const title = String(config.title || '').trim().slice(0, 80);
   const message = String(config.message || config.body || '').trim().slice(0, 180);
   const imageUrl = String(config.imageUrl || config.image || '').trim().slice(0, 500);
+  const videoUrl = String(config.videoUrl || config.video || '').trim().slice(0, 500);
   const clickUrl = String(config.clickUrl || config.url || '').trim().slice(0, 500);
   const cta = String(config.cta || 'Open').trim().slice(0, 28) || 'Open';
+  const requestedMediaType = String(config.mediaType || 'auto').trim().toLowerCase();
+  const mediaType = ['auto', 'video', 'image'].includes(requestedMediaType)
+    ? requestedMediaType
+    : 'auto';
   const backgroundColor = /^#[0-9a-f]{6}$/i.test(String(config.backgroundColor || ''))
     ? String(config.backgroundColor)
     : '#141510';
@@ -199,10 +206,12 @@ function normalizeVpnAdConfig(input) {
     : '#ffffff';
 
   return {
-    enabled: Boolean(config.enabled) && Boolean(title || message || imageUrl),
+    enabled: Boolean(config.enabled) && Boolean(title || message || imageUrl || videoUrl),
     title,
     message,
     imageUrl,
+    videoUrl,
+    mediaType,
     clickUrl,
     cta,
     backgroundColor,
