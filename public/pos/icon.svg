@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Mahar Shwe Mobile and IT">
+  <rect width="1024" height="1024" rx="220" fill="#ffffff"/>
+  <path d="M118 160c0-48 39-86 86-86h270c35 0 69 14 94 39l216 216c55 55 55 144 0 199L574 738c-25 25-58 39-94 39H204c-47 0-86-38-86-86z" fill="#4f5a55" opacity=".18"/>
+  <path d="M155 445V210c0-54 43-98 97-98 31 0 59 14 78 38l177 214 178-214c19-24 48-38 78-38 54 0 98 44 98 98v383c0 54-44 98-98 98s-97-44-97-98V368L543 517c-19 23-47 37-77 37s-58-14-77-37L253 353v92c0 54-44 98-98 98s-98-44-98-98z" fill="#13a36f"/>
+  <path d="M520 440 685 250c23-27 61-36 94-24 34 13 56 45 56 81v323c0 52-42 94-94 94s-94-42-94-94V518l-67 77c-19 22-47 35-76 35s-57-13-76-35L267 410c-34-39-30-98 9-132s98-30 132 9z" fill="#ff9600"/>
+  <path d="M155 445V210c0-54 43-98 97-98 31 0 59 14 78 38l177 214 178-214c19-24 48-38 78-38 54 0 98 44 98 98v383c0 54-44 98-98 98s-97-44-97-98V368L543 517c-19 23-47 37-77 37s-58-14-77-37L253 353v92c0 54-44 98-98 98s-98-44-98-98z" fill="none" stroke="#ffffff" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="512" y="828" text-anchor="middle" font-family="Arial,sans-serif" font-size="92" font-weight="900" fill="#13a36f">မဟာရွှေ</text>
+  <text x="512" y="910" text-anchor="middle" font-family="Arial,sans-serif" font-size="70" font-weight="900" fill="#ff9600">Mobile &amp; IT</text>
+</svg>

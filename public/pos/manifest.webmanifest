@@ -1,0 +1,18 @@
+{
+  "name": "မဟာရွှေ Mobile & IT",
+  "short_name": "မဟာရွှေ",
+  "description": "Mahar Shwe Mobile & IT business management app",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#06100e",
+  "theme_color": "#13a36f",
+  "icons": [
+    {
+      "src": "./maharshwe-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
