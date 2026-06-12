@@ -612,6 +612,7 @@ app.post('/api/vpn-ads', requireTelegramKey, (req, res) => {
   }
 });
 
+app.use('/pos', express.static(path.join(__dirname, 'public', 'pos')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/notifications/register', (req, res) => {
