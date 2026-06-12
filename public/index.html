@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Mahar Shwe Mobile</title>
+  <title>Mahar Shwe Mobile & VPN</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Myanmar:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -21,7 +21,7 @@
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
       <button class="flex items-center gap-3 text-left" data-page="home">
         <img src="logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-2xl object-cover ring-1 ring-slate-200">
-        <span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-bold text-slate-500">Phone Repair & Digital Service</small></span>
+        <span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-bold text-slate-500">VPN & Digital Service</small></span>
       </button>
       <a class="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-black text-white" href="tel:09778394052">Call</a>
     </div>
@@ -30,17 +30,23 @@
   <main class="mx-auto max-w-6xl px-4 py-4 pb-28">
     <section id="homePage" class="page active">
       <div class="rounded-[28px] bg-slate-950 p-5 text-white shadow-xl">
-        <p class="text-xs font-black uppercase text-teal-200">Online Service</p>
-        <h1 class="mt-3 text-4xl font-black leading-tight">Mahar Shwe Mobile Service Center</h1>
-        <p class="mt-4 text-sm leading-7 text-slate-200">Voucher နံပါတ်ဖြင့် ဖုန်းပြင်ဆင်မှုအခြေအနေ စစ်နိုင်ပြီး Repair Solution, Digital Product နှင့် ငွေလဲနှုန်းများကို ကြည့်နိုင်ပါတယ်။</p>
+        <p class="text-xs font-black uppercase text-teal-200">VPN Service</p>
+        <h1 class="mt-3 text-4xl font-black leading-tight">Mahar Shwe VPN & Mobile Service</h1>
+        <p class="mt-4 text-sm leading-7 text-slate-200">လုံခြုံမြန်ဆန်သော Mahar Shwe VPN ကို download ရယူနိုင်ပြီး Digital Product များနှင့် ငွေလဲနှုန်းများကို ကြည့်နိုင်ပါတယ်။</p>
         <div class="mt-6 grid grid-cols-2 gap-3">
-          <button class="rounded-2xl bg-amber-400 px-4 py-3 text-sm font-black text-slate-950" data-page="voucher">Voucher စစ်ရန်</button>
+          <a href="/vpn/" class="rounded-2xl bg-amber-400 px-4 py-3 text-center text-sm font-black text-slate-950">VPN Download</a>
           <button class="rounded-2xl bg-white/10 px-4 py-3 text-sm font-black text-white ring-1 ring-white/20" data-page="products">Products</button>
         </div>
       </div>
       <div class="mt-4 grid grid-cols-2 gap-3">
         <button class="rounded-3xl bg-white p-4 text-left shadow-sm ring-1 ring-slate-200" data-page="solutions"><b>Repair Solution</b><p class="mt-2 text-xs text-slate-600">ဖုန်းပြင်နည်းများ</p></button>
         <button class="rounded-3xl bg-white p-4 text-left shadow-sm ring-1 ring-slate-200" data-page="currency"><b>Exchange</b><p class="mt-2 text-xs text-slate-600">ငွေလဲနှုန်းတွက်ရန်</p></button>
+      </div>
+      <div class="mt-4">
+        <button class="w-full rounded-3xl bg-teal-600 p-5 text-left text-white shadow-sm" data-page="voucher">
+          <b>Voucher စစ်ရန်</b>
+          <p class="mt-1 text-xs opacity-80">ဖုန်းပြင်ဆင်မှုအခြေအနေ စစ်ဆေးရန်</p>
+        </button>
       </div>
     </section>
 
@@ -53,14 +59,10 @@
           <button id="voucherBtn" class="rounded-2xl bg-teal-600 px-5 py-3 font-black text-white">Search</button>
         </div>
         <div id="voucherResult" class="mt-5"></div>
-<div class="mt-6">
-<h2 class="mb-3 text-lg font-black text-slate-950">လတ်တလော ပြင်ရန် အလုံးများ</h2>
-<div id="liveRepairList" class="space-y-3"></div>
-</div>
-<div class="mt-6">
-  <h2 class="mb-3 text-lg font-black text-slate-950">လတ်တလော ပြင်ရန် အလုံးများ</h2>
-  <div id="voucherLiveRepairs" class="grid gap-3"></div>
-</div>
+        <div class="mt-6">
+          <h2 class="mb-3 text-lg font-black text-slate-950">လတ်တလော ပြင်ရန် အလုံးများ</h2>
+          <div id="voucherLiveRepairs" class="grid gap-3"></div>
+        </div>
       </div>
     </section>
 
@@ -77,7 +79,7 @@
       <div class="rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
         <p class="text-xs font-black uppercase text-indigo-700">Digital Product</p>
         <h1 class="mt-2 text-2xl font-black">VPN, Game နှင့် Digital Service များ</h1>
-        <p class="mt-3 text-sm text-slate-600">Backend ကတင်ထားသော product ပုံများကို အောက်မှာ ပြပါမယ်။</p>
+        <p class="mt-3 text-sm text-slate-600">Digital ဝန်ဆောင်မှုများကို အောက်မှာ ကြည့်နိုင်ပါတယ်။</p>
       </div>
       <div id="productGrid" class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4"></div>
     </section>
@@ -172,12 +174,12 @@
       let list = fallbackSolutions;
       try { const data = await callApi('/solutions' + (q ? '?q=' + encodeURIComponent(q) : '')); if(Array.isArray(data) && data.length) list = data; } catch(e) {}
       if(q){ const lower = q.toLowerCase(); list = list.filter(x => (x.title + ' ' + x.description + ' ' + x.category).toLowerCase().includes(lower)); }
-      el('solutionsGrid').innerHTML = list.map(item => { const img = imageInfo(item, 'solution'); return '<article class="rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-black text-amber-800">' + escapeHtml(item.category || 'Tips') + '</span><img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Solution image') + '" class="mt-4 aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200"><div class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-black text-slate-500">Image Mapping: ' + escapeHtml(img.source) + '</div><h2 class="mt-4 text-lg font-black">' + escapeHtml(item.title) + '</h2><p class="mt-3 text-sm leading-7 text-slate-600">' + escapeHtml(item.description) + '</p><div class="mt-5 flex justify-between border-t border-slate-100 pt-4 text-xs font-black text-slate-500"><span>' + escapeHtml(item.author || 'Admin') + '</span><span>' + Number(item.likes || 0) + ' likes</span></div></article>'; }).join('');
+      el('solutionsGrid').innerHTML = list.map(item => { const img = imageInfo(item, 'solution'); return '<article class="rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-black text-amber-800">' + escapeHtml(item.category || 'Tips') + '</span><img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Solution image') + '" class="mt-4 aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200"><h2 class="mt-4 text-lg font-black">' + escapeHtml(item.title) + '</h2><p class="mt-3 text-sm leading-7 text-slate-600">' + escapeHtml(item.description) + '</p><div class="mt-5 flex justify-between border-t border-slate-100 pt-4 text-xs font-black text-slate-500"><span>' + escapeHtml(item.author || 'Admin') + '</span><span>' + Number(item.likes || 0) + ' likes</span></div></article>'; }).join('');
     }
     async function renderProducts(){
       let list = fallbackProducts;
       try { const data = await callApi('/products'); if(Array.isArray(data) && data.length) list = data; } catch(e) {}
-      el('productGrid').innerHTML = list.map(item => { const img = imageInfo(item, 'product'); const orderUrl = item.orderUrl || ('https://t.me/Mylifemychoice68?text=' + encodeURIComponent('Hello Mahar Shwe Mobile, I want to order ' + item.title + ' (' + item.price + ').')); return '<article class="rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200"><span class="rounded-full bg-indigo-100 px-3 py-1 text-[11px] font-black text-indigo-800">' + escapeHtml(item.type || 'Digital') + '</span><img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title || 'Product image') + '" class="mt-4 aspect-video w-full rounded-2xl object-cover ring-1 ring-slate-200"><div class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-black text-slate-500">Image Mapping: ' + escapeHtml(img.source) + '</div><h2 class="mt-4 text-lg font-black">' + escapeHtml(item.title) + '</h2><p class="mt-2 text-xl font-black text-indigo-700">' + escapeHtml(item.price) + '</p><p class="mt-3 text-sm leading-6 text-slate-600">' + escapeHtml(item.desc || item.description || '') + '</p><a class="mt-5 block rounded-2xl bg-slate-950 px-4 py-3 text-center text-sm font-black text-white" href="' + orderUrl + '" target="_blank" rel="noreferrer">Telegram မှာ Order တင်ရန်</a></article>'; }).join('');
+      el('productGrid').innerHTML = list.map(item => { const img = imageInfo(item, 'product'); const orderUrl = item.orderUrl || ('https://t.me/Mylifemychoice68?text=' + encodeURIComponent('Hello Mahar Shwe Mobile, I want to order ' + item.title + ' (' + item.price + ').')); return '<article class="rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-slate-200"><img src="' + escapeHtml(img.url) + '" alt="' + escapeHtml(item.title) + '" class="aspect-square w-full rounded-2xl object-cover ring-1 ring-slate-100"><h2 class="mt-4 text-base font-black">' + escapeHtml(item.title) + '</h2><p class="mt-1 text-sm font-black text-teal-700">' + escapeHtml(item.price) + '</p><p class="mt-3 text-xs leading-5 text-slate-500">' + escapeHtml(item.desc || item.description || '') + '</p><a href="' + escapeHtml(orderUrl) + '" target="_blank" class="mt-5 block rounded-xl bg-slate-950 py-3 text-center text-xs font-black text-white">Order Now</a></article>'; }).join('');
     }
     async function loadCurrency(){
       let rates = [{code:'USD', rate:3520, name:'US Dollar', change:'+0.5%'},{code:'THB', rate:98.5, name:'Thai Baht', change:'-0.2%'},{code:'SGD', rate:2610, name:'Singapore Dollar', change:'+0.1%'}];
@@ -207,65 +209,28 @@
     el('exchangeCode').addEventListener('change', updateExchangeCalculator);
     const initial = location.hash ? location.hash.slice(1) : 'home';
     showPage(pages.includes(initial) ? initial : 'home');
+
+    async function loadVoucherLiveRepairs(){
+      const box=document.getElementById("voucherLiveRepairs");
+      if(!box)return;
+      try{
+        const res=await fetch("/api/liveRepairs");
+        const data=await res.json();
+        box.innerHTML=data.map(x=>`
+          <div class="rounded-2xl bg-white p-4 shadow ring-1 ring-slate-200">
+            <div class="flex justify-between gap-3">
+              <div class="font-black text-slate-950">${x.model||"-"}</div>
+              <div class="text-xs font-black text-amber-700">${x.status||"-"}</div>
+            </div>
+            <div class="mt-2 text-sm text-slate-600">Voucher: ${x.voucher||"-"}</div>
+            <div class="text-sm text-slate-600">Customer: ${x.customer||x.owner||"-"}</div>
+            <div class="text-sm text-slate-600">Issue: ${x.issue||"-"}</div>
+          </div>`).join("");
+      }catch(e){
+        box.innerHTML="<div class='rounded-2xl bg-white p-4 text-sm font-black text-slate-500'>Live repairs မရသေးပါ။</div>";
+      }
+    }
+    loadVoucherLiveRepairs();
   </script>
-<div id="tgFloat" class="fixed top-20 right-3 z-40 bg-white/90 p-1 rounded-xl shadow ring-1 ring-slate-200">
-<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="maharshwemobilebot" data-size="small" data-radius="10" data-auth-url="https://maharshwe.online/auth/telegram" data-request-access="write"></script>
-</div>
-<script>
-const tgBox=document.getElementById("tgFloat");
-function showTgOnlyHome(){
- if(!tgBox)return;
- tgBox.style.display=(!location.hash||location.hash==="#home")?"block":"none";
-}
-showTgOnlyHome();
-window.addEventListener("hashchange",showTgOnlyHome);
-</script>
-<script>
-async function loadVoucherLiveRepairs(){
-  const box=document.getElementById("voucherLiveRepairs");
-  if(!box)return;
-  try{
-    const res=await fetch("/api/liveRepairs");
-    const data=await res.json();
-    box.innerHTML=data.map(x=>`
-      <div class="rounded-2xl bg-white p-4 shadow ring-1 ring-slate-200">
-        <div class="flex justify-between gap-3">
-          <div class="font-black text-slate-950">${x.model||"-"}</div>
-          <div class="text-xs font-black text-amber-700">${x.status||"-"}</div>
-        </div>
-        <div class="mt-2 text-sm text-slate-600">Voucher: ${x.voucher||"-"}</div>
-        <div class="text-sm text-slate-600">Customer: ${x.customer||x.owner||"-"}</div>
-        <div class="text-sm text-slate-600">Issue: ${x.issue||"-"}</div>
-      </div>`).join("");
-  }catch(e){
-    box.innerHTML="<div class="rounded-2xl bg-white p-4 text-sm font-black text-slate-500">Live repairs မရသေးပါ။</div>";
-  }
-}
-loadVoucherLiveRepairs();
-</script>
-<script>
-async function loadLiveRepairList(){
-try{
-const r=await fetch("/api/liveRepairs");
-const d=await r.json();
-const box=document.getElementById("liveRepairList");
-if(!box)return;
-box.innerHTML=d.map(x=>`<div class="rounded-2xl bg-white p-4 shadow ring-1 ring-slate-200">
-<div class="flex items-center justify-between gap-3">
-<div>
-<div class="text-base font-black text-slate-950">${x.model||"-"}</div>
-<div class="mt-1 text-sm text-slate-500">${x.issue||"-"}</div>
-</div>
-<div class="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-700">${x.status||"-"}</div>
-</div>
-<div class="mt-3 flex justify-between text-xs font-black text-slate-500">
-<span>Voucher: ${x.voucher||"-"}</span>
-<span>${x.customer||x.owner||"-"}</span>
-</div>
-</div>`).join("");
-}catch(e){console.log(e)}
-}
-loadLiveRepairList();
-</script>
 </body>
 </html>

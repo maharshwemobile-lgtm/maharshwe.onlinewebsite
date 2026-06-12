@@ -16,14 +16,14 @@
   <main class="mx-auto max-w-2xl px-4 py-6">
     <section class="rounded-[30px] bg-slate-950 p-6 text-white shadow-xl">
       <p class="text-xs font-black uppercase tracking-widest text-emerald-300">MaharShwe Admin</p>
-      <h1 class="mt-3 text-3xl font-black">VPN / Video Downloader Noti ပို့ရန်</h1>
-      <p class="mt-3 text-sm font-bold leading-7 text-slate-300">VPN users, Video Downloader users, နှစ်ခုလုံးကို FCM topic ဖြင့် notification ပို့နိုင်ပါတယ်။</p>
+      <h1 class="mt-3 text-3xl font-black">VPN Notification ပို့ရန်</h1>
+      <p class="mt-3 text-sm font-bold leading-7 text-slate-300">VPN users များထံသို့ FCM topic ဖြင့် notification ပို့နိုင်ပါတယ်။</p>
     </section>
 
     <section class="mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
       <label class="text-sm font-black text-slate-700">Admin API Key</label>
       <div class="mt-2 grid gap-2 sm:grid-cols-[1fr_auto]">
-        <input id="apiKey" class="field" type="password" placeholder="TELEGRAM_API_KEY / Admin API Key ထည့်ပါ" />
+        <input id="apiKey" class="field" type="password" placeholder="Admin API Key ထည့်ပါ" />
         <button id="saveKeyBtn" class="rounded-2xl bg-teal-700 px-5 py-3 text-sm font-black text-white">Save</button>
       </div>
       <p class="mt-2 text-xs font-bold text-slate-500">Key ကို browser localStorage ထဲမှာပဲ သိမ်းပါတယ်။</p>
@@ -32,33 +32,27 @@
     <section class="mt-4 rounded-[28px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
       <form id="notiForm" class="grid gap-4">
         <div>
-          <label class="text-sm font-black text-slate-700">Target</label>
-          <select id="target" class="field mt-2">
-            <option value="vpn">VPN Users — maharshwe-vpn</option>
-            <option value="video">Video Downloader Users — mahar-video-downloader</option>
-            <option value="both">Both — VPN + Video Downloader</option>
-          </select>
+          <label class="text-sm font-black text-slate-700">Target Topic</label>
+          <input id="topic" class="field mt-2" value="maharshwe-vpn" required />
         </div>
 
         <div>
           <label class="text-sm font-black text-slate-700">Title</label>
-          <input id="title" class="field mt-2" value="Mahar Video Downloader" required />
+          <input id="title" class="field mt-2" value="MaharShwe VPN Update" required />
         </div>
 
         <div>
           <label class="text-sm font-black text-slate-700">Message</label>
-          <textarea id="body" class="field mt-2 min-h-32" required>Facebook / TikTok / YouTube link ကို Share လုပ်ပြီး MaharShwe VPN ထဲက Video Downloader Plugin ဖြင့် ဖွင့်နိုင်ပါပြီ။</textarea>
+          <textarea id="body" class="field mt-2 min-h-32" required>MaharShwe VPN update အသစ်ရပါပြီ။ Download page မှာ update လုပ်နိုင်ပါတယ်။</textarea>
         </div>
 
         <div>
           <label class="text-sm font-black text-slate-700">Open URL</label>
-          <input id="url" class="field mt-2" value="https://maharshwe.online/vpn/video-downloader.html" />
+          <input id="url" class="field mt-2" value="https://maharshwe.online/download/?auto=1" />
         </div>
 
-        <div class="grid gap-2 sm:grid-cols-3">
-          <button type="button" id="presetVpnBtn" class="rounded-2xl bg-slate-900 px-4 py-3 text-sm font-black text-white">VPN Preset</button>
-          <button type="button" id="presetVideoBtn" class="rounded-2xl bg-orange-500 px-4 py-3 text-sm font-black text-white">Video Preset</button>
-          <button type="submit" class="rounded-2xl bg-emerald-700 px-4 py-3 text-sm font-black text-white">Send Noti</button>
+        <div class="flex gap-2">
+          <button type="submit" class="flex-1 rounded-2xl bg-emerald-700 px-4 py-4 text-sm font-black text-white">Send Notification</button>
         </div>
       </form>
     </section>
@@ -70,23 +64,12 @@
   </main>
 
   <script>
-    const TOPICS = {
-      vpn: 'maharshwe-vpn',
-      video: 'mahar-video-downloader'
-    };
-
     const apiKeyInput = document.getElementById('apiKey');
     const resultBox = document.getElementById('result');
     apiKeyInput.value = localStorage.getItem('maharshwe_admin_api_key') || '';
 
     function setResult(data) {
       resultBox.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-    }
-
-    function getTopics(target) {
-      if (target === 'both') return [TOPICS.vpn, TOPICS.video];
-      if (target === 'video') return [TOPICS.video];
-      return [TOPICS.vpn];
     }
 
     async function sendToTopic(topic) {
@@ -118,32 +101,13 @@
       setResult('API Key သိမ်းပြီးပါပြီ။');
     });
 
-    document.getElementById('presetVpnBtn').addEventListener('click', () => {
-      document.getElementById('target').value = 'vpn';
-      document.getElementById('title').value = 'MaharShwe VPN Update';
-      document.getElementById('body').value = 'MaharShwe VPN update အသစ်ရပါပြီ။ Download page မှာ update လုပ်နိုင်ပါတယ်။';
-      document.getElementById('url').value = 'https://maharshwe.online/download/?auto=1';
-      setResult('VPN preset ready.');
-    });
-
-    document.getElementById('presetVideoBtn').addEventListener('click', () => {
-      document.getElementById('target').value = 'video';
-      document.getElementById('title').value = 'Mahar Video Downloader';
-      document.getElementById('body').value = 'Facebook / TikTok / YouTube link ကို Share လုပ်ပြီး MaharShwe VPN ထဲက Video Downloader Plugin ဖြင့် ဖွင့်နိုင်ပါပြီ။';
-      document.getElementById('url').value = 'https://maharshwe.online/vpn/video-downloader.html';
-      setResult('Video Downloader preset ready.');
-    });
-
     document.getElementById('notiForm').addEventListener('submit', async (event) => {
       event.preventDefault();
-      const topics = getTopics(document.getElementById('target').value);
-      setResult('Sending to: ' + topics.join(', '));
+      const topic = document.getElementById('topic').value.trim();
+      setResult('Sending to: ' + topic);
       try {
-        const results = [];
-        for (const topic of topics) {
-          results.push(await sendToTopic(topic));
-        }
-        setResult({ ok: true, sent: results.length, results });
+        const result = await sendToTopic(topic);
+        setResult({ ok: true, result });
       } catch (error) {
         setResult({ ok: false, error: error.message });
       }

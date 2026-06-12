@@ -121,7 +121,7 @@
           <input class="field" name="url" placeholder="Open URL" value="https://maharshwe.online/download/?auto=1">
           <input class="field" name="topic" placeholder="FCM topic" value="maharshwe-vpn">
         </div>
-        <button id="prefillVideoNotificationBtn" class="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white" type="button">Mahar Video Downloader Noti</button>
+
         <button class="rounded-2xl bg-emerald-700 px-5 py-4 font-black text-white" type="submit">Send Notification</button>
       </form>
     </section>
@@ -491,14 +491,7 @@
 
     document.getElementById('refreshAdsBtn').addEventListener('click', loadVpnAdConfig);
     document.getElementById('refreshDownloadsBtn').addEventListener('click', loadDownloadStats);
-    document.getElementById('prefillVideoNotificationBtn').addEventListener('click', () => {
-      const form = document.getElementById('notificationForm');
-      form.elements.title.value = 'Mahar Video Downloader';
-      form.elements.body.value = 'Facebook/Video link ကို Share လုပ်ပြီး MaharShwe VPN ထဲမှာ Video Link tool ဖွင့်နိုင်ပါပြီ။';
-      form.elements.url.value = 'https://maharshwe.online/vpn/video-downloader.html';
-      form.elements.topic.value = 'maharshwe-vpn';
-      showStatus('ok', 'Mahar Video Downloader notification ready. Send Notification ကိုနှိပ်ပါ။');
-    });
+
     document.getElementById('vpnAdsForm').addEventListener('input', updateVpnAdPreview);
     document.getElementById('vpnAdsForm').addEventListener('submit', event => {
       event.preventDefault();
