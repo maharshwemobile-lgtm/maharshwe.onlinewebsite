@@ -1,202 +1,663 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>MaharShwe VPN Download</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&family=Noto+Sans+Myanmar:wght@500;700;900&display=swap" rel="stylesheet">
+  <meta name="description" content="Download the latest MaharShwe VPN Android APK for low, mid, and universal device support.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Noto+Sans+Myanmar:wght@500;700;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
+    :root {
+      --paper: #fbf7ed;
+      --surface: #ffffff;
+      --ink: #111814;
+      --muted: #65706b;
+      --line: rgba(17, 24, 20, 0.12);
+      --green: #126b52;
+      --green-deep: #0b3b31;
+      --gold: #f5a524;
+      --gold-soft: #fff2ca;
+      --coral: #e75845;
+      --blue: #2364aa;
+      --shadow: 0 18px 55px rgba(17, 24, 20, 0.14);
+    }
+    html {
+      background: var(--paper);
+      color: var(--ink);
+      scroll-behavior: smooth;
+    }
     body {
-      align-items: center;
-      background: #141510;
-      color: #f8fafc;
-      display: flex;
-      font-family: Inter, "Noto Sans Myanmar", sans-serif;
+      font-family: Inter, "Noto Sans Myanmar", system-ui, sans-serif;
       margin: 0;
       min-height: 100vh;
-      padding: 24px;
     }
-    main {
+    a { color: inherit; }
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .page::before {
+      background:
+        linear-gradient(120deg, rgba(18, 107, 82, 0.16), transparent 42%),
+        linear-gradient(300deg, rgba(245, 165, 36, 0.2), transparent 38%);
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 0;
+    }
+    .wrap {
       margin: 0 auto;
-      max-width: 540px;
+      max-width: 1120px;
+      padding: 0 20px;
+      position: relative;
       width: 100%;
+      z-index: 1;
     }
-    img {
-      border-radius: 18px;
+    header {
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .nav {
+      align-items: center;
+      backdrop-filter: blur(18px);
+      background: rgba(251, 247, 237, 0.9);
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      min-height: 72px;
+    }
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+      min-width: 0;
+      text-decoration: none;
+    }
+    .brand img,
+    .app-icon {
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(17, 24, 20, 0.14);
       display: block;
-      height: 92px;
       object-fit: cover;
-      width: 92px;
+    }
+    .brand img {
+      height: 44px;
+      width: 44px;
+    }
+    .brand strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .brand span span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 3px;
+    }
+    .nav-actions {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+    }
+    .nav-link {
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: inline-flex;
+      font-size: 13px;
+      font-weight: 900;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 13px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .support {
+      background: var(--ink);
+      color: #fff;
+    }
+    main { padding: 36px 0 54px; }
+    .hero {
+      align-items: center;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    }
+    .hero-copy {
+      max-width: 650px;
+    }
+    .eyebrow {
+      align-items: center;
+      color: var(--green-deep);
+      display: inline-flex;
+      font-size: 13px;
+      font-weight: 900;
+      gap: 8px;
+      letter-spacing: 0;
+      margin: 0 0 16px;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      background: var(--green);
+      border-radius: 999px;
+      content: "";
+      height: 10px;
+      width: 10px;
     }
     h1 {
-      font-size: clamp(32px, 8vw, 52px);
-      line-height: 1.05;
-      margin: 22px 0 12px;
+      font-size: clamp(40px, 5.8vw, 68px);
+      letter-spacing: 0;
+      line-height: 0.98;
+      margin: 0;
     }
-    p {
-      color: #d8dee9;
-      font-size: 16px;
-      line-height: 1.8;
-      margin: 0 0 20px;
+    .lead {
+      color: #34423b;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.75;
+      margin: 14px 0 0;
+      max-width: 610px;
     }
-    a.download {
-      align-items: center;
-      background: #ff9f19;
-      border-radius: 8px;
-      color: #141510;
+    .status-row {
       display: flex;
-      font-size: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .status-pill {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--green-deep);
+      display: inline-flex;
+      font-size: 13px;
       font-weight: 900;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 12px;
+    }
+    .status-pill svg,
+    .nav-link svg,
+    .download svg {
+      flex: 0 0 auto;
+      height: 18px;
+      stroke-width: 2.4;
+      width: 18px;
+    }
+    .download-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+    .download-card {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(17, 24, 20, 0.08);
+      display: flex;
+      flex-direction: column;
+      min-height: 218px;
+      padding: 14px;
+    }
+    .card-top {
+      align-items: flex-start;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    .device-mark {
+      align-items: center;
+      border-radius: 8px;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      height: 40px;
       justify-content: center;
-      padding: 16px 18px;
+      width: 40px;
+    }
+    .low { background: #e9f3ff; color: var(--blue); }
+    .mid { background: #e8f7ef; color: var(--green); }
+    .high { background: var(--gold-soft); color: #935800; }
+    .download-card h2 {
+      font-size: 21px;
+      letter-spacing: 0;
+      margin: 14px 0 8px;
+    }
+    .download-card p {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.65;
+      margin: 0;
+    }
+    .download-card strong {
+      color: var(--ink);
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      margin-top: 12px;
+    }
+    .download {
+      align-items: center;
+      border: 0;
+      border-radius: 8px;
+      color: var(--ink);
+      display: inline-flex;
+      font-size: 15px;
+      font-weight: 900;
+      gap: 8px;
+      justify-content: center;
+      margin-top: auto;
+      min-height: 48px;
+      padding: 0 14px;
       text-decoration: none;
       width: 100%;
     }
-    .version-panel {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .download.primary { background: var(--gold); }
+    .download.secondary { background: #dbece6; color: var(--green-deep); }
+    .download.tertiary { background: #ffe2dc; color: #7a2218; }
+    .visual-panel {
+      align-self: stretch;
+      background: var(--green-deep);
+      border: 1px solid rgba(255, 255, 255, 0.24);
       border-radius: 8px;
-      margin-top: 22px;
-      padding: 16px;
+      box-shadow: var(--shadow);
+      color: #fff;
+      display: grid;
+      min-height: 500px;
+      overflow: hidden;
+      place-items: center;
+      position: relative;
     }
-    label {
-      color: #fff3b0;
+    .visual-panel::before {
+      background:
+        linear-gradient(140deg, rgba(245, 165, 36, 0.45), transparent 34%),
+        linear-gradient(320deg, rgba(35, 100, 170, 0.35), transparent 42%);
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+    .phone {
+      background: #0e1513;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 30px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+      height: min(78vw, 440px);
+      max-height: 440px;
+      max-width: 228px;
+      padding: 12px;
+      position: relative;
+      transform: rotate(-4deg);
+      width: min(44vw, 228px);
+      z-index: 1;
+    }
+    .phone-screen {
+      background: #fbf7ed;
+      border-radius: 22px;
+      color: var(--ink);
+      height: 100%;
+      overflow: hidden;
+      padding: 18px 16px;
+      position: relative;
+    }
+    .phone-screen::after {
+      border: 1px solid rgba(18, 107, 82, 0.18);
+      border-radius: 999px;
+      content: "";
+      height: 190px;
+      left: 18px;
+      position: absolute;
+      top: 122px;
+      width: 190px;
+    }
+    .app-icon {
+      height: 72px;
+      margin-bottom: 16px;
+      width: 72px;
+    }
+    .screen-title {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .connection-card {
+      background: var(--green);
+      border-radius: 8px;
+      color: #fff;
+      margin-top: 16px;
+      padding: 13px;
+      position: relative;
+      z-index: 1;
+    }
+    .connection-card span {
       display: block;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: 0.78;
+    }
+    .connection-card strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 900;
+      margin-top: 5px;
+    }
+    .signal-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+    }
+    .signal-line {
+      align-items: center;
+      background: rgba(17, 24, 20, 0.06);
+      border-radius: 8px;
+      display: flex;
+      gap: 9px;
+      height: 38px;
+      padding: 0 10px;
+    }
+    .signal-line::before {
+      background: var(--gold);
+      border-radius: 999px;
+      content: "";
+      height: 10px;
+      width: 10px;
+    }
+    .signal-line span {
+      background: rgba(17, 24, 20, 0.16);
+      border-radius: 999px;
+      height: 8px;
+      width: 100%;
+    }
+    .floating-note {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 8px;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+      color: var(--ink);
       font-size: 13px;
+      font-weight: 900;
+      padding: 12px 14px;
+      position: absolute;
+      right: 24px;
+      top: 62px;
+      z-index: 2;
+    }
+    .floating-note.bottom {
+      bottom: 54px;
+      left: 22px;
+      right: auto;
+      top: auto;
+    }
+    .info-band {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1.1fr 0.9fr;
+      margin-top: 30px;
+    }
+    .notice,
+    .support-panel {
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .notice {
+      background: var(--ink);
+      color: #fff;
+    }
+    .notice strong,
+    .support-panel strong {
+      display: block;
+      font-size: 17px;
       font-weight: 900;
       margin-bottom: 8px;
     }
-    select {
-      background: #202218;
-      border: 1px solid rgba(255, 217, 59, 0.42);
-      border-radius: 8px;
-      color: #f8fafc;
-      font: inherit;
-      font-weight: 800;
-      padding: 13px 12px;
-      width: 100%;
-    }
-    .version-actions {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .secondary-link {
-      align-items: center;
-      border: 1px solid rgba(255, 217, 59, 0.42);
-      border-radius: 8px;
-      color: #ffd93b;
-      display: flex;
-      font-weight: 900;
-      justify-content: center;
-      padding: 13px 14px;
-      text-decoration: none;
-    }
-    a.contact {
-      color: #ffd93b;
-      display: inline-block;
-      font-weight: 800;
-      margin-top: 18px;
-      text-decoration: none;
-    }
-    .meta {
-      color: #aeb6c2;
-      font-size: 13px;
-      line-height: 1.7;
-      margin-top: 14px;
-    }
-    .notice {
-      background: rgba(255, 217, 59, 0.12);
-      border: 1px solid rgba(255, 217, 59, 0.32);
-      border-radius: 8px;
-      color: #fff3b0;
+    .notice p,
+    .support-panel p {
+      color: rgba(255, 255, 255, 0.78);
       font-size: 14px;
+      font-weight: 700;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .support-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .support-panel p {
+      color: var(--muted);
+    }
+    .support-panel a {
+      color: var(--green);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    #autoStatus {
+      color: var(--coral);
+      display: none;
+      font-size: 13px;
+      font-weight: 900;
+      margin-top: 14px;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
       font-weight: 800;
-      line-height: 1.8;
-      margin: 0 0 18px;
-      padding: 13px 14px;
+      padding: 22px 0 28px;
+    }
+    @media (max-width: 940px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .visual-panel {
+        min-height: 430px;
+      }
+      .download-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 16px; }
+      .nav {
+        min-height: 66px;
+      }
+      .brand span span,
+      .nav-link:not(.support) {
+        display: none;
+      }
+      main { padding-top: 26px; }
+      h1 { font-size: 42px; }
+      .lead { font-size: 15px; }
+      .download-card { min-height: 216px; }
+      .visual-panel {
+        min-height: 382px;
+      }
+      .floating-note {
+        right: 12px;
+        top: 28px;
+      }
+      .floating-note.bottom {
+        bottom: 26px;
+        left: 12px;
+      }
+      .phone {
+        height: 350px;
+        width: 190px;
+      }
+      .info-band {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <img src="logo.png" alt="MaharShwe VPN logo">
-    <h1>MaharShwe VPN</h1>
-    <div class="notice">လက်ရှိအသုံးပြုနေသူများ version 1.0.11 ကို update လုပ်ပါ။ Free Server ad support နှင့် connection stability ပိုကောင်းအောင် ပြင်ဆင်ထားပါတယ်။</div>
-    <p>Android APK ကို အောက်က Download ခလုတ်နဲ့ တိုက်ရိုက်ဒေါင်းနိုင်ပါတယ်။ Free Server များကို Google Sheet မှ auto sync လုပ်ထားပါတယ်။</p>
-    <a class="download" href="/api/downloads/file/maharshwe-vpn.apk" download>Download / Update APK</a>
-    <div class="meta">Version 1.0.11 | File: maharshwe-vpn.apk | Size: 29.8 MB | arm64</div>
-    <div class="meta">Old 32-bit phones: <a class="contact" href="/api/downloads/file/maharshwe-vpn-armv7.apk" download>Download armv7 APK</a> | 29.4 MB</div>
-    <section class="version-panel">
-      <label for="versionSelect">Choose APK version</label>
-      <select id="versionSelect">
-        <option value="1.0.11">1.0.11 performance update - recommended</option>
-        <option value="1.0.7">1.0.7 launch fix</option>
-        <option value="1.0.2">1.0.2 Old version</option>
-        <option value="1.0.1">1.0.1 Old version</option>
-        <option value="1.0.0">1.0.0 Old version</option>
-      </select>
-      <div class="version-actions">
-        <a id="arm64Link" class="download" href="/api/downloads/file/maharshwe-vpn-1.0.11-arm64.apk" download>Download selected arm64 APK</a>
-        <a id="armv7Link" class="secondary-link" href="/api/downloads/file/maharshwe-vpn-1.0.11-armv7.apk" download>Download selected armv7 APK</a>
+  <div class="page">
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/vpn/">
+          <img src="logo.png" alt="MaharShwe VPN logo">
+          <span>
+            <strong>MaharShwe VPN</strong>
+            <span>Official Android APK</span>
+          </span>
+        </a>
+        <nav class="nav-actions" aria-label="Download navigation">
+          <a class="nav-link" href="/vpn/user-guide.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg>
+            Guide
+          </a>
+          <a class="nav-link support" href="https://t.me/Mylifemychoice68">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            Support
+          </a>
+        </nav>
       </div>
-      <div id="versionMeta" class="meta">Selected: 1.0.11 video/ad update | arm64 29.8 MB | armv7 29.4 MB</div>
-    </section>
-    <a class="contact" href="https://t.me/Mylifemychoice68">Telegram Support</a>
-  </main>
+    </header>
+
+    <main class="wrap">
+      <section class="hero" aria-labelledby="pageTitle">
+        <div class="hero-copy">
+          <p class="eyebrow">Version 1.0.16 ready</p>
+          <h1 id="pageTitle">MaharShwe VPN Download</h1>
+          <p class="lead">Choose the APK that matches your Android phone. Mid is recommended for most current devices, Low is for older 32-bit phones, and High is the universal fallback for every supported architecture.</p>
+
+          <section class="download-grid" aria-label="APK downloads">
+            <article class="download-card">
+              <div class="card-top">
+                <span class="device-mark low">32</span>
+                <strong>ARMv7</strong>
+              </div>
+              <h2>Low APK</h2>
+              <p>Best for old or low-memory Android phones that need a 32-bit build.</p>
+              <strong>About 21 MB</strong>
+              <a class="download secondary" href="/download-files/maharshwe-vpn-armv7.apk" data-file="maharshwe-vpn-armv7.apk" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                Download Low
+              </a>
+            </article>
+
+            <article class="download-card">
+              <div class="card-top">
+                <span class="device-mark mid">64</span>
+                <strong>Recommended</strong>
+              </div>
+              <h2>Mid APK</h2>
+              <p>Recommended for most modern Android phones using 64-bit ARM64.</p>
+              <strong>About 22 MB</strong>
+              <a class="download primary" href="/download-files/maharshwe-vpn-arm64.apk" data-file="maharshwe-vpn-arm64.apk" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                Download Mid
+              </a>
+            </article>
+
+            <article class="download-card">
+              <div class="card-top">
+                <span class="device-mark high">ALL</span>
+                <strong>Universal</strong>
+              </div>
+              <h2>High APK</h2>
+              <p>Use this universal APK if Low or Mid does not install on your phone.</p>
+              <strong>About 50 MB</strong>
+              <a class="download tertiary" href="/download-files/maharshwe-vpn.apk" data-file="maharshwe-vpn.apk" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                Download High
+              </a>
+            </article>
+          </section>
+          <div class="status-row" aria-label="Release highlights">
+            <span class="status-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              MaharShwe theme
+            </span>
+            <span class="status-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+              Signed release
+            </span>
+            <span class="status-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><path d="M12 20h.01"/></svg>
+              Clear connected status
+            </span>
+          </div>
+          <div id="autoStatus">Auto download is starting with the recommended Mid APK.</div>
+        </div>
+
+        <aside class="visual-panel" aria-label="MaharShwe VPN app preview">
+          <div class="floating-note">Low / Mid / High</div>
+          <div class="phone" aria-hidden="true">
+            <div class="phone-screen">
+              <img class="app-icon" src="logo.png" alt="">
+              <p class="screen-title">Secure Android VPN</p>
+              <div class="connection-card">
+                <span>Status</span>
+                <strong>Connected</strong>
+              </div>
+              <div class="signal-list">
+                <div class="signal-line"><span></span></div>
+                <div class="signal-line"><span></span></div>
+                <div class="signal-line"><span></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="floating-note bottom">Version 1.0.16</div>
+        </aside>
+      </section>
+
+      <section class="info-band" aria-label="Install notes and support">
+        <div class="notice">
+          <strong>Install note</strong>
+          <p>Download only from this official page. If Android asks for permission to install an APK, allow it only for the browser or file manager you are using, then turn that permission off again after installation.</p>
+        </div>
+        <div class="support-panel">
+          <strong>Need help?</strong>
+          <p>For setup questions or paid/private key support, contact the Telegram admin: <a href="https://t.me/Mylifemychoice68">Mylifemychoice68</a>.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">MaharShwe VPN | Official download page | APK version 1.0.16</div>
+    </footer>
+  </div>
+
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const versions = {
-      '1.0.11': {
-        arm64: '/api/downloads/file/maharshwe-vpn-1.0.11-arm64.apk',
-        armv7: '/api/downloads/file/maharshwe-vpn-1.0.11-armv7.apk',
-        meta: 'Selected: 1.0.11 performance update | arm64 29.8 MB | armv7 29.4 MB'
-      },
-      '1.0.7': {
-        arm64: '/api/downloads/file/maharshwe-vpn-1.0.7-arm64.apk',
-        armv7: '/api/downloads/file/maharshwe-vpn-1.0.7-armv7.apk',
-        meta: 'Selected: 1.0.7 launch fix | arm64 27.3 MB | armv7 26.9 MB'
-      },
-      '1.0.2': {
-        arm64: '/api/downloads/file/maharshwe-vpn-1.0.2-arm64.apk',
-        armv7: '/api/downloads/file/maharshwe-vpn-1.0.2-armv7.apk',
-        meta: 'Selected: 1.0.2 latest | arm64 17.8 MB | armv7 17.4 MB'
-      },
-      '1.0.1': {
-        arm64: '/api/downloads/file/maharshwe-vpn-1.0.1-arm64.apk',
-        armv7: '/api/downloads/file/maharshwe-vpn-1.0.1-armv7.apk',
-        meta: 'Selected: 1.0.1 old version | arm64 17.8 MB | armv7 17.4 MB'
-      },
-      '1.0.0': {
-        arm64: '/api/downloads/file/maharshwe-vpn-1.0.0-arm64.apk',
-        armv7: '/api/downloads/file/maharshwe-vpn-1.0.0-armv7.apk',
-        meta: 'Selected: 1.0.0 old version | arm64 17.8 MB | armv7 17.4 MB'
+    function trackDownload(fileName) {
+      try {
+        navigator.sendBeacon(`/api/downloads/track/${encodeURIComponent(fileName)}`);
+      } catch (error) {
+        fetch(`/api/downloads/track/${encodeURIComponent(fileName)}`, { method: 'POST', keepalive: true }).catch(() => {});
       }
-    };
-    const versionSelect = document.getElementById('versionSelect');
-    const arm64Link = document.getElementById('arm64Link');
-    const armv7Link = document.getElementById('armv7Link');
-    const versionMeta = document.getElementById('versionMeta');
-    const requestedVersion = params.get('version');
-
-    function updateVersionLinks() {
-      const version = versions[versionSelect.value] ? versionSelect.value : '1.0.11';
-      const selected = versions[version];
-      arm64Link.href = selected.arm64;
-      armv7Link.href = selected.armv7;
-      versionMeta.textContent = selected.meta;
     }
 
-    if (versions[requestedVersion]) {
-      versionSelect.value = requestedVersion;
-    }
-    versionSelect.addEventListener('change', updateVersionLinks);
-    updateVersionLinks();
+    document.querySelectorAll('a[data-file]').forEach((link) => {
+      link.addEventListener('click', () => trackDownload(link.dataset.file));
+    });
 
+    const params = new URLSearchParams(window.location.search);
     if (params.get('auto') === '1') {
+      const autoStatus = document.getElementById('autoStatus');
+      autoStatus.style.display = 'block';
       window.setTimeout(() => {
-        window.location.href = versions[versionSelect.value].arm64;
+        trackDownload('maharshwe-vpn-arm64.apk');
+        window.location.href = '/download-files/maharshwe-vpn-arm64.apk';
       }, 700);
     }
   </script>
