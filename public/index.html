@@ -6,47 +6,98 @@
   <title>Mahar Shwe Mobile & VPN</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Myanmar:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { margin:0; font-family: Inter, 'Noto Sans Myanmar', sans-serif; background:#f7f8fb; color:#0f172a; }
+    <style>
+    :root {
+      --ink: #07130f;
+      --deep: #0b1511;
+      --green: #0f8a72;
+      --gold: #f7bd20;
+      --paper: #f5f7f2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0;
+      font-family: Inter, 'Noto Sans Myanmar', sans-serif;
+      background:
+        linear-gradient(180deg, rgba(15,138,114,.10), rgba(247,189,32,.08) 360px, transparent 720px),
+        var(--paper);
+      color:#0f172a;
+    }
     .page { display:none; }
     .page.active { display:block; }
-    .nav.active { background:#0f766e; color:white; }
+    .nav.active { background:var(--green); color:white; }
     .bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+    .brand-card { border-radius: 8px; border: 1px solid rgba(15,23,42,.10); background: rgba(255,255,255,.92); box-shadow: 0 18px 50px rgba(15,23,42,.08); }
+    .hero-panel { border-radius: 8px; background: #08110d; box-shadow: 0 26px 80px rgba(8,17,13,.24); }
+    .soft-card { border-radius: 8px; border: 1px solid rgba(15,23,42,.10); background: rgba(255,255,255,.94); box-shadow: 0 16px 44px rgba(15,23,42,.07); }
+    .brand-button { border-radius: 8px; transition: transform .18s ease, box-shadow .18s ease; }
+    .brand-button:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(15,138,114,.16); }
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>body{font-family:"Noto Sans Myanmar",Arial,sans-serif!important;}</style>
 </head>
 <body>
-  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header class="sticky top-0 z-50 border-b border-emerald-900/10 bg-white/90 backdrop-blur">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-      <button class="flex items-center gap-3 text-left" data-page="home">
-        <img src="logo.jpg" alt="Mahar Shwe Mobile" class="h-11 w-11 rounded-2xl object-cover ring-1 ring-slate-200">
-        <span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-bold text-slate-500">VPN & Digital Service</small></span>
+      <button class="flex items-center gap-3 text-left" data-page="home" aria-label="Mahar Shwe home">
+        <img src="logo.jpg" alt="Mahar Shwe Mobile" class="h-12 w-12 rounded-lg object-cover ring-2 ring-amber-300/80">
+        <span><b class="block text-slate-950">Mahar Shwe Mobile</b><small class="font-bold text-emerald-700">VPN, POS & Digital Service</small></span>
       </button>
-      <a class="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-black text-white" href="tel:09778394052">Call</a>
+      <div class="flex items-center gap-2">
+        <a class="brand-button hidden bg-amber-400 px-4 py-2 text-sm font-black text-slate-950 sm:inline-flex" href="/vpn/">VPN</a>
+        <a class="brand-button bg-slate-950 px-4 py-2 text-sm font-black text-white" href="tel:09778394052">Call</a>
+      </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-6xl px-4 py-4 pb-28">
+  <main class="mx-auto max-w-6xl px-4 py-6 pb-28">
     <section id="homePage" class="page active">
-      <div class="rounded-[28px] bg-slate-950 p-5 text-white shadow-xl">
-        <p class="text-xs font-black uppercase text-teal-200">VPN Service</p>
-        <h1 class="mt-3 text-4xl font-black leading-tight">Mahar Shwe VPN & Mobile Service</h1>
-        <p class="mt-4 text-sm leading-7 text-slate-200">လုံခြုံမြန်ဆန်သော Mahar Shwe VPN ကို download ရယူနိုင်ပြီး Digital Product များနှင့် ငွေလဲနှုန်းများကို ကြည့်နိုင်ပါတယ်။</p>
-        <div class="mt-6 grid grid-cols-2 gap-3">
-          <a href="/vpn/" class="rounded-2xl bg-amber-400 px-4 py-3 text-center text-sm font-black text-slate-950">VPN Download</a>
-          <button class="rounded-2xl bg-white/10 px-4 py-3 text-sm font-black text-white ring-1 ring-white/20" data-page="products">Products</button>
+      <div class="hero-panel overflow-hidden text-white">
+        <div class="grid gap-8 p-5 sm:p-7 lg:grid-cols-[1.15fr_.85fr] lg:p-9">
+          <div class="flex flex-col justify-center">
+            <p class="text-xs font-black uppercase tracking-wide text-amber-300">Official Mahar Shwe Online</p>
+            <h1 class="mt-3 max-w-3xl text-4xl font-black leading-tight sm:text-5xl">Mahar Shwe VPN & Mobile Service</h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-200">Mahar Shwe VPN download, phone repair voucher tracking, digital products and daily exchange rates in one place.</p>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              <a href="/vpn/" class="brand-button bg-amber-400 px-5 py-4 text-center text-sm font-black text-slate-950">Download MaharShwe VPN</a>
+              <button class="brand-button bg-white/10 px-5 py-4 text-sm font-black text-white ring-1 ring-white/20" data-page="voucher">Check Repair Voucher</button>
+            </div>
+            <div class="mt-6 grid grid-cols-3 gap-2 text-center text-xs font-black text-slate-200">
+              <div class="rounded-lg bg-white/8 p-3 ring-1 ring-white/10"><b class="block text-lg text-white">24/7</b>Online</div>
+              <div class="rounded-lg bg-white/8 p-3 ring-1 ring-white/10"><b class="block text-lg text-white">VPN</b>Android</div>
+              <div class="rounded-lg bg-white/8 p-3 ring-1 ring-white/10"><b class="block text-lg text-white">POS</b>Service</div>
+            </div>
+          </div>
+          <div class="brand-card p-4 text-slate-950">
+            <div class="flex items-center gap-4">
+              <img src="logo.jpg" alt="Mahar Shwe logo" class="h-20 w-20 rounded-lg object-cover ring-2 ring-amber-300">
+              <div>
+                <p class="text-xs font-black uppercase text-emerald-700">Mahar Shwe Mobile</p>
+                <h2 class="mt-1 text-2xl font-black">Trusted local service</h2>
+              </div>
+            </div>
+            <div class="mt-5 grid gap-3 text-sm font-bold text-slate-600">
+              <div class="rounded-lg bg-emerald-50 p-3 text-emerald-950">ဆီဆိုင်မြို့နယ်၊ ရှမ်းပြည်တောင်ပိုင်း</div>
+              <div class="rounded-lg bg-amber-50 p-3 text-amber-950">KBZ Pay / True Money / Bank transfer supported</div>
+              <a href="https://t.me/Mylifemychoice68" target="_blank" rel="noreferrer" class="brand-button bg-slate-950 px-4 py-3 text-center text-white">Telegram Admin</a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="mt-4 grid grid-cols-2 gap-3">
-        <button class="rounded-3xl bg-white p-4 text-left shadow-sm ring-1 ring-slate-200" data-page="solutions"><b>Repair Solution</b><p class="mt-2 text-xs text-slate-600">ဖုန်းပြင်နည်းများ</p></button>
-        <button class="rounded-3xl bg-white p-4 text-left shadow-sm ring-1 ring-slate-200" data-page="currency"><b>Exchange</b><p class="mt-2 text-xs text-slate-600">ငွေလဲနှုန်းတွက်ရန်</p></button>
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <button class="soft-card p-4 text-left" data-page="solutions"><b class="text-slate-950">Repair Solution</b><p class="mt-2 text-xs font-bold text-slate-600">ဖုန်းပြင်နည်းများနှင့် error solution</p></button>
+        <button class="soft-card p-4 text-left" data-page="products"><b class="text-slate-950">Digital Products</b><p class="mt-2 text-xs font-bold text-slate-600">VPN, game top-up, online services</p></button>
+        <button class="soft-card p-4 text-left" data-page="currency"><b class="text-slate-950">Exchange Rate</b><p class="mt-2 text-xs font-bold text-slate-600">ငွေလဲနှုန်းတွက်ရန်</p></button>
       </div>
-      <div class="mt-4">
-        <button class="w-full rounded-3xl bg-teal-600 p-5 text-left text-white shadow-sm" data-page="voucher">
-          <b>Voucher စစ်ရန်</b>
-          <p class="mt-1 text-xs opacity-80">ဖုန်းပြင်ဆင်မှုအခြေအနေ စစ်ဆေးရန်</p>
+      <div class="mt-4 grid gap-3 lg:grid-cols-[1fr_.8fr]">
+        <button class="brand-button w-full bg-emerald-700 p-5 text-left text-white shadow-sm" data-page="voucher">
+          <b class="text-lg">Voucher စစ်ရန်</b>
+          <p class="mt-1 text-xs font-bold opacity-85">ဖုန်းပြင်ဆင်မှုအခြေအနေကို voucher နံပါတ်ဖြင့် စစ်ဆေးရန်</p>
         </button>
+        <a class="brand-button bg-white p-5 text-left font-black text-slate-950 ring-1 ring-slate-200" href="tel:09778394052">
+          Phone: 09778394052
+          <span class="mt-1 block text-xs font-bold text-slate-500">Call for repair, VPN key and payment support</span>
+        </a>
       </div>
     </section>
 
