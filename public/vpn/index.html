@@ -217,6 +217,40 @@
       font-weight: 800;
       margin-top: 20px;
     }
+    .free-ad-panel {
+      background: #fff7d8;
+      border: 1px solid rgba(255, 159, 25, 0.42);
+      border-radius: 8px;
+      box-shadow: 0 16px 38px rgba(20, 21, 16, 0.14);
+      color: var(--ink);
+      display: none;
+      gap: 10px;
+      left: 50%;
+      max-width: min(920px, calc(100vw - 28px));
+      padding: 14px;
+      position: fixed;
+      top: 84px;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 8;
+    }
+    .free-ad-panel.is-visible { display: grid; }
+    .free-ad-panel strong { display: block; font-size: 15px; font-weight: 900; }
+    .free-ad-panel p { color: #6a4c00; font-size: 13px; font-weight: 800; line-height: 1.7; margin: 4px 0 0; }
+    .free-ad-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
+    .free-ad-actions a,
+    .free-ad-actions button {
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 9px 11px;
+      text-decoration: none;
+    }
+    .free-ad-actions a { background: var(--ink); color: white; }
+    .free-ad-actions button { background: white; color: var(--ink); }
     footer {
       border-top: 1px solid var(--line);
       color: var(--muted);
@@ -233,6 +267,17 @@
   </style>
 </head>
 <body>
+  <div id="freeServerAd" class="free-ad-panel" role="status" aria-live="polite">
+    <div>
+      <strong>Free Server Notice</strong>
+      <p>Free Server သုံးနေသူများအတွက် sponsor/ad message ကို အချိန်အလိုက် ပြပါမယ်။ Stable သုံးချင်ရင် Premium VPN Key ဝယ်နိုင်ပါတယ်။</p>
+    </div>
+    <div class="free-ad-actions">
+      <a href="https://t.me/Mylifemychoice68" target="_blank" rel="noreferrer">Buy Premium Key</a>
+      <a href="/download/">Update App</a>
+      <button type="button" id="freeServerAdClose">Close</button>
+    </div>
+  </div>
   <header>
     <div class="wrap nav">
       <a class="brand" href="/vpn/">
@@ -300,5 +345,26 @@
   <footer>
     <div class="wrap">MaharShwe VPN | Contact: 09778394052 | KBZ Pay: Khun Myint Aung</div>
   </footer>
-</body>
+  <script>
+    (function () {
+      const panel = document.getElementById('freeServerAd');
+      const close = document.getElementById('freeServerAdClose');
+      if (!panel || !close) return;
+      const firstDelayMs = 8000;
+      const repeatDelayMs = 120000;
+      let repeatTimer = null;
+      function showAd() {
+        panel.classList.add('is-visible');
+      }
+      function scheduleRepeat() {
+        clearTimeout(repeatTimer);
+        repeatTimer = setTimeout(showAd, repeatDelayMs);
+      }
+      close.addEventListener('click', function () {
+        panel.classList.remove('is-visible');
+        scheduleRepeat();
+      });
+      setTimeout(showAd, firstDelayMs);
+    })();
+  </script></body>
 </html>
